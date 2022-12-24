@@ -12,7 +12,7 @@
 namespace battle_ships {
 
 	// Classe SupportShip
-	// Rappresenta la corazzata all'interno del gioco
+	// Rappresenta la nave di supporto all'interno del gioco
 	class SupportShip : public NavalUnit {
 
 	public:
