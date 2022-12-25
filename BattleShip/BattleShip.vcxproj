@@ -140,9 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="battle_ship.h" />
+    <ClInclude Include="game_manager.h" />
     <ClInclude Include="naval_unit.h" />
     <ClInclude Include="submarine.h" />
     <ClInclude Include="support_ship.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
