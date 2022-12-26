@@ -21,9 +21,11 @@ namespace battle_ships {
 	public:
 
 		// getters
-		int size() const;
-		int shield() const;
-		
+		int size() const { return size_; };
+		int shield() const { return shield_; };
+		Coordinates centre_coordinates() const { return centre_coordinates_; };
+		bool direction() const { return direction_; };
+
 		// Una Unità navale può compiere un'azione in base
 		// al tipo di unità. Non è possibile definire tale comportamento
 		// in questa classe
@@ -32,6 +34,8 @@ namespace battle_ships {
 	private:
 		int size_;
 		int shield_;
+		Coordinates centre_coordinates_;
+		bool direction_;
 
 	};
 

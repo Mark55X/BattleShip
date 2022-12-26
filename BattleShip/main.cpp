@@ -5,6 +5,7 @@
 #include "game_manager.h";
 
 #include <iostream>
+#include "grid.h"
 
 using std::cout;
 using std::endl;
@@ -19,10 +20,10 @@ using battle_ships::GameManager;
 *
 * Mi spiego meglio: perchè il main dovrebbe fare i controlli di validità dei comandi?
 * Per me non deve farli, non è il suo ruolo. Lui sa solo che è un comando, non sa
-* nemmeno cosa fa, perchè la descrizione di tale esecuzione deve essere descritta dal
+* nemmeno cosa fa, perché la descrizione di tale esecuzione deve essere descritta dal
 * CORE del gioco che mi invierà un oggetto di tipo RESPONSE
 *
-* Attenzione, parte importante perchè il RESPONSE sarà una risponsa GENERICA (non è un template attenzione :) )
+* Attenzione, parte importante perché il RESPONSE sarà una risponsa GENERICA (non è un template attenzione :) )
 * Response{
 	StatusExecution : bool  -> Se avvenuto con successo o meno
 	Content : string        -> Contenuto (può essere la string aformattata per il comando XX XX
@@ -31,7 +32,7 @@ using battle_ships::GameManager;
   }
 
   QUESTO PERCHE' giustamente se io avessi i metodi che restituiscono bool cosa capirei?
-  Se è false, per quale motivo è false? Coordiante fuori? Entrambe? O solo una? Oppure sono giste
+  Se è false, per quale motivo è false? Coordiante fuori? Entrambe? O solo una? Oppure sono giuste
   ma l'origin riguarda nessun unità navale e per me QUESTO NON FA LO SWITCH DEL TURNO!!
 
   Ok quindi ha senso usare un oggetto più descrittivo, si ok però perchè non usare le eccezioni?
@@ -39,18 +40,18 @@ using battle_ships::GameManager;
 
   Se siamo nel caso di Logger/Replay è palese l'uso delle eccezioni: il file non esiste, problemi di scrittura
   ecc,... MA NEL GIOCO?? Forse si, forse no: bloccare l'esecuzione di colpo mi implicherebbe che non serve più
-  la Response descritta qui sopra perchè so che se c'e un ecezzione TEORICAMENTE devo rifare il turno...
-  ma se tipo mi parte un ecezzione per il Logger? Quella viene catturata da sé e quindi non influenzerebbe
+  la Response descritta qui sopra perchè so che se c'è un eccezione TEORICAMENTE devo rifare il turno...
+  ma se tipo mi parte un eccezione per il Logger? Quella viene catturata da sé e quindi non influenzerebbe
   l'andamento della partita...dovrebbe bloccare la partita? Come ? Vado a lavarmi, buon Natale a tutti.
 
-  Abbiamo quindi: Eccezioni ->  PRO: Dati che si passano più leggeri(o così si crede)
-								CONTRO:blocco dell'esecuzione improvviso
+  Abbiamo quindi: Eccezioni ->  PRO: Dati che si passano più leggeri (o così si crede)
+								CONTRO: Blocco dell'esecuzione improvviso
 
 				  Response ->   PRO: Non c'è interruzione del flusso (forse un pò stile retro?)
 								CONTRO: La gran parte delle funzioni resituiscono la response
 
-  Attenzione che... XX XX SUCEESFUL ma non cambia turno..come faccio con ecezzioni?
-					A1 B2 SUCESFUL fantastico...nesusna ecezzione ma come stampo che è avvenuta l'azione
+  Attenzione che... XX XX SUCCESFUL ma non cambia turno..come faccio con eccezioni?
+					A1 B2 SUCCESFUL fantastico...nessuna eccezione ma come stampo che è avvenuta l'azione?
 	Quello che sto dicendo è che: io ho lo stesso risultato di Response SOLO se avviene l'eccezione. Ma
 	io magari vorrei avere il risultato anche quando non accade. OVVERO dare più potere al main,
 	fargli capire cosa significano tali comandi... (impossibile capire l'AZIONE in sé)
@@ -61,7 +62,7 @@ int main(int argc, char** argv)
 {
 	// Controllo dei parametri in ingresso : 
 	// -pc per partita GIOCATORE vs COMPUTER
-	// -CC per partita COMPUTER vs COMPUTER	
+	// -cc per partita COMPUTER vs COMPUTER	
 	if (argc != 2)
 	{
 		std::cerr << "Necessario un parametro: \n -pc per Partita GIOCATORE vs COMPUTER \n -cc per partita COMPUTER vs COMPUTER";
@@ -84,8 +85,21 @@ int main(int argc, char** argv)
 	cout << " Albertin, Selvestrel, Stefani " << endl;
 	cout << "-------------------------------" << endl << endl << endl;
 
-	//GameManager game;
-	//game.ExecCommand("XX XX", GameManager::PlayerOne);
+	/*GameManager game;
+	game.ExecCommand("XX XX", GameManager::PlayerOne);*/
+
+	/*battle_ships::Coordinates c("a37");
+	cout << c.x() << " " << c.y() << endl << endl << endl;*/
+
+	battle_ships::Grid g;
+	
+	 g.AddRangeCells('C', Coordinates("A5"), Coordinates("A1"));
+	 g.AddRangeCells('C', Coordinates("A7"), Coordinates("D7"));
+	 g.AddRangeCells('C', Coordinates("C1"), Coordinates("C7"));
+
+	 g.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
+
+	cout << g.Display();
 
 }
 

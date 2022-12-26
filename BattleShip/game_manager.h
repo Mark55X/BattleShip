@@ -6,6 +6,7 @@
 #define game_manager_h
 
 #include <string>
+#include "player.h"
 
 using std::string;
 
@@ -29,10 +30,10 @@ namespace battle_ships {
 			PlayerTwo
 		};
 
-		bool AddNavalUnit();
+		bool AddNavalUnit(const string& coordinates, /*Tipo unità*/ const PlayerNumber player);
 
 		// Esegue un comando 
-		// Restituisce true solo se il comando viene eseguito con successo
+		// Restituisce true solo se è ancora il turno del giocatore player
 		bool ExecCommand(const string& command, const PlayerNumber player);
 
 		// Funzione IsWinner
@@ -41,8 +42,9 @@ namespace battle_ships {
 		bool IsWinner(const PlayerNumber player);
 
 	private:
-		
-
+		Player first_player_;
+		Player second_player_;
+		Logger logger_;
 	};
 
 

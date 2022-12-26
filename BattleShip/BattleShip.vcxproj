@@ -140,12 +140,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="battle_ship.h" />
+    <ClInclude Include="command.h" />
+    <ClInclude Include="coordinates.h" />
     <ClInclude Include="game_manager.h" />
+    <ClInclude Include="grid.h" />
+    <ClInclude Include="logger.h" />
     <ClInclude Include="naval_unit.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="submarine.h" />
     <ClInclude Include="support_ship.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="coordinates.cpp" />
+    <ClCompile Include="grid.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
