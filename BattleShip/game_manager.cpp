@@ -29,9 +29,7 @@ namespace battle_ships {
 		cmd_str = std::regex_replace(cmd_str, std::regex("\\s+$"), std::string(""));
 		cmd_str = std::regex_replace(cmd_str, std::regex("^\\s+"), std::string(""));
 
-		// TODO LOGGER DA SBLOCCARE
-	/*	string str_log = "Player" + std::to_string(player) + ":" + cmd_str;
-		logger_.Log(str_log);*/
+	
 
 		if (cmd_str == kCommandDisplay) {
 			return false;
@@ -47,14 +45,24 @@ namespace battle_ships {
 		}
 
 		if (!ValidateCommand(cmd_str)) return false;
+	
 		int whitespace_index = cmd_str.find(" ");
 		Coordinates origin(cmd_str.substr(0, whitespace_index));
 		Coordinates target(cmd_str.substr(whitespace_index + 1, cmd_str.length() - 1));
 		
+		bool statusExecution = true;
 		switch (player) {
-			case PlayerOne: return first_player_.ExecCommand(Command(origin, target));
-			case PlayerTwo: return second_player_.ExecCommand(Command(origin, target));
+			case PlayerOne: statusExecution = first_player_.ExecCommand(Command(origin, target));
+				break;
+			case PlayerTwo: statusExecution = second_player_.ExecCommand(Command(origin, target));
+				break;
 		}	
+
+		if (statusExecution) {
+			// TODO LOGGER DA SBLOCCARE
+		/*	string str_log = "Player" + std::to_string(player) + ":" + cmd_str;
+			logger_.Log(str_log);*/
+		}
 	}
 
 	bool GameManager::IsWinner(const PlayerNumber player)
