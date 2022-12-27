@@ -9,6 +9,7 @@
 
 #include "player.h"
 #include "logger.h"
+#include "enums.h"
 
 using std::string;
 
@@ -26,13 +27,9 @@ namespace battle_ships {
 
 	public:
 
-		enum PlayerNumber
-		{
-			PlayerOne = 1,
-			PlayerTwo
-		};
-
-		bool AddNavalUnit(const string& coordinates, const NavalUnitType unit_type, const PlayerNumber player);
+		bool AddNavalUnit(const string& coordinates, 
+						  const NavalUnitType unit_type, 
+						  const PlayerNumber player);
 
 		// Esegue un comando 
 		// Restituisce true solo se è ancora il turno del giocatore player

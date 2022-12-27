@@ -14,6 +14,7 @@
 #include "support_ship.h"
 #include "grid.h"
 #include "command.h"
+#include "enums.h"
 
 using std::vector;
 
@@ -26,8 +27,8 @@ namespace battle_ships {
 
 	public:
 		bool AddNavalUnit(const Coordinates& start, 
-						  const Coordinates& finish
-						  );
+						  const Coordinates& finish,
+						 const NavalUnitType unit_type);
 
 		bool ExecCommand(const Command& command);
 		bool IsLoser();
@@ -39,7 +40,7 @@ namespace battle_ships {
 		vector<SupportShip> supportships_;*/
 
 		//vector<unique_ptr<NavalUnit>> naval_units;
-		vector<std::unique_ptr<NavalUnit>> naval_units;
+		vector<std::unique_ptr<NavalUnit>> naval_units_;
 
 		Grid defence_grid_;
 		Grid attack_grid_;

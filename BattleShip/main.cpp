@@ -8,12 +8,14 @@
 #include "grid.h"
 #include "logger.h"
 #include <regex>
+#include "enums.h"
 
 using std::cout;
 using std::endl;
 using battle_ships::GameManager;
 using std::regex;
-
+using battle_ships::PlayerNumber;
+using battle_ships::NavalUnitType;
 
 /*
 * Pensieri miei abbastanza profondi da scrivere nel readme.TXT
@@ -90,7 +92,9 @@ int main(int argc, char** argv)
 	cout << "-------------------------------" << endl << endl << endl;
 
 	GameManager game;
-	game.ExecCommand(" B9 A88  ", GameManager::PlayerOne);
+	game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+
+	/*game.ExecCommand(" B9 A88  ", PlayerNumber::PlayerOne);*/
 
 	/*battle_ships::Coordinates c("a37");
 	cout << c.x() << " " << c.y() << endl << endl << endl;*/
