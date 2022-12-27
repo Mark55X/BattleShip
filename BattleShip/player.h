@@ -5,6 +5,7 @@
 #ifndef player_h
 #define player_h
 
+#include <memory>
 #include <vector>
 
 #include "naval_unit.h"
@@ -24,14 +25,21 @@ namespace battle_ships {
 	class Player {
 
 	public:
-		bool AddNavalUnit(/*tipo*/ const Coordinates& start, const Coordinates& finish);
+		bool AddNavalUnit(const Coordinates& start, 
+						  const Coordinates& finish
+						  );
+
 		bool ExecCommand(const Command& command);
+		bool IsLoser();
 		string Display() const;
 
 	private:
-		vector<BattleShip> battleships_;
+		/*vector<BattleShip> battleships_;
 		vector<Submarine> submarines_;
-		vector<SupportShip> supportships_;
+		vector<SupportShip> supportships_;*/
+
+		//vector<unique_ptr<NavalUnit>> naval_units;
+		vector<std::unique_ptr<NavalUnit>> naval_units;
 
 		Grid defence_grid_;
 		Grid attack_grid_;

@@ -27,5 +27,11 @@ namespace battle_ships {
 		y_ = static_cast<char>(toupper(coordinates[0]));
 	}
 
+	bool operator==(Coordinates first_coordinates, Coordinates second_coordinates)
+	{
+		return first_coordinates.x() == second_coordinates.x() &&
+			   first_coordinates.y() == second_coordinates.y();
+	}
+
 }
 

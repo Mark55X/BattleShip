@@ -6,10 +6,14 @@
 
 #include <iostream>
 #include "grid.h"
+#include "logger.h"
+#include <regex>
 
 using std::cout;
 using std::endl;
 using battle_ships::GameManager;
+using std::regex;
+
 
 /*
 * Pensieri miei abbastanza profondi da scrivere nel readme.TXT
@@ -85,13 +89,13 @@ int main(int argc, char** argv)
 	cout << " Albertin, Selvestrel, Stefani " << endl;
 	cout << "-------------------------------" << endl << endl << endl;
 
-	/*GameManager game;
-	game.ExecCommand("XX XX", GameManager::PlayerOne);*/
+	GameManager game;
+	game.ExecCommand(" B9 A88  ", GameManager::PlayerOne);
 
 	/*battle_ships::Coordinates c("a37");
 	cout << c.x() << " " << c.y() << endl << endl << endl;*/
 
-	battle_ships::Grid g;
+	/*battle_ships::Grid g;
 	
 	 g.AddRangeCells('C', Coordinates("A5"), Coordinates("A1"));
 	 g.AddRangeCells('C', Coordinates("A7"), Coordinates("D7"));
@@ -99,7 +103,13 @@ int main(int argc, char** argv)
 
 	 g.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
 
-	cout << g.Display();
+	cout << g.Display();*/
+
+	/*battle_ships::Logger l;
+	l.LogCommand(GameManager::PlayerOne, "XX XX");
+	l.LogCommand(GameManager::PlayerOne, "A2 B4");
+	l.LogCommand(GameManager::PlayerOne, "XX XX");*/
+	
 
 }
 

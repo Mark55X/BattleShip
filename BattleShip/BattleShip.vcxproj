@@ -151,9 +151,14 @@
     <ClInclude Include="support_ship.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="battle_ship.cpp" />
     <ClCompile Include="coordinates.cpp" />
+    <ClCompile Include="game_manager.cpp" />
     <ClCompile Include="grid.cpp" />
+    <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="naval_unit.cpp" />
+    <ClCompile Include="player.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
