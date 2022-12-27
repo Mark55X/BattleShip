@@ -74,5 +74,11 @@
     <ClCompile Include="naval_unit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="support_ship.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="submarine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

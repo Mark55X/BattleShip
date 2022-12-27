@@ -8,7 +8,7 @@ namespace battle_ships {
 		PlayerTwo
 	};
 
-	enum NavalUnitType
+	enum class NavalUnitType
 	{
 		BattleShip = 'C',
 		SupportShip = 'S',

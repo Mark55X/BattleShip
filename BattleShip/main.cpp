@@ -93,6 +93,7 @@ int main(int argc, char** argv)
 
 	GameManager game;
 	game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	game.AddNavalUnit("A10 A10", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
 
 	/*game.ExecCommand(" B9 A88  ", PlayerNumber::PlayerOne);*/
 

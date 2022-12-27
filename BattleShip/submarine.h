@@ -16,6 +16,7 @@ namespace battle_ships {
 	class Submarine : public NavalUnit {
 
 	public:
+		Submarine(Coordinates centre_coordinates, bool direction);
 		bool Action() const override;
 
 	private:
