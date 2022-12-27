@@ -1,3 +1,5 @@
+
+
 // GameManager Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
 // Author: Marco Stefani
@@ -44,11 +46,13 @@ namespace battle_ships {
 	private:
 		Player first_player_;
 		Player second_player_;
-		Logger logger_;
+		//Logger logger_;
 	};
 
 
 } // namespace battle_ships
 
 #endif // game_manager_h
+
+
 

@@ -5,7 +5,7 @@
 #ifndef grid_h
 #define grid_h
 
-#include "naval_unit.h"
+//#include "naval_unit.h"
 
 #include <stdexcept>
 #include <string>

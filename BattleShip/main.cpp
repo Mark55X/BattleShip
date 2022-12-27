@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 	// Controllo dei parametri in ingresso : 
 	// -pc per partita GIOCATORE vs COMPUTER
 	// -cc per partita COMPUTER vs COMPUTER	
-	if (argc != 2)
+	/*if (argc != 2)
 	{
 		std::cerr << "Necessario un parametro: \n -pc per Partita GIOCATORE vs COMPUTER \n -cc per partita COMPUTER vs COMPUTER";
 		exit(-1);
@@ -97,7 +97,7 @@ int main(int argc, char** argv)
 	 g.AddRangeCells('C', Coordinates("A7"), Coordinates("D7"));
 	 g.AddRangeCells('C', Coordinates("C1"), Coordinates("C7"));
 
-	 g.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
+	 //g.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
 
 	cout << g.Display();
 

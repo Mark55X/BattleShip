@@ -23,7 +23,7 @@ namespace battle_ships {
 		// getters
 		int size() const { return size_; };
 		int shield() const { return shield_; };
-		Coordinates centre_coordinates() const { return centre_coordinates_; };
+		//Coordinates centre_coordinates() const { return centre_coordinates_; };
 		bool direction() const { return direction_; };
 
 		// Una Unità navale può compiere un'azione in base
@@ -34,7 +34,7 @@ namespace battle_ships {
 	private:
 		int size_;
 		int shield_;
-		Coordinates centre_coordinates_;
+		//Coordinates centre_coordinates_;
 		bool direction_;
 
 	};
