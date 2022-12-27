@@ -6,22 +6,56 @@
 #define logger_h
 
 #include <string>
+#include <fstream>
+
 #include "player.h"
 
 using std::string;
+using std::ofstream;
 
 // Namespace battle_ships
 // Contiene i componenti principali del gioco Battaglia Navale
 namespace battle_ships {
 
-	// ha un file dove viene scritto tutto quello che viene fatto (comandi)
+	// Classe Logger
+	// All'inizializzazione gestisce un file di log
+	// Invarianti:
+	// 1. Il nome di un file di log contiene il timestamp del momento in cui è stato creato l'oggetto
+	//    in modo da avere nella stessa cartella più file di diverse giocate
 	class Logger {
 
 	public:
-		
+		// Costruttore Logger
+		// Accetta un argomento string che corrisponde al base_path dove verrebbe creato il file di log
+		// Se non esiste viene lanciata una IllegalPathException
+		Logger(const string& base_path = "");
 
-	private:
+		// Distruttore Logger
+		// Chiude lo steam sul file
+		~Logger();
+
+		// Funzione Log
+		// Si occupa di stampare su file la stringa passata come parametro 
+		// seguito da un carattere di escape di nuova linea (\n)
+		bool Log(const string& log_str);
+
+		// Eccezione IllegalPathException
+		// Descrive l'evento di 'Percorso non disponibile/non esistente' nel
+		// caso di creazione di file di log su tale percorso
+		class IllegalPathException : public std::invalid_argument {
+		public:
+			IllegalPathException(string msg) : std::invalid_argument(msg) {}
+		};
+
 		
+	private:
+		// Stream verso il file di log
+		ofstream file_;
+
+		// Funzione CheckPath
+		// Verifica che il Path passato come argomento esista
+		bool CheckPath(const string& path);
+
 	};
 
 

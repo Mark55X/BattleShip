@@ -8,7 +8,10 @@
 #define game_manager_h
 
 #include <string>
+
 #include "player.h"
+#include "logger.h"
+#include "enums.h"
 
 using std::string;
 
@@ -26,13 +29,9 @@ namespace battle_ships {
 
 	public:
 
-		enum PlayerNumber
-		{
-			PlayerOne = 1,
-			PlayerTwo
-		};
-
-		bool AddNavalUnit(const string& coordinates, /*Tipo unità*/ const PlayerNumber player);
+		bool AddNavalUnit(const string& coordinates, 
+						  const NavalUnitType unit_type, 
+						  const PlayerNumber player);
 
 		// Esegue un comando 
 		// Restituisce true solo se è ancora il turno del giocatore player
@@ -44,9 +43,16 @@ namespace battle_ships {
 		bool IsWinner(const PlayerNumber player);
 
 	private:
+		Logger logger_;
 		Player first_player_;
 		Player second_player_;
-		//Logger logger_;
+		
+		bool ValidateCommand(const string& command);
+
+		static constexpr const char* kCommandDisplay = "XX XX";
+		static constexpr const char* kCommandEraseSonar = "AA AA";
+		static constexpr const char* kCommandEraseHit = "BB BB";
+		static constexpr const char* kCommandEraseMiss = "CC CC";
 	};
 
 

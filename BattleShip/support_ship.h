@@ -16,6 +16,7 @@ namespace battle_ships {
 	class SupportShip : public NavalUnit {
 
 	public:
+		SupportShip(Coordinates centre_coordinates, bool direction);
 		bool Action() const override;
 
 	private:

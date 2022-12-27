@@ -5,8 +5,6 @@
 #ifndef coordinates_h
 #define coordinates_h
 
-#include "naval_unit.h"
-
 #include <stdexcept>
 #include <string>
 
@@ -18,6 +16,8 @@ namespace battle_ships {
 
 	// Classe Coordinates
 	// Rappresenta le coordinate di una griglia
+	// Invarianti:
+	// 1. Una coordinata è formata da un carattere alfabetico e da un numero intero di massimo due cifre (0-99)
 	class Coordinates {
 
 	public:
@@ -46,6 +46,7 @@ namespace battle_ships {
 
 	};
 
+	bool operator==(Coordinates first_coordinates, Coordinates second_coordinates);
 
 } // namespace battle_ships
 
