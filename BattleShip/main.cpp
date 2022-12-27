@@ -100,7 +100,7 @@ int main(int argc, char** argv)
 	/*battle_ships::Coordinates c("a37");
 	cout << c.x() << " " << c.y() << endl << endl << endl;*/
 
-	/*battle_ships::Grid g;
+	battle_ships::Grid g;
 	
 	 g.AddRangeCells('C', Coordinates("A5"), Coordinates("A1"));
 	 g.AddRangeCells('C', Coordinates("A7"), Coordinates("D7"));
@@ -108,7 +108,7 @@ int main(int argc, char** argv)
 
 	 //g.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
 
-	cout << g.Display();*/
+	cout << g.Display();
 
 	/*battle_ships::Logger l;
 	l.LogCommand(GameManager::PlayerOne, "XX XX");

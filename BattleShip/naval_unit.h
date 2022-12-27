@@ -41,7 +41,7 @@ namespace battle_ships {
 	private:
 		int size_;
 		int shield_;
-		//Coordinates centre_coordinates_;
+		Coordinates centre_coordinates_;
 		bool direction_;
 
 	};
