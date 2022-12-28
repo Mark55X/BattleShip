@@ -109,7 +109,7 @@ namespace battle_ships {
 	string Grid::Display() const
 	{
 		string str_grid = "    -------------------------------------------------\n";
-		constexpr int cell_with = 4;
+		constexpr int cell_width = 4;
 		for (int i = 0; i <= kGridSize; i++)
 		{
 			if (i != kGridSize)
@@ -133,11 +133,11 @@ namespace battle_ships {
 				}
 				else
 				{
-					int number_of_spaces = cell_with - (std::to_string(j + 1)).length();
+					int number_of_spaces = cell_width - (std::to_string(j + 1)).length();
 					for(int k = 0; k < number_of_spaces/2; k++)
 						str_grid += " ";
 					str_grid += std::to_string(j+1);
-					for (int k = 0; k < cell_with - (std::to_string(j + 1)).length() - number_of_spaces / 2; k++)
+					for (int k = 0; k < cell_width - (std::to_string(j + 1)).length() - number_of_spaces / 2; k++)
 						str_grid += " ";
 				}
 			}

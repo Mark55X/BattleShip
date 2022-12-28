@@ -108,7 +108,64 @@ int main(int argc, char** argv)
 
 	 //g.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
 
-	cout << g.Display();
+	//cout << g.Display();
+
+	battle_ships::Grid m;
+
+	m.AddRangeCells('C', Coordinates("A5"), Coordinates("A1"));
+	m.AddRangeCells('C', Coordinates("A7"), Coordinates("D7"));
+	m.AddRangeCells('C', Coordinates("C1"), Coordinates("C7"));
+
+	m.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
+
+	//cout << m.Display();
+
+	// devo prendere la prima riga di str_defence_grid e sostituire il \n con
+	// un tab seguito dalla prima riga di str_attack_grid (fino al |n compreso)
+	// poi ripetere il processo per ogni riga, quindi in totale 13 volte (tutte
+	// le righe di gioco più la riga degli indici x
+
+	string str_g = g.Display();
+	string str_m = m.Display();
+
+	// metto prima g poi m
+
+	string g_m = "";
+	int pos_return_g = -1;
+	int pos_return_m = -1;
+
+	int width = 48;
+	string title_defence = "Griglia di difesa";
+	string title_attack = "Griglia di attacco";
+	int number_of_spaces = width - title_defence.length();
+	g_m += "    ";
+	for (int k = 0; k < number_of_spaces / 2; k++)
+		g_m += " ";
+	g_m += title_defence;
+	for (int k = 0; k < width - title_defence.length() - number_of_spaces / 2; k++)
+		g_m += " ";
+	g_m += "\t\t    ";
+	number_of_spaces = width - title_attack.length();
+	for (int k = 0; k < number_of_spaces / 2; k++)
+		g_m += " ";
+	g_m += title_attack;
+	g_m += '\n';
+
+	for (int i = 0; i < 26; i++)
+	{
+		pos_return_g = str_g.find('\n');
+		g_m += str_g.substr(0, pos_return_g);
+		str_g.erase(0, pos_return_g + 1);
+
+		g_m += "\t\t";
+
+		pos_return_m = str_m.find('\n');
+		g_m += str_m.substr(0, pos_return_m + 1);
+		str_m.erase(0, pos_return_m + 1);
+	}
+
+	cout << g_m;
+
 
 	/*battle_ships::Logger l;
 	l.LogCommand(GameManager::PlayerOne, "XX XX");

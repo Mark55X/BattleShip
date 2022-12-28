@@ -15,9 +15,12 @@ namespace battle_ships {
 	// Rappresenta un unità navale all'interno del gioco
 	// Possiede :
 	//   1. Una grandezza (size), ovvero il numero di caselle nella griglia di gioco
-	//   2. Scuda (shield), ovvero il numero di celle non ancora colpite 
+	//   2. Uno scudo (shield), ovvero il numero di celle non ancora colpite 
 	//		(inizialmente uguale a Size)
-	//	 3. ???
+	//	 3. Le coordinate del centro (centre_coordinates), importanti perché
+	//		rappresentano la nave nel momento in cui essa deve compiere un'azione
+	//   4. L'orientamento (direction), rappresentato con una variabile booleana,
+	//		che può essere verticale (true) o orizzontale (false) ?????????????
 	class NavalUnit {
 
 	public:

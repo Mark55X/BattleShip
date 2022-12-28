@@ -1,6 +1,6 @@
 // Grid Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Marco Stefani
+// Author: Giulia Selvestrel
 
 #ifndef grid_h
 #define grid_h
@@ -21,9 +21,13 @@ namespace battle_ships {
 
 	// Classe Grid
 	// Rappresenta una griglia di gioco
+	// Possiede :
+	//   1. Una matrice (grid) che rappresenta la griglia quadrata 12x12 del gioco
 	class Grid {
 
 	public:
+		// Costruttore: crea una griglia di gioco 12x12 inizialmente vuota
+		// (ogni cella contiene in realtà uno spazio vuoto ' ')
 		Grid();
 		bool AddRangeCells(char value, const Coordinates& start, const Coordinates& finish);
 		bool RemoveRangeCells(const Coordinates& start, const Coordinates& finish);
