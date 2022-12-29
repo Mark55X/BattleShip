@@ -10,6 +10,10 @@
 #include <regex>
 #include "enums.h"
 
+#include <chrono>
+#include <random>
+#include <vector>
+
 using std::cout;
 using std::endl;
 using battle_ships::GameManager;
@@ -64,6 +68,66 @@ using battle_ships::NavalUnitType;
 
 
 */
+
+int NumberGenerator(const int n)
+{
+	std::uniform_int_distribution<> dist(0, n - 1);
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::default_random_engine gen(seed);
+	int random = dist(gen);
+
+	return random;
+}
+
+Coordinates CoordinatesGenerator(const int grid_size)
+{
+	int x = NumberGenerator(grid_size) + 1;
+	char y = static_cast<char>(NumberGenerator(grid_size)) + 'A';
+	return Coordinates(x, y);
+}
+
+string CoupleCoordinatesGenerator(const NavalUnitType unit_type)
+{
+	string couple_coordinates = "";
+
+	Coordinates stern = CoordinatesGenerator(12);
+
+	int ship_dimension = 0;
+
+	switch (unit_type) {
+	case NavalUnitType::BattleShip:
+		ship_dimension = 5;
+		break;
+	case NavalUnitType::SupportShip:
+		ship_dimension = 3;
+		break;
+	case NavalUnitType::Submarine:
+		ship_dimension = 1;
+		break;
+	}
+
+	// coordinate delle possibili prue data la poppa, sapendo la lunghezza della nave
+	// caso 1: nave orizzontale, prua > poppa -> y_prua= y_poppa, x_prua = x_poppa + ship_dimension
+	// caso 2: nave orizzontale, prua < poppa -> y_prua= y_poppa, x_prua = x_poppa - ship_dimension
+	// caso 3: nave verticale, prua > poppa -> x_prua= x_poppa, y_prua = y_poppa + ship_dimension
+	// caso 3: nave verticale, prua < poppa -> x_prua= x_poppa, y_prua = y_poppa - ship_dimension
+
+	vector<Coordinates> possible_bows = { Coordinates(stern.x() + (ship_dimension -1), stern.y()),
+								 Coordinates(stern.x() - (ship_dimension -1), stern.y()),
+								 Coordinates(stern.x(), static_cast<char>(stern.y() + (ship_dimension - 1))),
+								 Coordinates(stern.x(), static_cast<char>(stern.y() - (ship_dimension - 1))) };
+
+	int casual_index_bows = NumberGenerator(possible_bows.size());
+
+	Coordinates bow = possible_bows[casual_index_bows];
+
+	couple_coordinates += to_string(stern);
+	couple_coordinates += " ";
+	couple_coordinates += to_string(bow);
+
+	return couple_coordinates;
+}
+
 int main(int argc, char** argv)
 {
 	// Controllo dei parametri in ingresso : 
@@ -125,12 +189,12 @@ int main(int argc, char** argv)
 	// poi ripetere il processo per ogni riga, quindi in totale 13 volte (tutte
 	// le righe di gioco più la riga degli indici x
 
-	string str_g = g.Display();
-	string str_m = m.Display();
+	//string str_g = g.Display();
+	//string str_m = m.Display();
 
 	// metto prima g poi m
 
-	string g_m = "";
+	/*string g_m = "";
 	int pos_return_g = -1;
 	int pos_return_m = -1;
 
@@ -164,8 +228,12 @@ int main(int argc, char** argv)
 		str_m.erase(0, pos_return_m + 1);
 	}
 
-	cout << g_m;
+	cout << g_m;*/
 
+
+	cout << CoupleCoordinatesGenerator(NavalUnitType::BattleShip) << endl;
+	cout << CoupleCoordinatesGenerator(NavalUnitType::SupportShip) << endl;
+	cout << CoupleCoordinatesGenerator(NavalUnitType::Submarine) << endl;
 
 	/*battle_ships::Logger l;
 	l.LogCommand(GameManager::PlayerOne, "XX XX");

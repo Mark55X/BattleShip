@@ -48,6 +48,9 @@
     <ClInclude Include="enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="computer_player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="submarine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="computer_player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
