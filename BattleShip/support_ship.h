@@ -17,12 +17,16 @@ namespace battle_ships {
 
 	public:
 		SupportShip(Coordinates centre_coordinates, bool direction);
-		bool Action() const override;
 
-	private:
+		bool Action(const Command& command, 
+					Player& current_player,
+					Player& enemy_player) const override;
+
 		static constexpr int kSize = 3;
 		static constexpr int kShield = 3;
 
+	private:
+		
 	};
 
 

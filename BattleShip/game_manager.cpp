@@ -29,10 +29,9 @@ namespace battle_ships {
 		cmd_str = std::regex_replace(cmd_str, std::regex("\\s+$"), std::string(""));
 		cmd_str = std::regex_replace(cmd_str, std::regex("^\\s+"), std::string(""));
 
-	
-
 		if (cmd_str == kCommandDisplay) {
-			return false;
+			 string conf = (player == PlayerOne) ? first_player_.Display() : second_player_.Display();
+			 return false;
 		}
 		else if (cmd_str == kCommandEraseSonar) {
 			return false;
@@ -52,9 +51,9 @@ namespace battle_ships {
 		
 		bool statusExecution = true;
 		switch (player) {
-			case PlayerOne: statusExecution = first_player_.ExecCommand(Command(origin, target));
+		case PlayerOne: statusExecution = battle_ships::ExecCommand(Command(origin, target), first_player_, second_player_ );
 				break;
-			case PlayerTwo: statusExecution = second_player_.ExecCommand(Command(origin, target));
+		case PlayerTwo: statusExecution = battle_ships::ExecCommand(Command(origin, target), second_player_, first_player_);
 				break;
 		}	
 

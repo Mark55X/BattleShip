@@ -92,8 +92,12 @@ int main(int argc, char** argv)
 	cout << "-------------------------------" << endl << endl << endl;
 
 	GameManager game;
-	game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
-	game.AddNavalUnit("A10 A10", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
+	bool s;
+	s = game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	s = game.ExecCommand("A3 A5", PlayerNumber::PlayerOne);
+
+	//s = game.AddNavalUnit("B2 B8", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
+	//s = game.AddNavalUnit("A10 A11", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
 
 	/*game.ExecCommand(" B9 A88  ", PlayerNumber::PlayerOne);*/
 
@@ -115,7 +119,6 @@ int main(int argc, char** argv)
 	l.LogCommand(GameManager::PlayerOne, "A2 B4");
 	l.LogCommand(GameManager::PlayerOne, "XX XX");*/
 	
-
 }
 
 

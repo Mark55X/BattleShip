@@ -1,4 +1,5 @@
 #include "submarine.h"
+#include "player.h"
 
 namespace battle_ships {
 
@@ -7,7 +8,9 @@ namespace battle_ships {
 	{}
 
 
-	bool Submarine::Action() const
+	bool Submarine::Action(const Command& command, 
+						   Player& current_player,
+						   Player& enemy_player) const
 	{
 		return false;
 	}

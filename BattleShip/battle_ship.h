@@ -17,11 +17,15 @@ namespace battle_ships {
 
 	public:
 		BattleShip(Coordinates centre_coordinates, bool direction);
-		bool Action() const override;
+		bool Action(const Command& command,
+					Player& current_player,
+					Player& enemy_player) const override;
 
-	private:
 		static constexpr int kSize = 5;
 		static constexpr int kShield = 5;
+
+	private:
+		
 
 	};
 

@@ -48,13 +48,11 @@ namespace battle_ships {
 
 			for (int i = grid_start_x; i <= grid_finish_x; i++)
 			{
-				grid_[grid_start_y][i] = value;
-					
+				grid_[grid_start_y][i] = value;				
 			}
 		}
 
 		return true;
-
 	}
 
 	bool Grid::RemoveRangeCells(const Coordinates& start, const Coordinates& finish)
@@ -104,6 +102,18 @@ namespace battle_ships {
 
 		grid_[grid_y][grid_x] = value;
 		return true;
+	}
+
+	char Grid::GetCellValue(const Coordinates& coordinates)
+	{
+		if ((coordinates.x() <= 0 || coordinates.x() >= kGridSize)
+			&& (coordinates.y() < 'A' || coordinates.y() > ('A' + kGridSize)))
+			 throw InvalidCellGridException("InvalidCellGridException - Coordinata non valida per la griglia");
+
+		int grid_x = GetCellCoordinateX(coordinates);
+		int grid_y = GetCellCoordinateY(coordinates);
+
+		return grid_[grid_y][grid_x];
 	}
 
 	string Grid::Display() const

@@ -6,10 +6,12 @@
 #define naval_unit_h
 
 #include "coordinates.h"
+#include "grid.h"
+#include "command.h"
 
-// Namespace battle_ships
-// Contiene i componenti principali del gioco Battaglia Navale
 namespace battle_ships {
+
+	class Player;
 
 	// Classe virtuale pura NavalUnit
 	// Rappresenta un unità navale all'interno del gioco
@@ -30,13 +32,16 @@ namespace battle_ships {
 		// getters
 		int size() const { return size_; }
 		int shield() const { return shield_; }
+		void set_shield(int value) { shield_ = value; }
 		Coordinates centre_coordinates() const { return centre_coordinates_; }
 		bool direction() const { return direction_; }
 
 		// Una Unità navale può compiere un'azione in base
 		// al tipo di unità. Non è possibile definire tale comportamento
 		// in questa classe
-		virtual bool Action() const = 0;
+		virtual bool Action(const Command& command,
+							Player& current_player,
+							Player& enemy_player) const = 0;
 
 	private:
 		int size_;

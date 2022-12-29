@@ -5,8 +5,6 @@
 #ifndef grid_h
 #define grid_h
 
-#include "naval_unit.h"
-
 #include <stdexcept>
 #include <string>
 
@@ -28,7 +26,13 @@ namespace battle_ships {
 		bool AddRangeCells(char value, const Coordinates& start, const Coordinates& finish);
 		bool RemoveRangeCells(const Coordinates& start, const Coordinates& finish);
 		bool EditCell(char value, const Coordinates& cell);
+		char GetCellValue(const Coordinates& coordinates);
 		string Display() const;
+		
+		class InvalidCellGridException : public std::invalid_argument {
+		public:
+			InvalidCellGridException(string msg) : std::invalid_argument(msg) {}
+		};
 
 	private:
 		static constexpr int kGridSize = 12;

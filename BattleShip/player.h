@@ -9,10 +9,6 @@
 #include <vector>
 
 #include "naval_unit.h"
-#include "battle_ship.h"
-#include "submarine.h"
-#include "support_ship.h"
-#include "grid.h"
 #include "command.h"
 #include "enums.h"
 
@@ -30,9 +26,13 @@ namespace battle_ships {
 						  const Coordinates& finish,
 						 const NavalUnitType unit_type);
 
-		bool ExecCommand(const Command& command);
 		bool IsLoser();
 		string Display() const;
+
+		// getters
+		Grid& defence_grid() { return defence_grid_; }
+		Grid& attack_grid() { return attack_grid_; }
+		vector<std::unique_ptr<NavalUnit>>& naval_units() { return naval_units_; }
 
 	private:
 		/*vector<BattleShip> battleships_;
@@ -45,10 +45,11 @@ namespace battle_ships {
 		Grid defence_grid_;
 		Grid attack_grid_;
 
+		bool CheckCellLength(const NavalUnitType unit_type, int cell_length);
 	};
 
+	bool ExecCommand(const Command& command, Player& current_player, Player& enemy_player);
 
 } // namespace battle_ships
 
 #endif // player_h
-
