@@ -72,6 +72,58 @@ namespace battle_ships {
             supportships_.empty();*/
         return naval_units_.empty();
     }
+    string Player::Display() const
+    {
+        string str_grids = "";
+
+        // stampa dei titoli
+        constexpr int grid_width = 48; // kGridSize * cell_width
+        string title_defence = "Griglia di difesa";
+        string title_attack = "Griglia di attacco";
+
+        int number_of_spaces = grid_width - title_defence.length();
+        str_grids += "    "; 
+        for (int k = 0; k < number_of_spaces / 2; k++)
+            str_grids += " ";
+        str_grids += title_defence;
+        for (int k = 0; k < number_of_spaces - number_of_spaces / 2; k++)
+            str_grids += " ";
+        str_grids += "\t\t    ";
+
+        number_of_spaces = grid_width - title_attack.length();
+        for (int k = 0; k < number_of_spaces / 2; k++)
+            str_grids += " ";
+        str_grids += title_attack;
+        str_grids += '\n';
+        
+        string str_defence_grid = defence_grid_.Display();
+        string str_attack_grid = attack_grid_.Display();
+
+        // stampa delle griglie
+
+        // devo prendere la prima riga di str_defence_grid e sostituire il \n con
+        // un tab seguito dalla prima riga di str_attack_grid (fino al |n compreso)
+        // poi ripetere il processo per ogni riga, quindi in totale 13 volte (tutte
+        // le righe di gioco più la riga degli indici x
+
+        int pos_return_defence = -1;
+        int pos_return_attack = -1;
+
+        for (int i = 0; i <= 26; i++)
+        {
+            pos_return_defence = str_defence_grid.find('\n');
+            str_grids += str_defence_grid.substr(0, pos_return_defence);
+            str_defence_grid.erase(0, pos_return_defence + 1);
+
+            str_grids += '\t';
+
+            pos_return_attack = str_attack_grid.find('\n');
+            str_grids += str_attack_grid.substr(0, pos_return_attack + 1);
+            str_attack_grid.erase(0, pos_return_attack + 1);
+        }
+
+        return str_grids;
+    }
 
     string Player::Display() const
     {

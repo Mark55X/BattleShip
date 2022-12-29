@@ -1,3 +1,5 @@
+
+
 // GameManager Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
 // Author: Marco Stefani
@@ -57,4 +59,6 @@ namespace battle_ships {
 } // namespace battle_ships
 
 #endif // game_manager_h
+
+
 

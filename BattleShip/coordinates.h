@@ -34,7 +34,7 @@ namespace battle_ships {
 		
 		// Classe InvalidDateException 
 		// Eredita da std::invalid_argument perchè riguarda l'invalidità 
-		// degli argomenti (anno, mese, giorno) per la creazione/modifica della data
+		// degli argomenti (x, y) per la creazione/modifica delle coordinate
 		class InvalidCoordinatesException : public std::invalid_argument {
 		public:
 			InvalidCoordinatesException(string msg) : std::invalid_argument(msg) {}
