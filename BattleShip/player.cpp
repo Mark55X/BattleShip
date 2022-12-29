@@ -125,10 +125,6 @@ namespace battle_ships {
         return str_grids;
     }
 
-    string Player::Display() const
-    {
-        return string();
-    }
 
     bool Player::CheckCellLength(const NavalUnitType unit_type, int cell_length) {
         switch (unit_type) {

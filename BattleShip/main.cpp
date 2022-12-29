@@ -69,7 +69,7 @@ int main(int argc, char** argv)
 	// Controllo dei parametri in ingresso : 
 	// -pc per partita GIOCATORE vs COMPUTER
 	// -cc per partita COMPUTER vs COMPUTER	
-	/*if (argc != 2)
+	if (argc != 2)
 	{
 		std::cerr << "Necessario un parametro: \n -pc per Partita GIOCATORE vs COMPUTER \n -cc per partita COMPUTER vs COMPUTER";
 		exit(-1);
@@ -94,25 +94,24 @@ int main(int argc, char** argv)
 	GameManager game;
 	bool s;
 	s = game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	s = game.AddNavalUnit("B2 B2", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
+
+	s = game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+
+	// Da verificare l'edit della cella
 	s = game.ExecCommand("A3 A5", PlayerNumber::PlayerOne);
-
-	//s = game.AddNavalUnit("B2 B8", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
-	//s = game.AddNavalUnit("A10 A11", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
-
-	/*game.ExecCommand(" B9 A88  ", PlayerNumber::PlayerOne);*/
-
-	/*battle_ships::Coordinates c("a37");
-	cout << c.x() << " " << c.y() << endl << endl << endl;*/
-
-	battle_ships::Grid g;
+	cout << "ciao";
+	//cout << game.ExecCommand("XX XX", PlayerNumber::PlayerOne);
+	
+	/*battle_ships::Grid g;
 	
 	 g.AddRangeCells('C', Coordinates("A5"), Coordinates("A1"));
 	 g.AddRangeCells('C', Coordinates("A7"), Coordinates("D7"));
 	 g.AddRangeCells('C', Coordinates("C1"), Coordinates("C7"));
 
-	 //g.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
+	 g.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
 
-	//cout << g.Display();
+	cout << g.Display();
 
 	battle_ships::Grid m;
 
@@ -122,17 +121,17 @@ int main(int argc, char** argv)
 
 	m.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
 
-	//cout << m.Display();
+	cout << m.Display();
 
-	// devo prendere la prima riga di str_defence_grid e sostituire il \n con
-	// un tab seguito dalla prima riga di str_attack_grid (fino al |n compreso)
-	// poi ripetere il processo per ogni riga, quindi in totale 13 volte (tutte
-	// le righe di gioco più la riga degli indici x
+	 devo prendere la prima riga di str_defence_grid e sostituire il \n con
+	 un tab seguito dalla prima riga di str_attack_grid (fino al |n compreso)
+	 poi ripetere il processo per ogni riga, quindi in totale 13 volte (tutte
+	 le righe di gioco più la riga degli indici x
 
 	string str_g = g.Display();
 	string str_m = m.Display();
 
-	// metto prima g poi m
+	 metto prima g poi m
 
 	string g_m = "";
 	int pos_return_g = -1;
@@ -168,7 +167,7 @@ int main(int argc, char** argv)
 		str_m.erase(0, pos_return_m + 1);
 	}
 
-	cout << g_m;
+	cout << g_m;*/
 
 
 	/*battle_ships::Logger l;
