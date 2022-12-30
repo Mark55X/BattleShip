@@ -8,6 +8,10 @@
 #include "grid.h"
 #include "enums.h"
 
+#include <chrono>
+#include <random>
+#include <vector>
+
 using std::cout;
 using std::endl;
 using std::cin;

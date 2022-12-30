@@ -3,7 +3,6 @@
 #include<ctime>
 #include <sys/stat.h>
 
-using std::to_string;
 using std::ifstream;
 
 namespace battle_ships {
@@ -14,7 +13,7 @@ namespace battle_ships {
 			throw IllegalPathException("IllegalPathException - BasePath non corretta");
 
 		std::time_t timestamp = std::time(nullptr);
-		string path = base_path + "log-BattleShip" + to_string(timestamp) + ".txt";
+		string path = base_path + "log-BattleShip" + std::to_string(timestamp) + ".txt";
 		file_.open(path);
 	}
 

@@ -47,6 +47,7 @@ namespace battle_ships {
 	};
 
 	bool operator==(Coordinates first_coordinates, Coordinates second_coordinates);
+	string to_string(Coordinates coordinates);
 
 } // namespace battle_ships
 

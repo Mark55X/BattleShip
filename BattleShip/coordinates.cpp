@@ -33,5 +33,13 @@ namespace battle_ships {
 			   first_coordinates.y() == second_coordinates.y();
 	}
 
+	string to_string(Coordinates coordinates)
+	{
+		string str_coordinates = "";
+		str_coordinates += coordinates.y();
+		str_coordinates += std::to_string(coordinates.x());
+		return str_coordinates;
+	}
+
 }
 
