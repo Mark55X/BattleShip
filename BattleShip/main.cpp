@@ -11,6 +11,7 @@
 #include <chrono>
 #include <random>
 #include <vector>
+#include "computer_player.h"
 
 using std::cout;
 using std::endl;
@@ -19,6 +20,7 @@ using std::cin;
 using battle_ships::GameManager;
 using battle_ships::PlayerNumber;
 using battle_ships::NavalUnitType;
+using battle_ships::ComputerPlayer;
 
 /*
 * Pensieri miei abbastanza profondi da scrivere nel readme.TXT
@@ -120,9 +122,14 @@ int main(int argc, char** argv)
 	game.AddNavalUnit("D6 H6", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
 	game.AddNavalUnit("D8 D12", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
 
-	game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
-	game.AddNavalUnit("E6 I6", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
-	game.AddNavalUnit("A8 A12", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	//game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	//game.AddNavalUnit("E6 I6", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	//game.AddNavalUnit("A8 A12", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	ComputerPlayer p;
+	game.AddNavalUnit(p.InsertCoordinatesGenerator(NavalUnitType::BattleShip), NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	string s = p.InsertCoordinatesGenerator(NavalUnitType::BattleShip);
+	s = p.InsertCoordinatesGenerator(NavalUnitType::BattleShip);
+
 	// ------------
 
 	cout << "*** IL GIOCO E' INIZIATO ***" << endl;
@@ -169,3 +176,5 @@ void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type)
 		}
 	}
 }
+
+

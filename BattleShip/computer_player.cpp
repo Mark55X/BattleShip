@@ -106,14 +106,14 @@ namespace battle_ships
 		return couple_coordinates;
 	}
 
-	bool ComputerPlayer::RemoveCoordinates(Coordinates coordinates)
+	bool ComputerPlayer::RemoveCoordinates(Coordinates& coordinates)
 	{
 		auto it = find(ships_centre_coordinates_.begin(), ships_centre_coordinates_.end(), coordinates);
 		ships_centre_coordinates_.erase(it);
 		return true;
 	}
 
-	bool ComputerPlayer::SetCoordinates(Coordinates old_coordinates, Coordinates new_coordinates)
+	bool ComputerPlayer::SetCoordinates(Coordinates& old_coordinates, Coordinates& new_coordinates)
 	{
 		RemoveCoordinates(old_coordinates);
 		ships_centre_coordinates_.push_back(new_coordinates);

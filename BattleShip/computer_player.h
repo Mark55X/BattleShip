@@ -30,12 +30,12 @@ namespace battle_ships {
 		string InsertCoordinatesGenerator(const NavalUnitType unit_type);
 		bool MemorizeCentreCoordinates(string& couple_coordinates);
 		string ActionCoordinatesGenerator();
-		bool RemoveCoordinates(Coordinates coordinates);
-		bool SetCoordinates(Coordinates old_coordinates, Coordinates new_coordinates);
+		bool RemoveCoordinates(Coordinates& coordinates);
+		bool SetCoordinates(Coordinates& old_coordinates, Coordinates& new_coordinates);
 
 	private:
 		vector<Coordinates> ships_centre_coordinates_;
-		static constexpr int kGridSize = 12;
+		static constexpr int kGridSize = 12; // Da spostare TODO
 
 		int NumberGenerator(const int n);
 		Coordinates CoordinatesGenerator(const int grid_size);
