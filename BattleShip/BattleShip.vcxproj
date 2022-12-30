@@ -144,6 +144,7 @@
     <ClInclude Include="coordinates.h" />
     <ClInclude Include="enums.h" />
     <ClInclude Include="game_manager.h" />
+    <ClInclude Include="game_response.h" />
     <ClInclude Include="grid.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="naval_unit.h" />

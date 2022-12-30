@@ -6,7 +6,6 @@
 #include "submarine.h"
 #include "support_ship.h"
 
-
 namespace battle_ships {
 
     bool Player::AddNavalUnit(const Coordinates& start, 
@@ -30,7 +29,7 @@ namespace battle_ships {
         if (!CheckCellLength(unit_type, cell_length))
             return false;
 
-        if (defence_grid_.AddRangeCells(static_cast<char>(unit_type), start, finish) == false)
+        if (!defence_grid_.AddRangeCells(static_cast<char>(unit_type), start, finish))
             return false;
     
         Coordinates centre(centre_x, centre_y);
@@ -67,9 +66,6 @@ namespace battle_ships {
 
     bool Player::IsLoser()
     {
-        /*return submarines_.empty() &&
-            battleships_.empty() &&
-            supportships_.empty();*/
         return naval_units_.empty();
     }
     string Player::Display() const

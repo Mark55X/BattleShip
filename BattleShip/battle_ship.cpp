@@ -47,6 +47,7 @@ namespace battle_ships {
 
 			std::unique_ptr<NavalUnit>& unit = *iter;
 			unit->set_shield(unit->shield() - 1);
+
 			if (unit->shield() == 0) {			
 				Coordinates centre = unit->centre_coordinates();
 

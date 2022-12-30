@@ -1,5 +1,3 @@
-
-
 // GameManager Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
 // Author: Marco Stefani
@@ -12,6 +10,7 @@
 #include "player.h"
 #include "logger.h"
 #include "enums.h"
+#include "game_response.h"
 
 using std::string;
 
@@ -33,26 +32,43 @@ namespace battle_ships {
 						  const NavalUnitType unit_type, 
 						  const PlayerNumber player);
 
-		// Esegue un comando 
-		// Restituisce true solo se è ancora il turno del giocatore player
-		bool ExecCommand(const string& command, const PlayerNumber player);
+		// Gestisce ed Esegue un comando
+		// Restituisce un oggetto di tipo GameResponse (vedi game_response.h per dettagli)
+		// con le indicazioni sull'esecuzione del comando
+		GameResponse ExecCommand(const string& command, const PlayerNumber player);
 
 		// Funzione IsWinner
 		// Restituisce true se il giocatore passato come argomento è il vincitore
 		// Un giocatore ha vinto se tutte le unità navali del suo avversario sono affondate
 		bool IsWinner(const PlayerNumber player);
 
+		// Costanti 
+		// Contengono il numero delle unità navali (per tipo)
+		// che sono presenti ad inizio partita
+		static constexpr int kBattleShipNumber = 3;
+		static constexpr int kSupportShipNumber = 3;
+		static constexpr int kSubmarineNumber = 2;
+
 	private:
+		// Oggetto di tipo Logger che gestisce il file di log 
+		// contenente i comandi validi eseguiti correttamente
 		Logger logger_;
+
+		// I due giocatori
 		Player first_player_;
 		Player second_player_;
 		
+		// Funzione privata ValidateCommand
+		// Restituisce true se il comando passato come parametro
+		// è negli standard del formato accettato
 		bool ValidateCommand(const string& command);
 
+		// Costanti private riguradante i comandi speciali
 		static constexpr const char* kCommandDisplay = "XX XX";
 		static constexpr const char* kCommandEraseSonar = "AA AA";
 		static constexpr const char* kCommandEraseHit = "BB BB";
 		static constexpr const char* kCommandEraseMiss = "CC CC";
+
 	};
 
 

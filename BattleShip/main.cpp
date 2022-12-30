@@ -6,14 +6,13 @@
 
 #include <iostream>
 #include "grid.h"
-#include "logger.h"
-#include <regex>
 #include "enums.h"
 
 using std::cout;
 using std::endl;
+using std::cin;
+
 using battle_ships::GameManager;
-using std::regex;
 using battle_ships::PlayerNumber;
 using battle_ships::NavalUnitType;
 
@@ -64,6 +63,9 @@ using battle_ships::NavalUnitType;
 
 
 */
+
+void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type);
+
 int main(int argc, char** argv)
 {
 	// Controllo dei parametri in ingresso : 
@@ -92,97 +94,74 @@ int main(int argc, char** argv)
 	cout << "-------------------------------" << endl << endl << endl;
 
 	GameManager game;
-	bool s;
-	s = game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
-	s = game.AddNavalUnit("B2 B2", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
 
-	s = game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
-	s = game.AddNavalUnit("D1 D3", NavalUnitType::SupportShip, PlayerNumber::PlayerTwo);
+	// output nel caso di -pc
+	cout << "*** REGOLE DEL GIOCO ***" << endl;
+	cout << "1. Vengono richieste le coordinate di poppa e prua di ogni unita' navali (Esempio: A1 B6)" << endl;
+	cout << "2. I comandi possibili sono: " << endl;
+	cout << "   a) A1 B1: Con A1 Coordinata di origine e B1 coordinata target " << endl;
+	cout << "      L'azione dipende dalla coordinata di origine  " << endl;
+	cout << "   b) XX XX: Display della propria griglia di attacco e difesa " << endl;
+	cout << "   c) AA AA: ?? " << endl;
+	cout << "   d) BB BB: ?? " << endl;
+	cout << "   d) CC CC: ?? " << endl << endl << endl;
 
-	game.ExecCommand("A3 A2", PlayerNumber::PlayerOne);
-	game.ExecCommand("A3 A3", PlayerNumber::PlayerOne);
-	game.ExecCommand("A3 A4", PlayerNumber::PlayerOne);
+	cout << "*** POSIZIONAMENTO DELLE UNITA' NAVALI ***" << endl;
+	//InsertPlayerNavalUnit(game, NavalUnitType::BattleShip);
+	//InsertPlayerNavalUnit(game, NavalUnitType::SupportShip);
+	//InsertPlayerNavalUnit(game, NavalUnitType::Submarine);
 
-	s = game.ExecCommand("D2 B3", PlayerNumber::PlayerTwo);
+	// ---------- Solo per test
+	game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	game.AddNavalUnit("D6 H6", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	game.AddNavalUnit("D8 D12", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
 
+	game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	game.AddNavalUnit("E6 I6", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	game.AddNavalUnit("A8 A12", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	// ------------
 
-	/*s = game.ExecCommand("B2 C7", PlayerNumber::PlayerOne);*/
-	cout << "ciao";
+	cout << "*** IL GIOCO E' INIZIATO ***" << endl;
+	string command = "";
+	while (true) {
+		std::getline(std::cin, command);
+		cout << game.ExecCommand(command, PlayerNumber::PlayerOne).content() << endl;
 
-	//cout << game.ExecCommand("XX XX", PlayerNumber::PlayerOne);
-	
-	/*battle_ships::Grid g;
-	
-	 g.AddRangeCells('C', Coordinates("A5"), Coordinates("A1"));
-	 g.AddRangeCells('C', Coordinates("A7"), Coordinates("D7"));
-	 g.AddRangeCells('C', Coordinates("C1"), Coordinates("C7"));
-
-	 g.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
-
-	cout << g.Display();
-
-	battle_ships::Grid m;
-
-	m.AddRangeCells('C', Coordinates("A5"), Coordinates("A1"));
-	m.AddRangeCells('C', Coordinates("A7"), Coordinates("D7"));
-	m.AddRangeCells('C', Coordinates("C1"), Coordinates("C7"));
-
-	m.RemoveRangeCells(Coordinates("A1"), Coordinates("A5"));
-
-	cout << m.Display();
-
-	 devo prendere la prima riga di str_defence_grid e sostituire il \n con
-	 un tab seguito dalla prima riga di str_attack_grid (fino al |n compreso)
-	 poi ripetere il processo per ogni riga, quindi in totale 13 volte (tutte
-	 le righe di gioco più la riga degli indici x
-
-	string str_g = g.Display();
-	string str_m = m.Display();
-
-	 metto prima g poi m
-
-	string g_m = "";
-	int pos_return_g = -1;
-	int pos_return_m = -1;
-
-	int width = 48;
-	string title_defence = "Griglia di difesa";
-	string title_attack = "Griglia di attacco";
-	int number_of_spaces = width - title_defence.length();
-	g_m += "    ";
-	for (int k = 0; k < number_of_spaces / 2; k++)
-		g_m += " ";
-	g_m += title_defence;
-	for (int k = 0; k < width - title_defence.length() - number_of_spaces / 2; k++)
-		g_m += " ";
-	g_m += "\t\t    ";
-	number_of_spaces = width - title_attack.length();
-	for (int k = 0; k < number_of_spaces / 2; k++)
-		g_m += " ";
-	g_m += title_attack;
-	g_m += '\n';
-
-	for (int i = 0; i < 26; i++)
-	{
-		pos_return_g = str_g.find('\n');
-		g_m += str_g.substr(0, pos_return_g);
-		str_g.erase(0, pos_return_g + 1);
-
-		g_m += "\t\t";
-
-		pos_return_m = str_m.find('\n');
-		g_m += str_m.substr(0, pos_return_m + 1);
-		str_m.erase(0, pos_return_m + 1);
+		std::getline(std::cin, command);
+		cout << game.ExecCommand(command, PlayerNumber::PlayerTwo).content() << endl;
 	}
-
-	cout << g_m;*/
-
-
-	/*battle_ships::Logger l;
-	l.LogCommand(GameManager::PlayerOne, "XX XX");
-	l.LogCommand(GameManager::PlayerOne, "A2 B4");
-	l.LogCommand(GameManager::PlayerOne, "XX XX");*/
 	
 }
 
+void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type)
+{
+	string coordinates = "";
+	string output_text = "";
+	int max_number = 0;
+	switch (type) {
+	case NavalUnitType::BattleShip : 
+		output_text = "Quali sono le coordinate per la corazzata";
+		max_number = game.kBattleShipNumber;
+		break;
+	case NavalUnitType::SupportShip:
+		output_text = "Quali sono le coordinate per la nave di supporto";
+		max_number = game.kSupportShipNumber;
+		break;
+	case NavalUnitType::Submarine:
+		output_text = "Quali sono le coordinate per il sottomarino ";
+		max_number = game.kSubmarineNumber;
+		break;
+	}
 
+	for (int i = 1; i <= max_number; i++) {
+		cout << "Quali sono le coordinate per la corazzata " << i << " : " << endl;
+		bool correct = false;
+		while (!correct) {
+			std::getline(std::cin, coordinates);
+			correct = game.AddNavalUnit(coordinates, type, PlayerNumber::PlayerOne);
+			if (!correct) {
+				cout << "Errore nell'inserimento..." << endl;
+			}	
+		}
+	}
+}

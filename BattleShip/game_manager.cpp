@@ -23,7 +23,7 @@ namespace battle_ships {
 
 	}
 
-	bool GameManager::ExecCommand(const string& command, const PlayerNumber player)
+	GameResponse GameManager::ExecCommand(const string& command, const PlayerNumber player)
 	{
 		string cmd_str = command;
 		cmd_str = std::regex_replace(cmd_str, std::regex("\\s+$"), std::string(""));
@@ -31,19 +31,20 @@ namespace battle_ships {
 
 		if (cmd_str == kCommandDisplay) {
 			 string conf = (player == PlayerOne) ? first_player_.Display() : second_player_.Display();
-			 return false;
+			 return GameResponse(true, conf, false);
 		}
 		else if (cmd_str == kCommandEraseSonar) {
-			return false;
+			return GameResponse(true, "", false);
 		}
 		else if (cmd_str == kCommandEraseHit) {
-			return false;
+			return GameResponse(true, "", false);
 		}
 		else if (cmd_str == kCommandEraseMiss) {
-			return false;
+			return GameResponse(true, "", false);
 		}
 
-		if (!ValidateCommand(cmd_str)) return false;
+		// TODO: O uso GameResponse oppure Ecezzione
+		if (!ValidateCommand(cmd_str)) return GameResponse(false, "Il Comando non è valido", false);
 	
 		int whitespace_index = cmd_str.find(" ");
 		Coordinates origin(cmd_str.substr(0, whitespace_index));
@@ -62,6 +63,8 @@ namespace battle_ships {
 		/*	string str_log = "Player" + std::to_string(player) + ":" + cmd_str;
 			logger_.Log(str_log);*/
 		}
+
+		return GameResponse(statusExecution, "sos", true);
 	}
 
 	bool GameManager::IsWinner(const PlayerNumber player)
