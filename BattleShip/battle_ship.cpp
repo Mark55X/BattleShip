@@ -10,12 +10,12 @@ namespace battle_ships {
 	
 	bool BattleShip::Action(const Command& command,
 							Player& current_player, 
-							Player& enemy_player) const
+							Player& enemy_player) 
 	{	
 		Coordinates target = command.target();
 		
-		Grid enemy_defence_grid = enemy_player.defence_grid();
-		Grid attack_grid = current_player.attack_grid();
+		Grid& enemy_defence_grid = enemy_player.defence_grid();
+		Grid& attack_grid = current_player.attack_grid();
 
 		char value = enemy_defence_grid.GetCellValue(target);
 		if (value == ' ') {
@@ -47,44 +47,30 @@ namespace battle_ships {
 
 			std::unique_ptr<NavalUnit>& unit = *iter;
 			unit->set_shield(unit->shield() - 1);
-			if (unit->shield() == 0) {
+			if (unit->shield() == 0) {			
+				Coordinates centre = unit->centre_coordinates();
+
+				int range = unit->size() / 2;
+				if (unit->direction()) {
+					Coordinates start(centre.x() - range, centre.y());
+					Coordinates finish(centre.x() + range, centre.y());
+					enemy_defence_grid.RemoveRangeCells(start, finish);
+				}
+				else {
+					Coordinates start(centre.x(), centre.y() - range);
+					Coordinates finish(centre.x() , centre.y() + range);
+					enemy_defence_grid.RemoveRangeCells(start, finish);
+				}
+			
 				enemy_units.erase(iter);
 			}
-
-			if (!enemy_defence_grid.EditCell(static_cast<char>(tolower(value)), target))
-				return false; // POSSIBILE TRY-CATCH CON ROLLBACK??
+			else {
+				if (!enemy_defence_grid.EditCell(static_cast<char>(tolower(value)), target))
+					return false; // POSSIBILE TRY-CATCH CON ROLLBACK??
+			}
 		}
 
 		return attack_grid.EditCell('X', target);
-
-		// 1. Verifica se nella enemy_defence_grid c'è una cella che non sia ' '
-		//    Se è ' ' allora segno su attack_grid 'O'
-		// 2. Se è MAIUSCOLA la diminuisce (Response CON FIRE)
-		// 3. Se è minuscola la lascia così (Response con FIRE già beccato)
-		//    Negli utlimi due casi segno attack_grid 'X'
-		
-		// Servirebbe per battleship: 
-		// Griglia di difesa nemica
-		// Griglia di attacco mia
-
-		// Servirebbe per support: 
-		// Griglia di difesa mia
-		// E tutte le navi vettori miei...
-
-		// Servirebbe per submarine: 
-		// Griglia di difesa avversaria
-		// Griglia di attacco mia
-
-		// Da Am
-		// Dm
-		// Da Am
-		
-
-		// Ideando una function  
-		// bool Player.HitDefenceGrid(Coordinates target), che gestisce lui il togliere lo shield ai suoi
-		// navalUnit ecc,  con bool avviene con successo
-		// Significa che Action gli viene passato Player -> Player.ExecCommand(PlayerAvversario)
-		// e poi Action modifica lui la propria griglia di attacco
 	}
 }
 

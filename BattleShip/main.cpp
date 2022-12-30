@@ -97,10 +97,18 @@ int main(int argc, char** argv)
 	s = game.AddNavalUnit("B2 B2", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
 
 	s = game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	s = game.AddNavalUnit("D1 D3", NavalUnitType::SupportShip, PlayerNumber::PlayerTwo);
 
-	// Da verificare l'edit della cella
-	s = game.ExecCommand("A3 A5", PlayerNumber::PlayerOne);
+	game.ExecCommand("A3 A2", PlayerNumber::PlayerOne);
+	game.ExecCommand("A3 A3", PlayerNumber::PlayerOne);
+	game.ExecCommand("A3 A4", PlayerNumber::PlayerOne);
+
+	s = game.ExecCommand("D2 B3", PlayerNumber::PlayerTwo);
+
+
+	/*s = game.ExecCommand("B2 C7", PlayerNumber::PlayerOne);*/
 	cout << "ciao";
+
 	//cout << game.ExecCommand("XX XX", PlayerNumber::PlayerOne);
 	
 	/*battle_ships::Grid g;

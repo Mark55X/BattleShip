@@ -20,7 +20,7 @@ namespace battle_ships {
 
 		bool Action(const Command& command, 
 					Player& current_player,
-					Player& enemy_player) const override;
+					Player& enemy_player)  override;
 
 		static constexpr int kSize = 3;
 		static constexpr int kShield = 3;

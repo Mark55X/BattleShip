@@ -19,7 +19,7 @@ namespace battle_ships {
 		Submarine(Coordinates centre_coordinates, bool direction);
 		bool Action(const Command& command,
 					Player& current_player,
-					Player& enemy_player) const override;
+					Player& enemy_player)  override;
 
 		static constexpr int kSize = 1;
 		static constexpr int kShield = 1;
