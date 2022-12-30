@@ -2,11 +2,6 @@
 
 namespace battle_ships
 {
-
-	ComputerPlayer::ComputerPlayer(void)
-	{
-	}
-
 	// per aggiungere una nave nella griglia
 	// con CoordinatesGenerator genero delle coordinate casuali nella griglia (poppa)
 	// devo ricevere il tipo di nave e creare un vector di 4 elementi con le possibili
@@ -79,7 +74,7 @@ namespace battle_ships
 	// se l'inserimento va a buon fine (AddNavalUnit resituisce true) bisogna inserire le coordinate
 	// del centro della nave nel vector ships_centre_coordinates_, che verrà poi usato quando sarà il
 	// momento di giocare per scegliere casualmente una nave a cui far compiere la sua azione
-	void ComputerPlayer::MemorizeCentreCoordinates(string& couple_coordinates)
+	bool ComputerPlayer::MemorizeCentreCoordinates(string& couple_coordinates)
 	{
 		int whitespace_index = couple_coordinates.find(" ");
 		Coordinates start(couple_coordinates.substr(0, whitespace_index));
@@ -92,7 +87,7 @@ namespace battle_ships
 
 		ships_centre_coordinates_.push_back(centre);
 
-		return;
+		return true;
 	}
 
 	string ComputerPlayer::ActionCoordinatesGenerator()
@@ -109,6 +104,20 @@ namespace battle_ships
 		couple_coordinates += to_string(coord_target);
 
 		return couple_coordinates;
+	}
+
+	bool ComputerPlayer::RemoveCoordinates(Coordinates coordinates)
+	{
+		auto it = find(ships_centre_coordinates_.begin(), ships_centre_coordinates_.end(), coordinates);
+		ships_centre_coordinates_.erase(it);
+		return true;
+	}
+
+	bool ComputerPlayer::SetCoordinates(Coordinates old_coordinates, Coordinates new_coordinates)
+	{
+		RemoveCoordinates(old_coordinates);
+		ships_centre_coordinates_.push_back(new_coordinates);
+		return true;
 	}
 
 }

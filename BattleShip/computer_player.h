@@ -27,10 +27,11 @@ namespace battle_ships {
 	class ComputerPlayer {
 
 	public:
-		ComputerPlayer(void);
 		string InsertCoordinatesGenerator(const NavalUnitType unit_type);
-		void MemorizeCentreCoordinates(string& couple_coordinates);
+		bool MemorizeCentreCoordinates(string& couple_coordinates);
 		string ActionCoordinatesGenerator();
+		bool RemoveCoordinates(Coordinates coordinates);
+		bool SetCoordinates(Coordinates old_coordinates, Coordinates new_coordinates);
 
 	private:
 		vector<Coordinates> ships_centre_coordinates_;
