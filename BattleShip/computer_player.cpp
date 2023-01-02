@@ -52,13 +52,22 @@ namespace battle_ships
 		// caso 2: nave orizzontale, prua < poppa -> y_prua= y_poppa, x_prua = x_poppa - ship_dimension
 		// caso 3: nave verticale, prua > poppa -> x_prua= x_poppa, y_prua = y_poppa + ship_dimension
 		// caso 3: nave verticale, prua < poppa -> x_prua= x_poppa, y_prua = y_poppa - ship_dimension
-		// alcune coppie di coordinate potrebbero non essere valide, ma in quel caso AddNavalUnit
-		// restituisce false e si riprova
+		// alcune coppie di coordinate potrebbero non essere valide (ad esempio se si prova a creare una
+		// nave con prua più in alto o più a sinistra della poppa in A1, o se si prova a creare una nave
+		// con prua più in basso o più a destra della poppa in L12)  per questo serve controllarle
+		// prima di inserirle nel vettore
 
-		vector<Coordinates> possible_bows = { Coordinates(stern.x() + (ship_dimension - 1), stern.y()),
-								 Coordinates(stern.x() - (ship_dimension - 1), stern.y()),
-								 Coordinates(stern.x(), static_cast<char>(stern.y() + (ship_dimension - 1))),
-								 Coordinates(stern.x(), static_cast<char>(stern.y() - (ship_dimension - 1))) };
+		vector<Coordinates> possible_bows;
+		                                                                                                                                                                                     
+		// serve static cast a char?
+		if (stern.x() + (ship_dimension - 1) <= kGridSize)
+			possible_bows.push_back(Coordinates(stern.x() + (ship_dimension - 1), stern.y()));
+		if (stern.x() - (ship_dimension - 1) >= 1)
+			possible_bows.push_back(Coordinates(stern.x() - (ship_dimension - 1), stern.y()));
+		if (stern.y() + (ship_dimension - 1) <= 'L')
+			possible_bows.push_back(Coordinates(stern.x(), stern.y() + (ship_dimension - 1)));
+		if (stern.y() - (ship_dimension - 1) >= 'A')
+			possible_bows.push_back(Coordinates(stern.x(), stern.y() - (ship_dimension - 1)));
 
 		int casual_index_bows = NumberGenerator(possible_bows.size());
 

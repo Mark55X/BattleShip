@@ -71,6 +71,7 @@ using battle_ships::ComputerPlayer;
 */
 
 void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type);
+void InsertComputerNavalUnit(GameManager& game, const NavalUnitType type, PlayerNumber player_number);
 
 int main(int argc, char** argv)
 {
@@ -173,6 +174,40 @@ void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type)
 			if (!correct) {
 				cout << "Errore nell'inserimento..." << endl;
 			}	
+		}
+	}
+}
+
+// in questo caso va passato anche il PlayerNumber perché in caso di partita computer vs computer questa
+// funzione va chiamata sia per il PlayerOne che per il PlayerTwo
+// TODO: Va stampato a video ogni volta che il computer mette una nave o no? In caso vanno messi dei cout
+// TODO: Va passato anche un oggetto di tipo ComputerPlayer????
+void InsertComputerNavalUnit(GameManager& game, const NavalUnitType type, PlayerNumber player_number)
+{
+	string coordinates = "";
+	int max_number = 0;
+	switch (type) {
+	case NavalUnitType::BattleShip:
+		max_number = game.kBattleShipNumber;
+		break;
+	case NavalUnitType::SupportShip:
+		max_number = game.kSupportShipNumber;
+		break;
+	case NavalUnitType::Submarine:
+		max_number = game.kSubmarineNumber;
+		break;
+	}
+
+	for (int i = 1; i <= max_number; i++) {
+		bool correct = false;
+		while (!correct) {
+			// coordinates = ComputerPlayer::InsertCoordinatesGenerator(type);
+			// andrebbe chiamata con un oggetto di tipo ComputerPlayer
+			correct = game.AddNavalUnit(coordinates, type, player_number);
+			if (correct) {
+				// ComputerPlayer::MemorizeCentreCoordinates(coordinates);
+				// va chiamata con un oggetto di tipo ComputerPlayer
+			}
 		}
 	}
 }
