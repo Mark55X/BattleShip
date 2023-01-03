@@ -11,6 +11,7 @@
 #include "naval_unit.h"
 #include "command.h"
 #include "enums.h"
+#include "game_response.h"
 
 using std::vector;
 
@@ -48,7 +49,7 @@ namespace battle_ships {
 		bool CheckCellLength(const NavalUnitType unit_type, int cell_length);
 	};
 
-	bool ExecCommand(const Command& command, Player& current_player, Player& enemy_player);
+	GameResponse ExecCommand(const Command& command, Player& current_player, Player& enemy_player);
 
 } // namespace battle_ships
 

@@ -8,6 +8,7 @@
 #include "coordinates.h"
 #include "grid.h"
 #include "command.h"
+#include "game_response.h"
 
 namespace battle_ships {
 
@@ -44,7 +45,7 @@ namespace battle_ships {
 		// Una Unità navale può compiere un'azione in base
 		// al tipo di unità. Non è possibile definire tale comportamento
 		// in questa classe
-		virtual bool Action(const Command& command,
+		virtual GameResponse Action(const Command& command,
 							Player& current_player,
 							Player& enemy_player)  = 0;
 

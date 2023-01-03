@@ -33,6 +33,7 @@ namespace battle_ships {
 		bool RemoveCoordinates(Coordinates& coordinates);
 		bool SetCoordinates(Coordinates& old_coordinates, Coordinates& new_coordinates);
 
+
 	private:
 		vector<Coordinates> ships_centre_coordinates_;
 		static constexpr int kGridSize = 12; // Da spostare TODO

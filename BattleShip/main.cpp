@@ -13,6 +13,7 @@
 #include <vector>
 #include "computer_player.h"
 #include "game_response.h"
+#include "coordinates.h"
 
 using std::cout;
 using std::endl;
@@ -23,6 +24,7 @@ using battle_ships::PlayerNumber;
 using battle_ships::NavalUnitType;
 using battle_ships::ComputerPlayer;
 using battle_ships::GameResponse;
+using battle_ships::Coordinates;
 
 /*
 * Pensieri miei abbastanza profondi da scrivere nel readme.TXT
@@ -122,41 +124,111 @@ int main(int argc, char** argv)
 	
 
 	// ---------- Solo per test
-	/*game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
-	game.AddNavalUnit("D6 H6", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
-	game.AddNavalUnit("D8 D12", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);*/
+	
+	//game.AddNavalUnit("B6 B10", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	//game.AddNavalUnit("F8 F12", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	//game.AddNavalUnit("D2 H2", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
 
-	//game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
-	//game.AddNavalUnit("E6 I6", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
-	//game.AddNavalUnit("A8 A12", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	//game.AddNavalUnit("A2 A4", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
+	//game.AddNavalUnit("D6 D8", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
+	//game.AddNavalUnit("A12 C12", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
 
-	/*game.AddNavalUnit(p.InsertCoordinatesGenerator(NavalUnitType::BattleShip), NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
-	string s = p.InsertCoordinatesGenerator(NavalUnitType::BattleShip);
-	s = p.InsertCoordinatesGenerator(NavalUnitType::BattleShip);*/
+	//game.AddNavalUnit("L2 L2", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
+	//game.AddNavalUnit("H11 H11", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
 
 	// ------------
 
+	/*
 	InsertPlayerNavalUnit(game, NavalUnitType::BattleShip);
 	InsertPlayerNavalUnit(game, NavalUnitType::SupportShip);
 	InsertPlayerNavalUnit(game, NavalUnitType::Submarine);	
-	
-	ComputerPlayer bot_player;
+	*/
 
-	InsertComputerNavalUnit(game, bot_player, NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
-	InsertComputerNavalUnit(game, bot_player, NavalUnitType::SupportShip, PlayerNumber::PlayerTwo);
-	InsertComputerNavalUnit(game, bot_player, NavalUnitType::Submarine, PlayerNumber::PlayerTwo);
+	ComputerPlayer bot_player_one;
+	ComputerPlayer bot_player_two;
 
+	InsertComputerNavalUnit(game, bot_player_one, NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	InsertComputerNavalUnit(game, bot_player_one, NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
+	InsertComputerNavalUnit(game, bot_player_one, NavalUnitType::Submarine, PlayerNumber::PlayerOne);
+
+	InsertComputerNavalUnit(game, bot_player_two, NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	InsertComputerNavalUnit(game, bot_player_two, NavalUnitType::SupportShip, PlayerNumber::PlayerTwo);
+	InsertComputerNavalUnit(game, bot_player_two, NavalUnitType::Submarine, PlayerNumber::PlayerTwo);
 
 	cout << "*** IL GIOCO E' INIZIATO ***" << endl;
 	string command = "";
-	while (true) {
-		std::getline(std::cin, command);
-		cout << game.ExecCommand(command, PlayerNumber::PlayerOne).content() << endl;
+	bool is_player_one_winner = false;
+	bool is_player_two_winner = false;
+	bool next_shift = false;
 
-		std::getline(std::cin, command);
-		cout << game.ExecCommand(command, PlayerNumber::PlayerTwo).content() << endl;
+	while (!is_player_one_winner && !is_player_two_winner) {
+
+		/*while (!next_shift) {
+			std::getline(std::cin, command);
+			GameResponse response = game.ExecCommand(command, PlayerNumber::PlayerOne);
+			cout << response.content() << endl;
+			next_shift = response.next_shift();
+		}
+		next_shift = false;*/
+		
+		while (!next_shift) {
+			string bot_command = bot_player_one.ActionCoordinatesGenerator();
+			GameResponse response = game.ExecCommand(bot_command, PlayerNumber::PlayerOne);
+
+			int whitespace_index = bot_command.find(" ");
+			Coordinates old_coordinates(bot_command.substr(0, whitespace_index));
+			Coordinates new_coordinates(bot_command.substr(whitespace_index + 1, bot_command.length() - 1));
+
+			if (response.performed_action() == GameResponse::kMoveExploreAction ||
+				response.performed_action() == GameResponse::kMoveRepairAction) {
+				bot_player_one.SetCoordinates(old_coordinates, new_coordinates);
+			}
+			else if (response.error_type() == GameResponse::kIncorrectOrigin) {
+				bot_player_one.RemoveCoordinates(old_coordinates);
+			}
+
+			next_shift = response.next_shift();
+		}
+		next_shift = false;
+
+		is_player_one_winner = game.IsWinner(PlayerNumber::PlayerOne);
+		if (is_player_one_winner)
+			break;
+
+		while (!next_shift) {
+			string bot_command = bot_player_two.ActionCoordinatesGenerator();
+			GameResponse response = game.ExecCommand(bot_command, PlayerNumber::PlayerTwo);
+
+			int whitespace_index = bot_command.find(" ");
+			Coordinates old_coordinates(bot_command.substr(0, whitespace_index));
+			Coordinates new_coordinates(bot_command.substr(whitespace_index + 1, bot_command.length() - 1));
+
+			if (response.performed_action() == GameResponse::kMoveExploreAction ||  
+				response.performed_action() == GameResponse::kMoveRepairAction) {
+				bot_player_two.SetCoordinates(old_coordinates, new_coordinates);
+			}
+			else if (response.error_type() == GameResponse::kIncorrectOrigin) {
+				bot_player_two.RemoveCoordinates(old_coordinates);
+			}
+
+			next_shift = response.next_shift();
+		}
+		next_shift = false;
+
+		is_player_two_winner = game.IsWinner(PlayerNumber::PlayerTwo);
+		
 	}
 	
+	if (is_player_one_winner)
+		cout << "VINCITORE GIOCATORE UNO!";
+	else
+		cout << "VINCITORE GIOCATORE DUE!";
+
+	/*
+		*  Solo per test player2
+		std::getline(std::cin, command);
+		cout << game.ExecCommand(command, PlayerNumber::PlayerTwo).content() << endl;
+		*/
 }
 
 void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type)
@@ -166,11 +238,11 @@ void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type)
 	int max_number = 0;
 	switch (type) {
 	case NavalUnitType::BattleShip : 
-		output_text = "Quali sono le coordinate per la corazzata";
+		output_text = "Quali sono le coordinate per la corazzata ";
 		max_number = game.kBattleShipNumber;
 		break;
 	case NavalUnitType::SupportShip:
-		output_text = "Quali sono le coordinate per la nave di supporto";
+		output_text = "Quali sono le coordinate per la nave di supporto ";
 		max_number = game.kSupportShipNumber;
 		break;
 	case NavalUnitType::Submarine:
@@ -180,7 +252,7 @@ void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type)
 	}
 
 	for (int i = 1; i <= max_number; i++) {
-		cout << "Quali sono le coordinate per la corazzata " << i << " : " << endl;
+		cout << output_text << i << " : " << endl;
 		bool correct = false;
 		while (!correct) {
 			std::getline(std::cin, coordinates);

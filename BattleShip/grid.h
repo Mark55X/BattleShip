@@ -28,8 +28,10 @@ namespace battle_ships {
 		// (ogni cella contiene in realtà uno spazio vuoto ' ')
 		Grid();
 		bool AddRangeCells(char value, const Coordinates& start, const Coordinates& finish);
-		bool RemoveRangeCells(const Coordinates& start, const Coordinates& finish);
-		bool EditCell(char value, const Coordinates& cell);
+		void RemoveRangeCells(const Coordinates& start, const Coordinates& finish);
+		bool MoveRangeCells(const Coordinates& origin_start, const Coordinates& origin_finish,
+							const Coordinates& target_start, const Coordinates& target_finish);
+		void EditCell(char value, const Coordinates& cell);
 		char GetCellValue(const Coordinates& coordinates);
 		string Display() const;
 		
@@ -38,8 +40,9 @@ namespace battle_ships {
 			InvalidCellGridException(string msg) : std::invalid_argument(msg) {}
 		};
 
-	private:
 		static constexpr int kGridSize = 12;
+
+	private:
 		char grid_[kGridSize][kGridSize];
 
 		void ValidateCoordinates(const Coordinates& coordinates) const;

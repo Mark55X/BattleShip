@@ -22,8 +22,8 @@ namespace battle_ships {
             cell_length = abs(start.x() - finish.x()) + 1;
         }
         else {
-            centre_x = (start.y() + finish.y()) / 2;
-            centre_y = start.x();
+            centre_y = (start.y() + finish.y()) / 2;
+            centre_x = start.x();
             cell_length = abs(start.y() - 'A' - finish.y() + 'A') + 1;
         }
 
@@ -48,22 +48,6 @@ namespace battle_ships {
 
         return GameResponse(true);
     }
-
-   /* bool Player::ExecCommand(const Command& command, Grid& enemy_defence_grid)
-    {
-        Coordinates origin = command.origin();         
-
-        auto iter = std::find_if(naval_units_.begin(), naval_units_.end(),
-             [origin] (const std::unique_ptr<NavalUnit>& a) {
-                 return a->centre_coordinates() == origin;
-             });
-         
-        if (iter != naval_units_.end()) {
-            return (*iter)->Action(command, defence_grid_, enemy_defence_grid, attack_grid_, *this);
-        }
-         
-        return false;
-    }*/
 
     bool Player::IsLoser()
     {
@@ -134,7 +118,7 @@ namespace battle_ships {
         }
     }
 
-    bool ExecCommand(const Command& command, Player& current_player, Player& enemy_player)
+    GameResponse ExecCommand(const Command& command, Player& current_player, Player& enemy_player)
     {
         Coordinates origin = command.origin();
 
@@ -148,7 +132,8 @@ namespace battle_ships {
            return (*iter)->Action(command, current_player, enemy_player);
         }
 
-        return false;
+        return GameResponse(false, "Coordinata origin [" + to_string(origin) + "] non "
+            "corrisponde ad una cella centrale di una nave", false, "", GameResponse::kIncorrectOrigin);
     }
 }
 

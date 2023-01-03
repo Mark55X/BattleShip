@@ -51,28 +51,36 @@ namespace battle_ships {
 			return GameResponse(true, "", false);
 		}
 
-		// TODO: O uso GameResponse oppure Ecezzione
-		if (!ValidateCommand(cmd_str)) return GameResponse(false, "Il Comando non è valido", false);
-	
-		int whitespace_index = cmd_str.find(" ");
-		Coordinates origin(cmd_str.substr(0, whitespace_index));
-		Coordinates target(cmd_str.substr(whitespace_index + 1, cmd_str.length() - 1));
-		
-		bool statusExecution = true;
-		switch (player) {
-		case PlayerOne: statusExecution = battle_ships::ExecCommand(Command(origin, target), first_player_, second_player_ );
-				break;
-		case PlayerTwo: statusExecution = battle_ships::ExecCommand(Command(origin, target), second_player_, first_player_);
-				break;
-		}	
-
-		if (statusExecution) {
-			// TODO LOGGER DA SBLOCCARE
-		/*	string str_log = "Player" + std::to_string(player) + ":" + cmd_str;
-			logger_.Log(str_log);*/
+		if (!ValidateCommand(cmd_str)) {
+			return GameResponse(false, "Comando non valido.", false);
 		}
 
-		return GameResponse(statusExecution, "sos", true);
+		try {
+			int whitespace_index = cmd_str.find(" ");
+			Coordinates origin(cmd_str.substr(0, whitespace_index));
+			Coordinates target(cmd_str.substr(whitespace_index + 1, cmd_str.length() - 1));
+
+			GameResponse response(true);
+			switch (player) {
+			case PlayerOne: response = battle_ships::ExecCommand(Command(origin, target), first_player_, second_player_);
+				break;
+			case PlayerTwo: response = battle_ships::ExecCommand(Command(origin, target), second_player_, first_player_);
+				break;
+			}
+
+			if (response.status()) {
+				// TODO LOGGER DA SBLOCCARE
+			    string str_log = "Player" + std::to_string(player) + ":" + cmd_str;
+				logger_.Log(str_log);
+			}
+
+			return response;
+		}
+		catch (std::exception exception) {
+			return GameResponse(false, exception.what(), false);
+
+		}
+		
 	}
 
 	bool GameManager::IsWinner(const PlayerNumber player)

@@ -8,7 +8,7 @@ namespace battle_ships {
 	{}
 
 	
-	bool BattleShip::Action(const Command& command,
+	GameResponse BattleShip::Action(const Command& command,
 							Player& current_player, 
 							Player& enemy_player) 
 	{	
@@ -18,8 +18,18 @@ namespace battle_ships {
 		Grid& attack_grid = current_player.attack_grid();
 
 		char value = enemy_defence_grid.GetCellValue(target);
+
+		string game_response_content = "Eseguita azione FUOCO da [" + to_string(command.origin()) + 
+										"] a [" + to_string(command.target()) + "] con esito: ";
+
 		if (value == ' ') {
-			return attack_grid.EditCell('O', target);
+			attack_grid.EditCell('O', target);
+			game_response_content += "acqua!";
+			return GameResponse(true, game_response_content, true, GameResponse::kFireAction);
+		}
+		else if (islower(value)) {
+			game_response_content += "già colpito!";
+			return GameResponse(true, game_response_content, true, GameResponse::kFireAction);
 		}
 		else if (isupper(value)) {
 
@@ -30,14 +40,17 @@ namespace battle_ships {
 			auto& enemy_units = enemy_player.naval_units();
 			auto iter = std::find_if(enemy_units.begin(), enemy_units.end(),
 				[target](const std::unique_ptr<NavalUnit>& unit) {
-					int target_coordinate = unit->direction() ? target.x() : target.y();
 
+					int target_coordinate = unit->direction() ? target.x() : target.y();
 					Coordinates centre_coordinate = unit->centre_coordinates();
 					int coordinate = unit->direction() ? centre_coordinate.x() : centre_coordinate.y();
+					bool check = unit->direction() ? (target.y() == centre_coordinate.y()) : 
+													 (target.x() == centre_coordinate.x());
 
 					int range = unit->size() / 2;
-					return target_coordinate >= coordinate - range &&
-						target_coordinate <= coordinate + range;
+					return target_coordinate >= (coordinate - range) &&
+						   target_coordinate <= (coordinate + range) && 
+						   check;
 				});
 
 			if (iter == enemy_units.end()) {
@@ -64,14 +77,18 @@ namespace battle_ships {
 				}
 			
 				enemy_units.erase(iter);
+
+				game_response_content += "colpito e affondato!";
 			}
 			else {
-				if (!enemy_defence_grid.EditCell(static_cast<char>(tolower(value)), target))
-					return false; // POSSIBILE TRY-CATCH CON ROLLBACK??
+				enemy_defence_grid.EditCell(static_cast<char>(tolower(value)), target);
+
+				game_response_content += "colpito!";
 			}
 		}
 
-		return attack_grid.EditCell('X', target);
+		attack_grid.EditCell('X', target);
+		return GameResponse(true,game_response_content, true, GameResponse::kFireAction);
 	}
 }
 

@@ -18,7 +18,7 @@ namespace battle_ships {
 	public:
 		SupportShip(Coordinates centre_coordinates, bool direction);
 
-		bool Action(const Command& command, 
+		GameResponse Action(const Command& command,
 					Player& current_player,
 					Player& enemy_player)  override;
 

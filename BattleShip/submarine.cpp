@@ -10,7 +10,7 @@ namespace battle_ships {
 	{}
 
 
-	bool Submarine::Action(const Command& command, 
+	GameResponse Submarine::Action(const Command& command,
 						   Player& current_player,
 						   Player& enemy_player) 
 	{
@@ -22,12 +22,12 @@ namespace battle_ships {
 		Grid& attack_grid = current_player.attack_grid();
 
 		//Move
-		if (!defence_grid.EditCell(static_cast<char>(NavalUnitType::Submarine), target))
-			return false;
-
-		if (!defence_grid.EditCell(' ', centre_coordinates()))
-			return false;
-
+		if (defence_grid.GetCellValue(target) != ' ') {
+			return GameResponse(false, "Impossibile muovere il sottomarino nella cella [" +to_string(target) + 
+										"] : e' gia' occupata", false);
+		}
+		defence_grid.EditCell(static_cast<char>(NavalUnitType::Submarine), target);
+		defence_grid.EditCell(' ', centre_coordinates());
 		set_centre_coordinates(target);
 
 		//Action
@@ -51,6 +51,8 @@ namespace battle_ships {
 				}
 			}
 		}
+		return GameResponse(true,"Sottomarino spostato in cella [" + to_string(target) +
+			"] ed eseguita azione CERCA",true, GameResponse::kMoveExploreAction);
 	}
 }
 
