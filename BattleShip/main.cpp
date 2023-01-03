@@ -12,6 +12,7 @@
 #include <random>
 #include <vector>
 #include "computer_player.h"
+#include "game_response.h"
 
 using std::cout;
 using std::endl;
@@ -21,6 +22,7 @@ using battle_ships::GameManager;
 using battle_ships::PlayerNumber;
 using battle_ships::NavalUnitType;
 using battle_ships::ComputerPlayer;
+using battle_ships::GameResponse;
 
 /*
 * Pensieri miei abbastanza profondi da scrivere nel readme.TXT
@@ -71,7 +73,10 @@ using battle_ships::ComputerPlayer;
 */
 
 void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type);
-void InsertComputerNavalUnit(GameManager& game, const NavalUnitType type, PlayerNumber player_number);
+void InsertComputerNavalUnit(GameManager& game, 
+							 ComputerPlayer& computer_player, 
+							 const NavalUnitType type, 
+							 PlayerNumber player_number);
 
 int main(int argc, char** argv)
 {
@@ -114,24 +119,33 @@ int main(int argc, char** argv)
 	cout << "   d) CC CC: ?? " << endl << endl << endl;
 
 	cout << "*** POSIZIONAMENTO DELLE UNITA' NAVALI ***" << endl;
-	//InsertPlayerNavalUnit(game, NavalUnitType::BattleShip);
-	//InsertPlayerNavalUnit(game, NavalUnitType::SupportShip);
-	//InsertPlayerNavalUnit(game, NavalUnitType::Submarine);
+	
 
 	// ---------- Solo per test
-	game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	/*game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
 	game.AddNavalUnit("D6 H6", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
-	game.AddNavalUnit("D8 D12", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	game.AddNavalUnit("D8 D12", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);*/
 
 	//game.AddNavalUnit("A1 A5", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
 	//game.AddNavalUnit("E6 I6", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
 	//game.AddNavalUnit("A8 A12", NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
-	ComputerPlayer p;
-	game.AddNavalUnit(p.InsertCoordinatesGenerator(NavalUnitType::BattleShip), NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+
+	/*game.AddNavalUnit(p.InsertCoordinatesGenerator(NavalUnitType::BattleShip), NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
 	string s = p.InsertCoordinatesGenerator(NavalUnitType::BattleShip);
-	s = p.InsertCoordinatesGenerator(NavalUnitType::BattleShip);
+	s = p.InsertCoordinatesGenerator(NavalUnitType::BattleShip);*/
 
 	// ------------
+
+	InsertPlayerNavalUnit(game, NavalUnitType::BattleShip);
+	InsertPlayerNavalUnit(game, NavalUnitType::SupportShip);
+	InsertPlayerNavalUnit(game, NavalUnitType::Submarine);	
+	
+	ComputerPlayer bot_player;
+
+	InsertComputerNavalUnit(game, bot_player, NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);
+	InsertComputerNavalUnit(game, bot_player, NavalUnitType::SupportShip, PlayerNumber::PlayerTwo);
+	InsertComputerNavalUnit(game, bot_player, NavalUnitType::Submarine, PlayerNumber::PlayerTwo);
+
 
 	cout << "*** IL GIOCO E' INIZIATO ***" << endl;
 	string command = "";
@@ -170,9 +184,10 @@ void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type)
 		bool correct = false;
 		while (!correct) {
 			std::getline(std::cin, coordinates);
-			correct = game.AddNavalUnit(coordinates, type, PlayerNumber::PlayerOne);
+			GameResponse response = game.AddNavalUnit(coordinates, type, PlayerNumber::PlayerOne);
+			correct = response.status();
 			if (!correct) {
-				cout << "Errore nell'inserimento..." << endl;
+				cout << response.content() << endl;
 			}	
 		}
 	}
@@ -182,7 +197,10 @@ void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type)
 // funzione va chiamata sia per il PlayerOne che per il PlayerTwo
 // TODO: Va stampato a video ogni volta che il computer mette una nave o no? In caso vanno messi dei cout
 // TODO: Va passato anche un oggetto di tipo ComputerPlayer????
-void InsertComputerNavalUnit(GameManager& game, const NavalUnitType type, PlayerNumber player_number)
+void InsertComputerNavalUnit(GameManager& game, 
+							 ComputerPlayer& computer_player, 
+							 const NavalUnitType type, 
+							 PlayerNumber player_number)
 {
 	string coordinates = "";
 	int max_number = 0;
@@ -201,12 +219,11 @@ void InsertComputerNavalUnit(GameManager& game, const NavalUnitType type, Player
 	for (int i = 1; i <= max_number; i++) {
 		bool correct = false;
 		while (!correct) {
-			// coordinates = ComputerPlayer::InsertCoordinatesGenerator(type);
-			// andrebbe chiamata con un oggetto di tipo ComputerPlayer
-			correct = game.AddNavalUnit(coordinates, type, player_number);
+			coordinates = computer_player.InsertCoordinatesGenerator(type);
+			GameResponse response = game.AddNavalUnit(coordinates, type, player_number);
+			correct = response.status();
 			if (correct) {
-				// ComputerPlayer::MemorizeCentreCoordinates(coordinates);
-				// va chiamata con un oggetto di tipo ComputerPlayer
+				computer_player.MemorizeCentreCoordinates(coordinates);
 			}
 		}
 	}

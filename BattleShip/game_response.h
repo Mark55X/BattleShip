@@ -15,11 +15,14 @@ namespace battle_ships {
 	class GameResponse {
 
 	public:
-		GameResponse(bool status, string content, bool next_shift = true) : 
+		GameResponse(bool status, string content = "", bool next_shift = true) :
 			status_{ status },
 			content_{ content }, 
 			next_shift_{ next_shift }{}
 		
+		GameResponse(GameResponse&& response) = default;
+		GameResponse& operator=(GameResponse&& response) = default;
+
 		// Getters
 		string& content() { return content_; }
 		bool& status() { return status_; }

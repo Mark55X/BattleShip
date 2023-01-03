@@ -5,10 +5,11 @@
 #include "battle_ship.h"
 #include "submarine.h"
 #include "support_ship.h"
+#include "game_response.h"
 
 namespace battle_ships {
 
-    bool Player::AddNavalUnit(const Coordinates& start, 
+    GameResponse Player::AddNavalUnit(const Coordinates& start, 
                               const Coordinates& finish, 
                               const NavalUnitType unit_type)
     {
@@ -27,10 +28,10 @@ namespace battle_ships {
         }
 
         if (!CheckCellLength(unit_type, cell_length))
-            return false;
-
+            return GameResponse(false, "Errore! Il numero di celle per la nave inserita è sbagliato. Ritenta" , false);
+            
         if (!defence_grid_.AddRangeCells(static_cast<char>(unit_type), start, finish))
-            return false;
+            return GameResponse(false, "Errore! Tra poppa e prua sono presenti altre navi. Ritenta", false);
     
         Coordinates centre(centre_x, centre_y);
         switch (unit_type) {
@@ -45,7 +46,7 @@ namespace battle_ships {
             break;
         }
 
-        return true;
+        return GameResponse(true);
     }
 
    /* bool Player::ExecCommand(const Command& command, Grid& enemy_defence_grid)

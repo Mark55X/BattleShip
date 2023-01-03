@@ -42,7 +42,7 @@ namespace battle_ships {
 		static constexpr int kGridSize = 12;
 		char grid_[kGridSize][kGridSize];
 
-		bool ValidateCoordinates(const Coordinates& coordinates) const;
+		void ValidateCoordinates(const Coordinates& coordinates) const;
 		bool CheckRangeCoordinates(const Coordinates& start, const Coordinates& finish) const;
 		int GetCellCoordinateX(const Coordinates& coordinates) const;
 		int GetCellCoordinateY(const Coordinates& coordinates) const;

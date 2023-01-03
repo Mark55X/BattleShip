@@ -6,21 +6,29 @@ using std::regex;
 
 namespace battle_ships {
 
-	bool GameManager::AddNavalUnit(const string& coordinates, 
-								   const NavalUnitType unit_type, 
-								   const PlayerNumber player)
+	GameResponse GameManager::AddNavalUnit(const string& coordinates, 
+										   const NavalUnitType unit_type, 
+										   const PlayerNumber player)
 	{
+		try {
 
-		if (!ValidateCommand(coordinates)) return false;
-		int whitespace_index = coordinates.find(" ");
-		Coordinates start(coordinates.substr(0, whitespace_index));
-		Coordinates finish(coordinates.substr(whitespace_index + 1, coordinates.length() - 1));
+			if (!ValidateCommand(coordinates)) {
+				return GameResponse(false, "Comando non valido. Deve essere del formato: XN XN," 
+					"dove X è l'ordinata della griglia (carattere), e N è l'ascissa della griglia (numero)", false);
+			}
 
-		switch (player) {
-			case PlayerOne: return first_player_.AddNavalUnit(start,finish, unit_type);
+			int whitespace_index = coordinates.find(" ");
+			Coordinates start(coordinates.substr(0, whitespace_index));
+			Coordinates finish(coordinates.substr(whitespace_index + 1, coordinates.length() - 1));
+
+			switch (player) {
+			case PlayerOne: return first_player_.AddNavalUnit(start, finish, unit_type);
 			case PlayerTwo: return second_player_.AddNavalUnit(start, finish, unit_type);
+			}
 		}
-
+		catch (std::exception ex) {
+			return GameResponse(false, ex.what(), false);
+		}
 	}
 
 	GameResponse GameManager::ExecCommand(const string& command, const PlayerNumber player)

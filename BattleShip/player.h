@@ -22,9 +22,9 @@ namespace battle_ships {
 	class Player {
 
 	public:
-		bool AddNavalUnit(const Coordinates& start, 
-						  const Coordinates& finish,
-						 const NavalUnitType unit_type);
+		GameResponse AddNavalUnit(const Coordinates& start, 
+								  const Coordinates& finish,
+								  const NavalUnitType unit_type);
 
 		bool IsLoser();
 		string Display() const;

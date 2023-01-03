@@ -28,7 +28,7 @@ namespace battle_ships {
 
 	public:
 
-		bool AddNavalUnit(const string& coordinates, 
+		GameResponse AddNavalUnit(const string& coordinates,
 						  const NavalUnitType unit_type, 
 						  const PlayerNumber player);
 
