@@ -163,12 +163,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="naval_unit.cpp" />
     <ClCompile Include="player.cpp" />
-    <ClCompile Include="replay_2.cpp" />
+    <ClCompile Include="replay.cpp" />
     <ClCompile Include="submarine.cpp" />
     <ClCompile Include="support_ship.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="log-BattleShip1672849926.txt" />
+    <Text Include="..\..\..\Log_importanti\log-BattleShip1672926139.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

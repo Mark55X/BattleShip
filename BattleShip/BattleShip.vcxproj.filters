@@ -89,12 +89,12 @@
     <ClCompile Include="computer_player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="replay_2.cpp">
+    <ClCompile Include="replay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="log-BattleShip1672849926.txt">
+    <Text Include="..\..\..\Log_importanti\log-BattleShip1672926139.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>
