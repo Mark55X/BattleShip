@@ -1,6 +1,6 @@
 // NavalUnit Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Marco Stefani
+// Author: Anna Albertin
 
 #ifndef naval_unit_h
 #define naval_unit_h
@@ -12,7 +12,7 @@
 
 namespace battle_ships {
 
-	class Player;
+	class Player; // forward - reference
 
 	// Classe virtuale pura NavalUnit
 	// Rappresenta un unità navale all'interno del gioco
@@ -23,7 +23,7 @@ namespace battle_ships {
 	//	 3. Le coordinate del centro (centre_coordinates), importanti perché
 	//		rappresentano la nave nel momento in cui essa deve compiere un'azione
 	//   4. L'orientamento (direction), rappresentato con una variabile booleana,
-	//		che può essere verticale (true) o orizzontale (false) ?????????????
+	//		che può essere verticale (true) o orizzontale (false)
 	class NavalUnit {
 
 	public:
@@ -39,12 +39,14 @@ namespace battle_ships {
 		Coordinates centre_coordinates() const { return centre_coordinates_; }
 		bool direction() const { return direction_; }
 
+		// setters
 		void set_shield(int value) { shield_ = value; }
 		void set_centre_coordinates(Coordinates coordinates) { centre_coordinates_ = coordinates; }
 
 		// Una Unità navale può compiere un'azione in base
 		// al tipo di unità. Non è possibile definire tale comportamento
-		// in questa classe
+		// in questa classe.  
+		// Ritorna una GameResponse con lo stato dell'esecuzione
 		virtual GameResponse Action(const Command& command,
 							Player& current_player,
 							Player& enemy_player)  = 0;

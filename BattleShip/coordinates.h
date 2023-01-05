@@ -1,6 +1,6 @@
 // Coordinates Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Marco Stefani
+// Author: Giulia Selvestrel
 
 #ifndef coordinates_h
 #define coordinates_h

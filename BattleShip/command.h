@@ -1,6 +1,6 @@
 // Command Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Marco Stefani
+// Author: Anna Albertin
 
 #ifndef command_h
 #define command_h

@@ -18,23 +18,58 @@ using battle_ships::Coordinates;
 namespace battle_ships {
 
 	// Classe Grid
-	// Rappresenta una griglia di gioco
-	// Possiede :
-	//   1. Una matrice (grid) che rappresenta la griglia quadrata 12x12 del gioco
+	// Rappresenta una griglia generica di gioco
 	class Grid {
 
 	public:
 		// Costruttore: crea una griglia di gioco 12x12 inizialmente vuota
 		// (ogni cella contiene in realtà uno spazio vuoto ' ')
 		Grid();
+
+		// Funzioni di gestione dei dati nella griglia
+
+		// Funzione AddRangeCells
+		// Inserisce un determinato valore in tutte le coordinate da quella 
+		// iniziale a quella finale (se tutte le celle sono disponibili)
+		// Parametri: 
+		// - value: valore da inserire
+		// - start: coordinata iniziale
+		// - finish: coordinata finale
 		bool AddRangeCells(char value, const Coordinates& start, const Coordinates& finish);
+
+		// Funzione RemoveRangeCells
+		// Rimuove un determinato valore in tutte le coordinate da quella 
+		// iniziale a quella finale
+		// Parametri: 
+		// - start: coordinata iniziale
+		// - finish: coordinata finale
 		void RemoveRangeCells(const Coordinates& start, const Coordinates& finish);
+
+		// Funzione MoveRangeCells
+		// Sposta i valori delle celle Range: [origin_finish, origin_finish] 
+		// a  [target_start, target_finish] solo se le celle target sono vuote
 		bool MoveRangeCells(const Coordinates& origin_start, const Coordinates& origin_finish,
 							const Coordinates& target_start, const Coordinates& target_finish);
+
+		// Funzione EditCell
+		// Modifica il valore di una determinata cella
+		// Parametri:
+		// - value : nuovo valore
+		// - cell: coordianata della cella da modificare
 		void EditCell(char value, const Coordinates& cell);
+
+		// Funzione GetCellValue
+		// Ritorna il valore di una determinata cella
+		// - coordinates: coordianata della cella da ispezionare
 		char GetCellValue(const Coordinates& coordinates);
+
+		// Funzione Display
+		// Ritorna una stringa con la configurazione della griglia
 		string Display() const;
 		
+		// Classe InvalidCellGridException
+		// Eccezione che descrive l'invalidità della cella di una griglia 
+		// (esempio: coordinata per la griglia non valida)
 		class InvalidCellGridException : public std::invalid_argument {
 		public:
 			InvalidCellGridException(string msg) : std::invalid_argument(msg) {}
@@ -43,11 +78,25 @@ namespace battle_ships {
 		static constexpr int kGridSize = 12;
 
 	private:
+		// Matrice quadrata contenente i dati
 		char grid_[kGridSize][kGridSize];
 
+		// Funzione ValidateCoordinates
+		// Valida le coordinate passate come parametro
+		// Se non sono corrette lancia eccezione InvalidCellGridException
 		void ValidateCoordinates(const Coordinates& coordinates) const;
+
+		// Funzione CheckRangeCoordinates
+		// Restituisce true solo se tutte le celle che stanno nel range [start,finish]
+		// sono celle vuote
 		bool CheckRangeCoordinates(const Coordinates& start, const Coordinates& finish) const;
+
+		// Funzione GetCellCoordinateX
+		// Data una coordinata, ritorna l'indice x per accedere alla matrice
 		int GetCellCoordinateX(const Coordinates& coordinates) const;
+
+		// Funzione GetCellCoordinateY
+		// Data una coordinata, ritorna l'indice y per accedere alla matrice
 		int GetCellCoordinateY(const Coordinates& coordinates) const;
 
 	};

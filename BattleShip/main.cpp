@@ -1,6 +1,6 @@
 // Main
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Marco Stefani
+// Author: Giulia Selvestrel
 
 #include "game_manager.h";
 

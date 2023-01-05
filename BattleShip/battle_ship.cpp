@@ -1,4 +1,9 @@
+// BattleShip
+// Style Guide: https://google.github.io/styleguide/cppguide.html
+// Author: Anna Albertin
+
 #include "battle_ship.h"
+
 #include "player.h"
 
 namespace battle_ships {

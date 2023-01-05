@@ -40,7 +40,7 @@ namespace battle_ships {
 		//  
 		// Ritorna una GameResponse che può indicare errore se le coordinate inserite
 		// non sono valide (celle già occupate oppure lunghezza tra poppa e prua non 
-		// conforme alla lunghezza dell'unità navale da inserire
+		// conforme alla lunghezza dell'unità navale da inserire)
 		GameResponse AddNavalUnit(const string& coordinates,
 						  const NavalUnitType unit_type, 
 						  const PlayerNumber player);

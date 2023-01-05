@@ -1,6 +1,6 @@
-// BattleShip Header
+// Submarine Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Marco Stefani
+// Author: Anna Albertin
 
 #ifndef submarine_h
 #define submarine_h

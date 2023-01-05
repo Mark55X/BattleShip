@@ -1,3 +1,6 @@
+// Submarine 
+// Style Guide: https://google.github.io/styleguide/cppguide.html
+// Author: Anna Albertin
 #include "submarine.h"
 
 #include "enums.h"

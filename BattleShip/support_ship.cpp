@@ -1,3 +1,7 @@
+// SupportShip
+// Style Guide: https://google.github.io/styleguide/cppguide.html
+// Author: Giulia Selvestrel
+
 #include "support_ship.h"
 #include "player.h"
 

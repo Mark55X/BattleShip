@@ -1,6 +1,6 @@
 // GameResponse Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Marco Stefani
+// Author: Anna Albertin
 
 #ifndef game_response_h
 #define game_response_h

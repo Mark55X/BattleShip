@@ -1,6 +1,6 @@
 // BattleShip Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Marco Stefani
+// Author: Anna Albertin
 
 #ifndef battle_ship_h
 #define battle_ship_h
@@ -17,6 +17,7 @@ namespace battle_ships {
 
 	public:
 		BattleShip(Coordinates centre_coordinates, bool direction);
+
 		GameResponse Action(const Command& command,
 					Player& current_player,
 					Player& enemy_player)  override;

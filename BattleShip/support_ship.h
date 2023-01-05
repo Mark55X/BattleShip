@@ -1,6 +1,6 @@
-// BattleShip Header
+// SupportShip Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Marco Stefani
+// Author: Giulia Selvestrel
 
 #ifndef support_ship_h
 #define support_ship_h

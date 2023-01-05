@@ -1,4 +1,9 @@
+// Grid
+// Style Guide: https://google.github.io/styleguide/cppguide.html
+// Author: Giulia Selvestrel
+
 #include "grid.h"
+
 #include <iostream>
 
 namespace battle_ships {

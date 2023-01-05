@@ -1,3 +1,7 @@
+// Enum Header
+// Style Guide: https://google.github.io/styleguide/cppguide.html
+// Author: Marco Stefani
+
 #ifndef enums_h
 #define enums_h
 

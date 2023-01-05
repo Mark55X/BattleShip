@@ -1,3 +1,7 @@
+// Player
+// Style Guide: https://google.github.io/styleguide/cppguide.html
+// Author: Marco Stefani
+
 #include "player.h"
 
 #include <memory>

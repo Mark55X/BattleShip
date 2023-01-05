@@ -1,3 +1,7 @@
+// Coordinates
+// Style Guide: https://google.github.io/styleguide/cppguide.html
+// Author: Giulia Selvestrel
+
 #include "coordinates.h"
 
 namespace battle_ships {

@@ -1,3 +1,7 @@
+// GameManager
+// Style Guide: https://google.github.io/styleguide/cppguide.html
+// Author: Marco Stefani
+
 #include "game_manager.h"
 
 #include <regex> 
