@@ -32,7 +32,7 @@ namespace battle_ships {
 		string ActionCoordinatesGenerator();
 		bool RemoveCoordinates(Coordinates& coordinates);
 		bool SetCoordinates(Coordinates& old_coordinates, Coordinates& new_coordinates);
-
+		int GetCoordinatesNumber() { return ships_centre_coordinates_.size(); }
 
 	private:
 		vector<Coordinates> ships_centre_coordinates_;

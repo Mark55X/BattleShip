@@ -89,5 +89,13 @@
     <ClCompile Include="computer_player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="replay_2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="log-BattleShip1672849926.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

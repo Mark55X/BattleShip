@@ -21,10 +21,22 @@ namespace battle_ships {
 			Coordinates start(coordinates.substr(0, whitespace_index));
 			Coordinates finish(coordinates.substr(whitespace_index + 1, coordinates.length() - 1));
 
+			GameResponse response(true);
 			switch (player) {
-			case PlayerOne: return first_player_.AddNavalUnit(start, finish, unit_type);
-			case PlayerTwo: return second_player_.AddNavalUnit(start, finish, unit_type);
+			case PlayerOne: response = first_player_.AddNavalUnit(start, finish, unit_type);
+				break;
+			case PlayerTwo: response = second_player_.AddNavalUnit(start, finish, unit_type);
+				break;
 			}
+			char type = (char)unit_type;
+			if (response.status() == true) {
+				string str_log = "ADD-";
+				str_log.push_back(type);
+				str_log += "|Player" + std::to_string(player) + ":" + coordinates;
+				logger_.Log(str_log);
+			}
+
+			return response;
 		}
 		catch (std::exception ex) {
 			return GameResponse(false, ex.what(), false);
@@ -36,7 +48,6 @@ namespace battle_ships {
 		string cmd_str = command;
 		cmd_str = std::regex_replace(cmd_str, std::regex("\\s+$"), std::string(""));
 		cmd_str = std::regex_replace(cmd_str, std::regex("^\\s+"), std::string(""));
-
 		if (cmd_str == kCommandDisplay) {
 			 string conf = (player == PlayerOne) ? first_player_.Display() : second_player_.Display();
 			 return GameResponse(true, conf, false);
@@ -70,7 +81,7 @@ namespace battle_ships {
 
 			if (response.status()) {
 				// TODO LOGGER DA SBLOCCARE
-			    string str_log = "Player" + std::to_string(player) + ":" + cmd_str;
+			    string str_log = "EXEC|Player" + std::to_string(player) + ":" + cmd_str;
 				logger_.Log(str_log);
 			}
 
@@ -78,7 +89,6 @@ namespace battle_ships {
 		}
 		catch (std::exception exception) {
 			return GameResponse(false, exception.what(), false);
-
 		}
 		
 	}

@@ -36,7 +36,7 @@ namespace battle_ships {
 		int start_y = (centre.y() - 2 < 'A') ? 'A' : centre.y() - 2;
 
 		int finish_x = (centre.x() + 2 <= 12) ? centre.x() + 2 : 12;
-		int finish_y = (centre.y() + 2 <= 'A' + 12) ? centre.y() + 2 : 'A' + 12;
+		int finish_y = (centre.y() + 2 <= 'A' + 11) ? centre.y() + 2 : 'A' + 11;
 
 		for (int y = start_y; y <= finish_y; y++) {
 			for (int x = start_x; x <= finish_x; x++) {

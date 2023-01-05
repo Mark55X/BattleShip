@@ -1,4 +1,5 @@
 #include "grid.h"
+#include <iostream>
 
 namespace battle_ships {
 
@@ -15,6 +16,7 @@ namespace battle_ships {
 
 	bool Grid::AddRangeCells(char value, const Coordinates& start, const Coordinates& finish)
 	{
+
 		if (!CheckRangeCoordinates(start,finish)) {
 			return false;
 		}
@@ -99,7 +101,7 @@ namespace battle_ships {
 	{
 		ValidateCoordinates(origin_start);
 		ValidateCoordinates(origin_finish);
-
+		
 		if (origin_start.x() != origin_finish.x() && origin_start.y() != origin_finish.y())
 			return false;
 
@@ -154,6 +156,7 @@ namespace battle_ships {
 
 	char Grid::GetCellValue(const Coordinates& coordinates)
 	{
+
 		ValidateCoordinates(coordinates);
 		/*if ((coordinates.x() <= 0 || coordinates.x() > kGridSize)
 			&& (coordinates.y() < 'A' || coordinates.y() > ('A' + kGridSize)))
@@ -217,13 +220,15 @@ namespace battle_ships {
 		if (!(coordinates.x() >= 1 &&
 			coordinates.x() <= kGridSize &&
 			coordinates.y() >= 'A' &&
-			coordinates.y() <= 'A' + kGridSize)) {
+			coordinates.y() < 'A' + kGridSize)) {
 			throw InvalidCellGridException("Coordinata [" + to_string(coordinates) + "] non valida per la griglia [X: 1-12, Y: A-N]");
 		}	
 	}
 
 	bool Grid::CheckRangeCoordinates(const Coordinates& start, const Coordinates& finish) const
 	{
+		//std::cout << "CheckRangeCoordinates" << to_string(start) << to_string(finish) << std::endl;
+
 		ValidateCoordinates(start);
 		ValidateCoordinates(finish);
 

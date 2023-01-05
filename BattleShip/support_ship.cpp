@@ -60,7 +60,7 @@ namespace battle_ships {
 		int start_y = (centre.y() - 1 < 'A') ? 'A' : centre.y() - 1;
 
 		int finish_x = (centre.x() + 1 <= 12) ? centre.x() + 1 : 12;
-		int finish_y = (centre.y() + 1 <= 'A' + 12) ? centre.y() + 1 : 'A' + 12;
+		int finish_y = (centre.y() + 1 <= 'A' + 11) ? centre.y() + 1 : 'A' + 11;
 
 		vector<Coordinates> coordinates;
 
