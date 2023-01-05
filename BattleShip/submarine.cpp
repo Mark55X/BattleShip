@@ -47,7 +47,10 @@ namespace battle_ships {
 
 				char value = enemy_defence_grid.GetCellValue(check_coordinates);
 				if (value != ' ') {
-					attack_grid.EditCell('Y', check_coordinates);
+					if(isupper(value))
+						attack_grid.EditCell('Y', check_coordinates);
+					else
+						attack_grid.EditCell('X', check_coordinates);
 				}
 			}
 		}

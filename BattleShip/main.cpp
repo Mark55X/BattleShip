@@ -116,25 +116,25 @@ int main(int argc, char** argv)
 	cout << "   a) A1 B1: Con A1 Coordinata di origine e B1 coordinata target " << endl;
 	cout << "      L'azione dipende dalla coordinata di origine  " << endl;
 	cout << "   b) XX XX: Display della propria griglia di attacco e difesa " << endl;
-	cout << "   c) AA AA: ?? " << endl;
-	cout << "   d) BB BB: ?? " << endl;
-	cout << "   d) CC CC: ?? " << endl << endl << endl;
+	cout << "   c) AA AA: Tutti gli avvistamenti del sottomarino ('Y') vengono cancellati" << endl;
+	cout << "   d) BB BB: Tutti i punti colpiti ('X') vengono cancellati" << endl;
+	cout << "   d) CC CC: Tutti i punti mancati ('O') vengono cancellati" << endl << endl << endl;
 
 	cout << "*** POSIZIONAMENTO DELLE UNITA' NAVALI ***" << endl;
 	
 
 	// ---------- Solo per test
 	
-	//game.AddNavalUnit("B6 B10", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
-	//game.AddNavalUnit("F8 F12", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
-	//game.AddNavalUnit("D2 H2", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	/*game.AddNavalUnit("B6 B10", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	game.AddNavalUnit("F8 F12", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
+	game.AddNavalUnit("D2 H2", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
 
-	//game.AddNavalUnit("A2 A4", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
-	//game.AddNavalUnit("D6 D8", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
-	//game.AddNavalUnit("A12 C12", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
+	game.AddNavalUnit("A2 A4", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
+	game.AddNavalUnit("D6 D8", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
+	game.AddNavalUnit("A12 C12", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
 
-	//game.AddNavalUnit("L2 L2", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
-	//game.AddNavalUnit("H11 H11", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
+	game.AddNavalUnit("L2 L2", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
+	game.AddNavalUnit("H11 H11", NavalUnitType::Submarine, PlayerNumber::PlayerOne);*/
 
 	// ------------
 
@@ -163,12 +163,14 @@ int main(int argc, char** argv)
 
 	while (!is_player_one_winner && !is_player_two_winner) {
 
-		/*while (!next_shift) {
+		/*cout << "E' il tuo turno!" << endl;
+		while (!next_shift) {
 			std::getline(std::cin, command);
 			GameResponse response = game.ExecCommand(command, PlayerNumber::PlayerOne);
 			cout << response.content() << endl;
 			next_shift = response.next_shift();
 		}
+		cout << "Hai terminato il tuo turno." << endl;
 		next_shift = false;*/
 		
 		while (!next_shift) {
@@ -213,6 +215,7 @@ int main(int argc, char** argv)
 
 			next_shift = response.next_shift();
 		}
+		//cout << "Il computer ha terminato il suo turno." << endl << endl;
 		next_shift = false;
 
 		is_player_two_winner = game.IsWinner(PlayerNumber::PlayerTwo);
@@ -267,8 +270,6 @@ void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type)
 
 // in questo caso va passato anche il PlayerNumber perché in caso di partita computer vs computer questa
 // funzione va chiamata sia per il PlayerOne che per il PlayerTwo
-// TODO: Va stampato a video ogni volta che il computer mette una nave o no? In caso vanno messi dei cout
-// TODO: Va passato anche un oggetto di tipo ComputerPlayer????
 void InsertComputerNavalUnit(GameManager& game, 
 							 ComputerPlayer& computer_player, 
 							 const NavalUnitType type, 

@@ -49,6 +49,11 @@ namespace battle_ships {
 		static constexpr int kSupportShipNumber = 3;
 		static constexpr int kSubmarineNumber = 2;
 
+		// TODO: da spostare nelle navi???
+		static constexpr char kSonarCharacter = 'Y';
+		static constexpr char kHitCharacter = 'X';
+		static constexpr char kMissCharacter = 'O';
+
 	private:
 		// Oggetto di tipo Logger che gestisce il file di log 
 		// contenente i comandi validi eseguiti correttamente

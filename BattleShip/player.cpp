@@ -58,7 +58,8 @@ namespace battle_ships {
         string str_grids = "";
 
         // stampa dei titoli
-        constexpr int grid_width = 48; // kGridSize * cell_width
+        constexpr int cell_width = 4;
+        const int grid_width = Grid::kGridSize * cell_width; // kGridSize * cell_width
         string title_defence = "Griglia di difesa";
         string title_attack = "Griglia di attacco";
 
@@ -72,7 +73,7 @@ namespace battle_ships {
         str_grids += "\t\t    ";
 
         number_of_spaces = grid_width - title_attack.length();
-        for (int k = 0; k < number_of_spaces / 2; k++)
+        for (int k = 0; k < (number_of_spaces / 2); k++)
             str_grids += " ";
         str_grids += title_attack;
         str_grids += '\n';
@@ -135,5 +136,21 @@ namespace battle_ships {
         return GameResponse(false, "Coordinata origin [" + to_string(origin) + "] non "
             "corrisponde ad una cella centrale di una nave", false, "", GameResponse::kIncorrectOrigin);
     }
+
+    GameResponse Player::EraseChar(char character)
+    {
+        for (int i = 0; i < Grid::kGridSize; i++)
+        {
+            for (int j = 0; j < Grid::kGridSize; j++)
+            {
+                Coordinates coordinates = Coordinates(i + 1, j + 'A');
+                if (attack_grid_.GetCellValue(coordinates) == character)
+                    attack_grid_.EditCell(' ', coordinates);
+            }
+        }
+        return GameResponse(true, std::string("Sono stati eliminati tutti i caratteri '") + character +
+                                  std::string("' dalla griglia di attacco"), false);
+    }
+
 }
 
