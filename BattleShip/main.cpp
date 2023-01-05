@@ -27,54 +27,6 @@ using battle_ships::ComputerPlayer;
 using battle_ships::GameResponse;
 using battle_ships::Coordinates;
 
-/*
-* Pensieri miei abbastanza profondi da scrivere nel readme.TXT
-*
-* Secondo me è ESSENZIALE dividere il MAIN dal resto del progetto
-* tale che si possono creare molti modi per fare il main
-* senza che influisca DIRETTAMENTE nella logica del gioco.
-*
-* Mi spiego meglio: perchè il main dovrebbe fare i controlli di validità dei comandi?
-* Per me non deve farli, non è il suo ruolo. Lui sa solo che è un comando, non sa
-* nemmeno cosa fa, perché la descrizione di tale esecuzione deve essere descritta dal
-* CORE del gioco che mi invierà un oggetto di tipo RESPONSE
-*
-* Attenzione, parte importante perché il RESPONSE sarà una risponsa GENERICA (non è un template attenzione :) )
-* Response{
-	StatusExecution : bool  -> Se avvenuto con successo o meno
-	Content : string        -> Contenuto (può essere la string aformattata per il comando XX XX
-										  o la descrizione tipo 'Eseguito FUOCO su cella nemica A1 ')
-	NextShift : bool        -> False se il turno è ancora del giocatore che ha eseguito il comando
-  }
-
-  QUESTO PERCHE' giustamente se io avessi i metodi che restituiscono bool cosa capirei?
-  Se è false, per quale motivo è false? Coordiante fuori? Entrambe? O solo una? Oppure sono giuste
-  ma l'origin riguarda nessun unità navale e per me QUESTO NON FA LO SWITCH DEL TURNO!!
-
-  Ok quindi ha senso usare un oggetto più descrittivo, si ok però perchè non usare le eccezioni?
-  Tipo: InvalidCellException con la DESCRIZIONE interna di cosa è sbagliato?
-
-  Se siamo nel caso di Logger/Replay è palese l'uso delle eccezioni: il file non esiste, problemi di scrittura
-  ecc,... MA NEL GIOCO?? Forse si, forse no: bloccare l'esecuzione di colpo mi implicherebbe che non serve più
-  la Response descritta qui sopra perchè so che se c'è un eccezione TEORICAMENTE devo rifare il turno...
-  ma se tipo mi parte un eccezione per il Logger? Quella viene catturata da sé e quindi non influenzerebbe
-  l'andamento della partita...dovrebbe bloccare la partita? Come ? Vado a lavarmi, buon Natale a tutti.
-
-  Abbiamo quindi: Eccezioni ->  PRO: Dati che si passano più leggeri (o così si crede)
-								CONTRO: Blocco dell'esecuzione improvviso
-
-				  Response ->   PRO: Non c'è interruzione del flusso (forse un pò stile retro?)
-								CONTRO: La gran parte delle funzioni resituiscono la response
-
-  Attenzione che... XX XX SUCCESFUL ma non cambia turno..come faccio con eccezioni?
-					A1 B2 SUCCESFUL fantastico...nessuna eccezione ma come stampo che è avvenuta l'azione?
-	Quello che sto dicendo è che: io ho lo stesso risultato di Response SOLO se avviene l'eccezione. Ma
-	io magari vorrei avere il risultato anche quando non accade. OVVERO dare più potere al main,
-	fargli capire cosa significano tali comandi... (impossibile capire l'AZIONE in sé)
-
-
-*/
-
 void InsertPlayerNavalUnit(GameManager& game, NavalUnitType type);
 void InsertComputerNavalUnit(GameManager& game, 
 							 ComputerPlayer& computer_player, 

@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\Log_importanti\log-BattleShip1672926139.txt" />
+    <Text Include="readme.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
