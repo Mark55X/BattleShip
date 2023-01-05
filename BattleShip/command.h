@@ -12,13 +12,14 @@
 namespace battle_ships {
 
 	// Classe Command
+	// Descrive un comando di gioco (CoordinataORIGIN CoordinataTARGET)
 	class Command {
 
 	public:
 		Command(Coordinates origin, Coordinates target)
 			: origin_{origin}, target_{target} {}
 
-		//getters
+		//Getters
 		Coordinates origin() const {return origin_;}
 		Coordinates target() const {return target_;}
 

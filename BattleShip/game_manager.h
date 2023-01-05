@@ -18,21 +18,36 @@ using std::string;
 // Contiene i componenti principali del gioco Battaglia Navale
 namespace battle_ships {
 
+	// Disclaimer: Per ulteriori informazioni sulla struttura del progetto
+	//			   leggere file readme.txt
+	
 	// Classe GameManager
 	// Rappresenta il gestore del gioco, l'unica classe che viene resa
 	// utilizzabile nel main perchè fornisce tutti gli strumenti 
 	// necessari per lo svolgimento del gioco:
-	// 1. Eseguire un comando di un particolare giocatore
-	// 2. Restituire se qualcuno ha vinto
+	// 1. Aggiungere una unità navale al gioco
+	// 2. Eseguire un comando di un particolare giocatore
+	// 3. Restituire se un giocatore ha vinto
 	class GameManager {
 
 	public:
 
+		// Funzione AddNavalUnit
+		// Inserisce un unità navale nel gioco con parametri:
+		//		coordinates : coordinate nel formato stringa esempio: "A1 A5"
+		//		unit_type : tipo di unità navale da inserire
+		//		player : numero del giocatore per cui si inserisce l'unità navale
+		//  
+		// Ritorna una GameResponse che può indicare errore se le coordinate inserite
+		// non sono valide (celle già occupate oppure lunghezza tra poppa e prua non 
+		// conforme alla lunghezza dell'unità navale da inserire
 		GameResponse AddNavalUnit(const string& coordinates,
 						  const NavalUnitType unit_type, 
 						  const PlayerNumber player);
 
-		// Gestisce ed Esegue un comando
+		// Gestisce ed Esegue un comando con parametri:
+		//		command : comando da eseguire
+		//		player : numero del giocatore per cui si esegue il comando
 		// Restituisce un oggetto di tipo GameResponse (vedi game_response.h per dettagli)
 		// con le indicazioni sull'esecuzione del comando
 		GameResponse ExecCommand(const string& command, const PlayerNumber player);
