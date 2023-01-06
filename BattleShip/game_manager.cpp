@@ -57,13 +57,13 @@ namespace battle_ships {
 			 return GameResponse(true, conf, false);
 		}
 		else if (cmd_str == kCommandEraseSonar) {
-			return GameResponse(true, "", false);
+			return (player == PlayerOne) ? first_player_.EraseChar(kSonarCharacter) : second_player_.EraseChar(kSonarCharacter);
 		}
 		else if (cmd_str == kCommandEraseHit) {
-			return GameResponse(true, "", false);
+			return (player == PlayerOne) ? first_player_.EraseChar(kHitCharacter) : second_player_.EraseChar(kHitCharacter);
 		}
 		else if (cmd_str == kCommandEraseMiss) {
-			return GameResponse(true, "", false);
+			return (player == PlayerOne) ? first_player_.EraseChar(kMissCharacter) : second_player_.EraseChar(kMissCharacter);
 		}
 
 		if (!ValidateCommand(cmd_str)) {

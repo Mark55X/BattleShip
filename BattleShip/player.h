@@ -40,6 +40,7 @@ namespace battle_ships {
 		GameResponse AddNavalUnit(const Coordinates& start, 
 								  const Coordinates& finish,
 								  const NavalUnitType unit_type);
+		GameResponse EraseChar(char character);
 
 		// Funzione IsLoser
 		// Restituisce true se non ha più navi disponibili
