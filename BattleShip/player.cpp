@@ -5,6 +5,7 @@
 #include "player.h"
 
 #include <memory>
+#include <algorithm>
 
 #include "battle_ship.h"
 #include "submarine.h"
@@ -40,13 +41,13 @@ namespace battle_ships {
         Coordinates centre(centre_x, centre_y);
         switch (unit_type) {
         case NavalUnitType::BattleShip :
-            naval_units_.emplace_back(std::make_unique<BattleShip>(centre, direction));
+            naval_units_.emplace_back(new BattleShip(centre, direction));
             break;
         case NavalUnitType::Submarine:
-            naval_units_.emplace_back(std::make_unique<Submarine>(centre, direction));
+            naval_units_.emplace_back(new Submarine(centre, direction));
             break;
         case NavalUnitType::SupportShip:
-            naval_units_.emplace_back(std::make_unique<SupportShip>(centre, direction));
+            naval_units_.emplace_back(new SupportShip(centre, direction));
             break;
         }
 

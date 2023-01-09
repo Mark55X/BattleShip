@@ -4,6 +4,7 @@
 
 #include "battle_ship.h"
 
+#include <algorithm>
 #include "player.h"
 
 namespace battle_ships {

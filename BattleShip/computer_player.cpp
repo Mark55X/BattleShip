@@ -3,6 +3,7 @@
 // Author: Giulia Selvestrel
 
 #include "computer_player.h"
+#include <algorithm>
 
 namespace battle_ships
 {
