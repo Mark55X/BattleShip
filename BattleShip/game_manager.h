@@ -32,6 +32,10 @@ namespace battle_ships {
 
 	public:
 
+		// Costruttore
+		// Parametro enable_logging: impostato a true abilita il loggin della partita su file 
+		GameManager(bool enable_logging = true);
+
 		// Funzione AddNavalUnit
 		// Inserisce un unità navale nel gioco con parametri:
 		//		coordinates : coordinate nel formato stringa esempio: "A1 A5"
@@ -57,7 +61,12 @@ namespace battle_ships {
 		// Un giocatore ha vinto se tutte le unità navali del suo avversario sono affondate
 		bool IsWinner(const PlayerNumber player);
 
-		// Costanti 
+		// Funzione GetLogPath
+		// Restituisce il path del file di log creato
+		string GetLogFileName();
+
+		// Costanti PUBBLICHE
+		
 		// Contengono il numero delle unità navali (per tipo)
 		// che sono presenti ad inizio partita
 		static constexpr int kBattleShipNumber = 3;
@@ -68,6 +77,13 @@ namespace battle_ships {
 		static constexpr char kHitCharacter = 'X';
 		static constexpr char kMissCharacter = 'O';
 
+		// Costanti che indicano il numero massimo di 
+		// turni fino a che una partita non diventi pari
+		// (si basano sulle stime di numerose partite)
+		static constexpr int kMaxShiftsCC = 3500; // computer vs computer
+		static constexpr int kMaxShiftPC = 400;   // player (reale) vs computer
+
+
 	private:
 		// Oggetto di tipo Logger che gestisce il file di log 
 		// contenente i comandi validi eseguiti correttamente
@@ -77,6 +93,7 @@ namespace battle_ships {
 		Player first_player_;
 		Player second_player_;
 		
+
 		// Funzione privata ValidateCommand
 		// Restituisce true se il comando passato come parametro
 		// è negli standard del formato accettato

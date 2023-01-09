@@ -28,7 +28,8 @@ namespace battle_ships {
 		// Costruttore Logger
 		// Accetta un argomento string che corrisponde al base_path dove verrebbe creato il file di log
 		// Se non esiste viene lanciata una IllegalPathException
-		Logger(const string& base_path = "");
+		Logger(bool enable_logging = true, 
+			   const string& base_path = "");
 
 		// Distruttore Logger
 		// Chiude lo steam sul file
@@ -38,6 +39,10 @@ namespace battle_ships {
 		// Si occupa di stampare su file la stringa passata come parametro 
 		// seguito da un carattere di escape di nuova linea (\n)
 		bool Log(const string& log_str);
+
+		// setter
+		void set_enable_logging(bool enable) { enable_logging_ = enable; }
+		string file_path() { return log_path_; }
 
 		// Eccezione IllegalPathException
 		// Descrive l'evento di 'Percorso non disponibile/non esistente' nel
@@ -51,6 +56,8 @@ namespace battle_ships {
 	private:
 		// Stream verso il file di log
 		ofstream file_;
+		bool enable_logging_;
+		string log_path_;
 
 		// Funzione CheckPath
 		// Verifica che il Path passato come argomento esista

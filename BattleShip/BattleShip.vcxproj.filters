@@ -94,10 +94,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\Log_importanti\log-BattleShip1672926139.txt">
-      <Filter>Source Files</Filter>
-    </Text>
     <Text Include="readme.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\..\..\D\book-project\CMakeLists.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

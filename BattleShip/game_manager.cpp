@@ -10,7 +10,9 @@ using std::regex;
 
 namespace battle_ships {
 
-	GameResponse GameManager::AddNavalUnit(const string& coordinates, 
+	GameManager::GameManager(bool enable_logging) : logger_{ enable_logging } {}
+
+	GameResponse GameManager::AddNavalUnit(const string& coordinates,
 										   const NavalUnitType unit_type, 
 										   const PlayerNumber player)
 	{
@@ -18,7 +20,7 @@ namespace battle_ships {
 
 			if (!ValidateCommand(coordinates)) {
 				return GameResponse(false, "Comando non valido. Deve essere del formato: XN XN," 
-					"dove X è l'ordinata della griglia (carattere), e N è l'ascissa della griglia (numero)", false);
+					"dove X e' l'ordinata della griglia (carattere), e N e' l'ascissa della griglia (numero)", false);
 			}
 
 			int whitespace_index = coordinates.find(" ");
@@ -103,6 +105,11 @@ namespace battle_ships {
 			case PlayerOne: return second_player_.IsLoser();
 			case PlayerTwo: return first_player_.IsLoser();
 		}
+	}
+
+	string GameManager::GetLogFileName()
+	{
+		return logger_.file_path();
 	}
 
 	bool GameManager::ValidateCommand(const string& command) {
