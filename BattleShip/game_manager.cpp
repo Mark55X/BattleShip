@@ -105,6 +105,7 @@ namespace battle_ships {
 			case PlayerOne: return second_player_.IsLoser();
 			case PlayerTwo: return first_player_.IsLoser();
 		}
+		return false;
 	}
 
 	string GameManager::GetLogFileName()

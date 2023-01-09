@@ -121,7 +121,7 @@ namespace battle_ships
 
 	bool ComputerPlayer::RemoveCoordinates(Coordinates& coordinates)
 	{
-		auto it = find(ships_centre_coordinates_.begin(), ships_centre_coordinates_.end(), coordinates);
+		auto it = std::find(ships_centre_coordinates_.begin(), ships_centre_coordinates_.end(), coordinates);
 		ships_centre_coordinates_.erase(it);
 		return true;
 	}
