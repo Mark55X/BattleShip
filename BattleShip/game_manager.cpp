@@ -24,8 +24,11 @@ namespace battle_ships {
 			}
 
 			int whitespace_index = coordinates.find(" ");
-			Coordinates start(coordinates.substr(0, whitespace_index));
+			Coordinates start(coordinates.substr(0, whitespace_index));	
 			Coordinates finish(coordinates.substr(whitespace_index + 1, coordinates.length() - 1));
+
+			ParseCoordinate(start);
+			ParseCoordinate(finish);
 
 			GameResponse response(true);
 			switch (player) {
@@ -76,6 +79,8 @@ namespace battle_ships {
 			int whitespace_index = cmd_str.find(" ");
 			Coordinates origin(cmd_str.substr(0, whitespace_index));
 			Coordinates target(cmd_str.substr(whitespace_index + 1, cmd_str.length() - 1));
+			ParseCoordinate(origin);
+			ParseCoordinate(target);
 
 			GameResponse response(true);
 			switch (player) {
@@ -86,7 +91,6 @@ namespace battle_ships {
 			}
 
 			if (response.status()) {
-				// TODO LOGGER DA SBLOCCARE
 			    string str_log = "EXEC|Player" + std::to_string(player) + ":" + cmd_str;
 				logger_.Log(str_log);
 			}
@@ -116,5 +120,10 @@ namespace battle_ships {
 	bool GameManager::ValidateCommand(const string& command) {
 		if (command.empty()) return false;
 		return regex_match(command, std::regex(R"~([a-zA-Z][0-9]+\s[a-zA-Z][0-9]+)~"));
+	}
+
+	void GameManager::ParseCoordinate(Coordinates& coordinates) {
+		if (coordinates.y() >= 'L')
+			coordinates.set_y(coordinates.y() - 2);
 	}
 }

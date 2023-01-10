@@ -70,7 +70,7 @@ namespace battle_ships {
         str_grids += title_defence;
         for (int k = 0; k < number_of_spaces - number_of_spaces / 2; k++)
             str_grids += " ";
-        str_grids += "\t\t    ";
+        str_grids += "\t      ";
 
         number_of_spaces = grid_width - title_attack.length();
         for (int k = 0; k < (number_of_spaces / 2); k++)

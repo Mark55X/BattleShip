@@ -15,7 +15,7 @@ namespace battle_ships {
 	Coordinates::Coordinates(const string& coordinates) 
 	{
 		if (!regex_match(coordinates, std::regex(R"~([a-zA-Z][0-9]+)~"))) {
-			throw InvalidCoordinatesException("InvalidCoordinatesException - Le coordinate devono essere nel formato 'A1' o 'A10' ");
+			InvalidCoordinatesException("InvalidCoordinatesException - Le coordinate devono essere nel formato 'A1' o 'A10' ");
 		}
 
 		x_ = (coordinates.length() == 2) ? coordinates[1] - '0' : stoi(coordinates.substr(1));
@@ -31,7 +31,7 @@ namespace battle_ships {
 	string to_string(Coordinates coordinates)
 	{
 		string str_coordinates = "";
-		str_coordinates += coordinates.y();
+		str_coordinates += (coordinates.y() >= 'J') ? (coordinates.y() + 2) : coordinates.y();
 		str_coordinates += std::to_string(coordinates.x());
 		return str_coordinates;
 	}

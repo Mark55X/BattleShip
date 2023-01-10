@@ -37,6 +37,10 @@ namespace battle_ships {
 		int x() const { return x_; }
 		char y() const { return y_; }
 		
+		// Setters
+		void set_x(int x) { x_ = x; }
+		void set_y(char y) { y_ = y; }
+
 		// Classe InvalidDateException 
 		// Eredita da std::invalid_argument perchè riguarda l'invalidità 
 		// degli argomenti (x, y) per la creazione/modifica delle coordinate

@@ -92,6 +92,11 @@ namespace battle_ships {
 		// Restituisce true se il comando passato come parametro
 		// è negli standard del formato accettato
 		bool ValidateCommand(const string& command);
+		
+		// Funzione privata ParseCoordinate
+		// Modifica la coordinata y in modo che sia gestita 
+		// correttamente dalla logica di gioco
+		void ParseCoordinate(Coordinates& coordinates);
 
 		// Costanti private riguradante i comandi speciali
 		static constexpr const char* kCommandDisplay = "XX XX";
