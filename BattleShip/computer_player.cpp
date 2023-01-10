@@ -31,6 +31,8 @@ namespace battle_ships
 	{
 		int x = NumberGenerator(grid_size) + 1;
 		char y = static_cast<char>(NumberGenerator(grid_size)) + 'A';
+		if (y >= 9)
+			y += 2;
 		return Coordinates(x, y);
 	}
 
@@ -71,10 +73,40 @@ namespace battle_ships
 			possible_bows.push_back(Coordinates(stern.x() + (ship_dimension - 1), stern.y()));
 		if (stern.x() - (ship_dimension - 1) >= 1)
 			possible_bows.push_back(Coordinates(stern.x() - (ship_dimension - 1), stern.y()));
-		if (stern.y() + (ship_dimension - 1) <= 'L')
+
+		if (stern.y() < 'J') {
+			if (stern.y() + (ship_dimension - 1) >= 'J') {
+				if (stern.y() + (ship_dimension - 1) + 2 <= 'N') {
+					possible_bows.push_back(Coordinates(stern.x(), stern.y() + (ship_dimension - 1) + 2));
+				}
+			}
+			else {
+				possible_bows.push_back(Coordinates(stern.x(), stern.y() + (ship_dimension - 1)));
+			}
+		}
+		else {
+			if (stern.y() + (ship_dimension - 1) <= 'N') {
+				possible_bows.push_back(Coordinates(stern.x(), stern.y() + (ship_dimension - 1)));
+			}
+		}
+
+		if (stern.y() > 'I') {
+			if (stern.y() - (ship_dimension - 1) <= 'K') {
+				possible_bows.push_back(Coordinates(stern.x(), stern.y() - (ship_dimension - 1) - 2));
+			}
+			else {
+				possible_bows.push_back(Coordinates(stern.x(), stern.y() - (ship_dimension - 1)));
+			}
+		}
+		else {
+			if (stern.y() - (ship_dimension - 1) >= 'A')
+				possible_bows.push_back(Coordinates(stern.x(), stern.y() - (ship_dimension - 1)));
+		}
+
+		/*if (stern.y() + (ship_dimension - 1) <= 'L')
 			possible_bows.push_back(Coordinates(stern.x(), stern.y() + (ship_dimension - 1)));
 		if (stern.y() - (ship_dimension - 1) >= 'A')
-			possible_bows.push_back(Coordinates(stern.x(), stern.y() - (ship_dimension - 1)));
+			possible_bows.push_back(Coordinates(stern.x(), stern.y() - (ship_dimension - 1)));*/
 
 		int casual_index_bows = NumberGenerator(possible_bows.size());
 
@@ -97,7 +129,12 @@ namespace battle_ships
 		Coordinates finish(couple_coordinates.substr(whitespace_index + 1, couple_coordinates.length() - 1));
 		
 		int x_centre = (start.x() + finish.x())/2;
-		char y_centre = (start.y() + finish.y())/2;
+		char y_centre = (start.y() + finish.y()) / 2;;
+
+		if (y_centre == 'J')
+			y_centre -= 1;
+		else if(y_centre == 'K')
+			y_centre += 1;	
 
 		Coordinates centre(x_centre, y_centre);
 

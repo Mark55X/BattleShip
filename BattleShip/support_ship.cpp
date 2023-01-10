@@ -32,6 +32,8 @@ namespace battle_ships {
 
 		//Move
 		Coordinates centre = centre_coordinates();
+		string str_target = std::to_string(target.x()) + "" +
+			std::to_string((target.y() >= 'J') ? (target.y() + 2) : target.y());
 		if (direction()) {
 
 			if (!defence_grid.MoveRangeCells(Coordinates(origin.x() - 1, origin.y()),
@@ -39,7 +41,8 @@ namespace battle_ships {
 				Coordinates(target.x() - 1, target.y()),
 				Coordinates(target.x() + 1, target.y()))) {
 
-				return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + to_string(target) +
+
+				return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + str_target +
 					"] : alcune celle sono già occupate", false);
 
 			}
@@ -49,7 +52,7 @@ namespace battle_ships {
 				Coordinates(origin.x(), origin.y() + 1),
 				Coordinates(target.x(), target.y() - 1),
 				Coordinates(target.x(), target.y() + 1))) {
-				return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + to_string(target) +
+				return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + str_target +
 					"] : alcune celle sono già occupate", false);
 			}
 
@@ -136,7 +139,7 @@ namespace battle_ships {
 				}
 			}
 		}
-		return GameResponse(true, "Nave di supporto spostata in cella [" + to_string(target) +
+		return GameResponse(true, "Nave di supporto spostata in cella [" + str_target +
 			"] ed eseguita azione RIPARA", true, GameResponse::kMoveRepairAction);
 	}
 }

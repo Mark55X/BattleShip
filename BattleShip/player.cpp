@@ -134,7 +134,9 @@ namespace battle_ships {
            return (*iter)->Action(command, current_player, enemy_player);
         }
 
-        return GameResponse(false, "Coordinata origin [" + to_string(origin) + "] non "
+        string str_origin = std::to_string(origin.x()) + "" +
+            std::to_string((origin.y() >= 'J') ? (origin.y() + 2) : origin.y());
+        return GameResponse(false, "Coordinata origin [" + str_origin + "] non "
             "corrisponde ad una cella centrale di una nave", false, "", GameResponse::kIncorrectOrigin);
     }
 

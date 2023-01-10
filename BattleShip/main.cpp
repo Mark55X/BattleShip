@@ -166,20 +166,10 @@ void RunPlayerVsComputerGame()
 {
 	GameManager game;
 
-	/*InsertPlayerNavalUnit(game, NavalUnitType::BattleShip);
+	InsertPlayerNavalUnit(game, NavalUnitType::BattleShip);
 	InsertPlayerNavalUnit(game, NavalUnitType::SupportShip);
-	InsertPlayerNavalUnit(game, NavalUnitType::Submarine);*/
+	InsertPlayerNavalUnit(game, NavalUnitType::Submarine);
 
-	game.AddNavalUnit("B6 B10", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
-	game.AddNavalUnit("F8 F12", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
-	game.AddNavalUnit("D2 H2", NavalUnitType::BattleShip, PlayerNumber::PlayerOne);
-
-	game.AddNavalUnit("A3 C3", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
-	game.AddNavalUnit("D6 D8", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
-	game.AddNavalUnit("A12 C12", NavalUnitType::SupportShip, PlayerNumber::PlayerOne);
-
-	game.AddNavalUnit("L2 L2", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
-	game.AddNavalUnit("H11 H11", NavalUnitType::Submarine, PlayerNumber::PlayerOne);
 
 	ComputerPlayer bot_player;
 	InsertComputerNavalUnit(game, bot_player, NavalUnitType::BattleShip, PlayerNumber::PlayerTwo);

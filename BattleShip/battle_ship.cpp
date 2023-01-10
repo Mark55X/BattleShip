@@ -18,6 +18,7 @@ namespace battle_ships {
 							Player& current_player, 
 							Player& enemy_player) 
 	{	
+		Coordinates origin = command.target();
 		Coordinates target = command.target();
 		
 		Grid& enemy_defence_grid = enemy_player.defence_grid();
@@ -25,8 +26,14 @@ namespace battle_ships {
 
 		char value = enemy_defence_grid.GetCellValue(target);
 
-		string game_response_content = "Eseguita azione FUOCO da [" + to_string(command.origin()) + 
-										"] a [" + to_string(command.target()) + "] con esito: ";
+		string str_origin = std::to_string(origin.x()) + "" + 
+							std::to_string((origin.y() >= 'J') ? (origin.y() + 2) : origin.y());
+
+		string str_target = std::to_string(target.x()) + "" +
+							std::to_string((target.y() >= 'J') ? (target.y() + 2) : target.y());
+
+		string game_response_content = "Eseguita azione FUOCO da [" + str_origin +
+										"] a [" + str_target + "] con esito: ";
 
 		if (value == ' ') {
 			attack_grid.EditCell('O', target);
