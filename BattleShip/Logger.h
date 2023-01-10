@@ -8,8 +8,6 @@
 #include <string>
 #include <fstream>
 
-#include "player.h"
-
 using std::string;
 using std::ofstream;
 
@@ -26,8 +24,10 @@ namespace battle_ships {
 
 	public:
 		// Costruttore Logger
-		// Accetta un argomento string che corrisponde al base_path dove verrebbe creato il file di log
-		// Se non esiste viene lanciata una IllegalPathException
+		// Parametri:
+		//  - enable_logging : se true abilita il logging su file
+		//  - base_path : percorso dove verrebbe creato il file di log
+		//				  se non esiste viene lanciata una IllegalPathException
 		Logger(bool enable_logging = true, 
 			   const string& base_path = "");
 

@@ -5,14 +5,8 @@
 #ifndef game_manager_h
 #define game_manager_h
 
-#include <string>
-
 #include "player.h"
 #include "logger.h"
-#include "enums.h"
-#include "game_response.h"
-
-using std::string;
 
 // Namespace battle_ships
 // Contiene i componenti principali del gioco Battaglia Navale

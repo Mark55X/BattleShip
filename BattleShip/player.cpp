@@ -4,13 +4,7 @@
 
 #include "player.h"
 
-#include <memory>
 #include <algorithm>
-
-#include "battle_ship.h"
-#include "submarine.h"
-#include "support_ship.h"
-#include "game_response.h"
 
 namespace battle_ships {
 
@@ -54,10 +48,11 @@ namespace battle_ships {
         return GameResponse(true);
     }
 
-    bool Player::IsLoser()
+    bool Player::IsLoser() const
     {
         return naval_units_.empty();
     }
+
     string Player::Display() const
     {
         string str_grids = "";
@@ -122,6 +117,7 @@ namespace battle_ships {
         case NavalUnitType::SupportShip:
             return cell_length == SupportShip::kSize;
         }
+        return false;
     }
 
     GameResponse ExecCommand(const Command& command, Player& current_player, Player& enemy_player)

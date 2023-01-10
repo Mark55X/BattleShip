@@ -14,8 +14,8 @@ namespace battle_ships {
 
 
 	GameResponse Submarine::Action(const Command& command,
-						   Player& current_player,
-						   Player& enemy_player) 
+		Player& current_player,
+		Player& enemy_player)
 	{
 		Coordinates origin = command.origin();
 		Coordinates target = command.target();
@@ -26,15 +26,15 @@ namespace battle_ships {
 
 		//Move
 		if (defence_grid.GetCellValue(target) != ' ') {
-			return GameResponse(false, "Impossibile muovere il sottomarino nella cella [" +to_string(target) + 
-										"] : e' gia' occupata", false);
+			return GameResponse(false, "Impossibile muovere il sottomarino nella cella [" + to_string(target) +
+				"] : e' gia' occupata", false);
 		}
 		defence_grid.EditCell(static_cast<char>(NavalUnitType::Submarine), target);
 		defence_grid.EditCell(' ', centre_coordinates());
 		set_centre_coordinates(target);
 
 		//Action
-		Coordinates centre = target;	
+		Coordinates centre = target;
 		int start_x = (centre.x() - 2 < 1) ? 1 : centre.x() - 2;
 		int start_y = (centre.y() - 2 < 'A') ? 'A' : centre.y() - 2;
 
@@ -50,15 +50,15 @@ namespace battle_ships {
 
 				char value = enemy_defence_grid.GetCellValue(check_coordinates);
 				if (value != ' ') {
-					if(isupper(value))
+					if (isupper(value))
 						attack_grid.EditCell('Y', check_coordinates);
 					else
 						attack_grid.EditCell('X', check_coordinates);
 				}
 			}
 		}
-		return GameResponse(true,"Sottomarino spostato in cella [" + to_string(target) +
-			"] ed eseguita azione CERCA",true, GameResponse::kMoveExploreAction);
+		return GameResponse(true, "Sottomarino spostato in cella [" + to_string(target) +
+			"] ed eseguita azione CERCA", true, GameResponse::kMoveExploreAction);
 	}
 }
 

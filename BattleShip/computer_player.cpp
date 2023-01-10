@@ -3,6 +3,7 @@
 // Author: Giulia Selvestrel
 
 #include "computer_player.h"
+
 #include <algorithm>
 
 namespace battle_ships
@@ -17,9 +18,10 @@ namespace battle_ships
 
 	int ComputerPlayer::NumberGenerator(const int n)
 	{
+
 		std::uniform_int_distribution<> dist(0, n - 1);
-		unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-		std::default_random_engine gen(seed);
+		//unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+		std::default_random_engine gen(time(0) * rand());
 		int random = dist(gen);
 
 		return random;
@@ -36,19 +38,19 @@ namespace battle_ships
 	{
 		string couple_coordinates = "";
 
-		Coordinates stern = CoordinatesGenerator(kGridSize);
+		Coordinates stern = CoordinatesGenerator(Grid::kGridSize);
 		
 		int ship_dimension = 0;
 
 		switch (unit_type) {
 		case NavalUnitType::BattleShip:
-			ship_dimension = 5;
+			ship_dimension = BattleShip::kSize;
 			break;
 		case NavalUnitType::SupportShip:
-			ship_dimension = 3;
+			ship_dimension = SupportShip::kSize;
 			break;
 		case NavalUnitType::Submarine:
-			ship_dimension = 1;
+			ship_dimension = Submarine::kSize;
 			break;
 		}
 
@@ -65,7 +67,7 @@ namespace battle_ships
 		vector<Coordinates> possible_bows;
 		                                                                                                                                                                                     
 		// serve static cast a char?
-		if (stern.x() + (ship_dimension - 1) <= kGridSize)
+		if (stern.x() + (ship_dimension - 1) <= Grid::kGridSize)
 			possible_bows.push_back(Coordinates(stern.x() + (ship_dimension - 1), stern.y()));
 		if (stern.x() - (ship_dimension - 1) >= 1)
 			possible_bows.push_back(Coordinates(stern.x() - (ship_dimension - 1), stern.y()));
@@ -111,7 +113,7 @@ namespace battle_ships
 		int num_ship_to_activate = NumberGenerator(ships_centre_coordinates_.size());
 		Coordinates coord_ship_to_activate = ships_centre_coordinates_[num_ship_to_activate];
 
-		Coordinates coord_target = CoordinatesGenerator(kGridSize);
+		Coordinates coord_target = CoordinatesGenerator(Grid::kGridSize);
 
 		couple_coordinates += to_string(coord_ship_to_activate);
 		couple_coordinates += " ";
@@ -120,7 +122,7 @@ namespace battle_ships
 		return couple_coordinates;
 	}
 
-	bool ComputerPlayer::RemoveCoordinates(Coordinates& coordinates)
+	bool ComputerPlayer::RemoveCoordinates(const Coordinates& coordinates)
 	{
 		auto it = std::find(ships_centre_coordinates_.begin(), ships_centre_coordinates_.end(), coordinates);
 		ships_centre_coordinates_.erase(it);

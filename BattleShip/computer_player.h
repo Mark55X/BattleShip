@@ -5,17 +5,15 @@
 #ifndef computer_player_h
 #define computer_player_h
 
-#include <chrono>
-#include <random>
 #include <vector>
 
-#include "naval_unit.h"
+#include <chrono>
+#include <random>
+
 #include "battle_ship.h"
+#include "enums.h"
 #include "submarine.h"
 #include "support_ship.h"
-#include "grid.h"
-#include "command.h"
-#include "enums.h"
 
 using std::vector;
 
@@ -27,18 +25,54 @@ namespace battle_ships {
 	class ComputerPlayer {
 
 	public:
+		// Funzione InsertCoordinatesGenerator
+		// Genera casualmente una coppia di coordinate per l'inserimento della nave
+		// Parametri:
+		//  - unit_type : il tipo di unità navale
 		string InsertCoordinatesGenerator(const NavalUnitType unit_type);
+
+		// Funzione MemorizeCentreCoordinates
+		// Memorizza le coordinate centrali della nave nel vettore ships_centre_coordinates_
+		// Parametri:
+		//  - couple_coordinates : contiene le coordinate di poppa e prua della nave da memorizzare
 		bool MemorizeCentreCoordinates(string& couple_coordinates);
+
+		// Funzione ActionCoordinatesGenerator
+		// Genera una coppia di coordinate valide per l'esecuzione di un'azione
 		string ActionCoordinatesGenerator();
-		bool RemoveCoordinates(Coordinates& coordinates);
+
+		// Funzione RemoveCoordinates
+		// Rimuove le coordinate date dal vettore ships_centre_coordinates_
+		// Parametri:
+		//  - coordinates : le coordinate da rimuovere dal vettore
+		bool RemoveCoordinates(const Coordinates& coordinates);
+
+		// Funzione SetCoordinates
+		// Sostituisce all'interno del vettore ships_centre_coordinates_ le
+		// vecchie coordinate con le nuove
+		// Parametri:
+		//  - old_coordinates : le vecchie da sostituire
+		//  - new_coordinates : le nuove coordinate 
 		bool SetCoordinates(Coordinates& old_coordinates, Coordinates& new_coordinates);
+
+		// Funzione GetCoordinatesNumber
+		// Restituisce il numero di coordinate (e quindi di navi) memorizzate nel
+		// vettore ships_centre_coordinates_
 		int GetCoordinatesNumber() { return ships_centre_coordinates_.size(); }
 
 	private:
+		// vettore di coordinate centrali delle navi del giocatore computer
 		vector<Coordinates> ships_centre_coordinates_;
-		static constexpr int kGridSize = 12; // Da spostare TODO
 
+		// Funzione privata NumberGenerator
+		// Genera un numero casuale da 0 a n (parametro)
 		int NumberGenerator(const int n);
+
+		// Funzione privata CoordinatesGenerator
+		// Genera delle coordinate casuali
+		// Parametri:
+		//  - grid_size : indica la dimensione della griglia, per conoscere il 
+		//    range di coordinate possibili
 		Coordinates CoordinatesGenerator(const int grid_size);
 	};
 

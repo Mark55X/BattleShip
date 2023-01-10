@@ -16,6 +16,10 @@ namespace battle_ships {
 	class Command {
 
 	public:
+		// Costruttore
+		// Parametri:
+		// - origin : coordinata di origine del comando
+		// - target : coordinata target del comando
 		Command(Coordinates origin, Coordinates target)
 			: origin_{origin}, target_{target} {}
 
@@ -24,8 +28,8 @@ namespace battle_ships {
 		Coordinates target() const {return target_;}
 
 	private:
-		Coordinates origin_;
-		Coordinates target_;
+		Coordinates origin_; // coordinata di origine del comando
+		Coordinates target_; // coordinata target del comando
 	};
 
 

@@ -8,10 +8,10 @@
 #include <memory>
 #include <vector>
 
-#include "naval_unit.h"
-#include "command.h"
+#include "battle_ship.h"
 #include "enums.h"
-#include "game_response.h"
+#include "submarine.h"
+#include "support_ship.h"
 
 using std::vector;
 
@@ -30,21 +30,24 @@ namespace battle_ships {
 	public:
 		// Funzione AddNavalUnit
 		// Inserisce un unità navale nel gioco con parametri:
-		//		start : coordinata poppa
-		//		finish : coordinata prua
-		//		unit_type : tipo di unità navale da inserire
-		//  
+		//	- start : coordinata poppa
+		//	- finish : coordinata prua
+		//	- unit_type : tipo di unità navale da inserire
+		//
 		// Ritorna una GameResponse che può indicare errore se le coordinate inserite
 		// non sono valide (celle già occupate oppure lunghezza tra poppa e prua non 
 		// conforme alla lunghezza dell'unità navale da inserire)
 		GameResponse AddNavalUnit(const Coordinates& start, 
 								  const Coordinates& finish,
 								  const NavalUnitType unit_type);
+
+		// Funzione EraseChar
+		// - character : carattere da eliminare nella griglia di attacco
 		GameResponse EraseChar(char character);
 
 		// Funzione IsLoser
 		// Restituisce true se non ha più navi disponibili
-		bool IsLoser();
+		bool IsLoser() const;
 
 		// Funzione Display
 		// Restituisce una stringa con le configurazioni della

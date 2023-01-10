@@ -5,7 +5,6 @@
 #ifndef naval_unit_h
 #define naval_unit_h
 
-#include "coordinates.h"
 #include "grid.h"
 #include "command.h"
 #include "game_response.h"
@@ -15,7 +14,7 @@ namespace battle_ships {
 	class Player; // forward - reference
 
 	// Classe virtuale pura NavalUnit
-	// Rappresenta un unità navale all'interno del gioco
+	// Rappresenta un'unità navale all'interno del gioco
 	// Possiede :
 	//   1. Una grandezza (size), ovvero il numero di caselle nella griglia di gioco
 	//   2. Uno scudo (shield), ovvero il numero di celle non ancora colpite 
@@ -27,7 +26,7 @@ namespace battle_ships {
 	class NavalUnit {
 
 	public:
-
+		// Costruttore
 		NavalUnit(int size, 
 				  int shield, 
 				  Coordinates centre_coordinates, 
@@ -46,16 +45,21 @@ namespace battle_ships {
 		// Una Unità navale può compiere un'azione in base
 		// al tipo di unità. Non è possibile definire tale comportamento
 		// in questa classe.  
-		// Ritorna una GameResponse con lo stato dell'esecuzione
+		// Parametri:
+		// - command: comando da eseguire (contenente le coordinate di origine a target)
+		// - current_player: giocatore corrente, la cui nave deve compiere l'azione
+		// - enemy_player: giocatore avversario (per ottenere informazioni 
+		//				   sulle griglie avversarie e unità navali)
+		// Ritorna una GameResponse con lo stato dell'esecuzione dell'azione
 		virtual GameResponse Action(const Command& command,
 							Player& current_player,
 							Player& enemy_player)  = 0;
 
 	private:
-		int size_;
-		int shield_;
-		Coordinates centre_coordinates_;
-		bool direction_;
+		int size_;						 // Grandezza della nave
+		int shield_;					 // Scudo
+		Coordinates centre_coordinates_; // Coordinate centrali
+		bool direction_;				 // Direzione (true se orizzontale)
 
 	};
 

@@ -8,7 +8,7 @@
 
 namespace battle_ships {
 
-	SupportShip::SupportShip(Coordinates centre_coordinates, bool direction):
+	SupportShip::SupportShip(Coordinates centre_coordinates, bool direction) :
 		NavalUnit(kSize, kShield, centre_coordinates, direction)
 	{}
 
@@ -21,8 +21,8 @@ namespace battle_ships {
 	// 5. Modifico nella griglia di difesa i caratteri (DELETE ALL, ADD RANGE)
 	// 6. Fine
 	GameResponse SupportShip::Action(const Command& command,
-							 Player& current_player,
-							 Player& enemy_player) 
+		Player& current_player,
+		Player& enemy_player)
 	{
 		Coordinates origin = command.origin();
 		Coordinates target = command.target();
@@ -33,22 +33,22 @@ namespace battle_ships {
 		//Move
 		Coordinates centre = centre_coordinates();
 		if (direction()) {
-			
+
 			if (!defence_grid.MoveRangeCells(Coordinates(origin.x() - 1, origin.y()),
-											 Coordinates(origin.x() + 1, origin.y()),
-											 Coordinates(target.x() - 1, target.y()),
-											 Coordinates(target.x() + 1, target.y()))){
+				Coordinates(origin.x() + 1, origin.y()),
+				Coordinates(target.x() - 1, target.y()),
+				Coordinates(target.x() + 1, target.y()))) {
 
 				return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + to_string(target) +
 					"] : alcune celle sono già occupate", false);
 
-			}	
+			}
 		}
 		else {
 			if (!defence_grid.MoveRangeCells(Coordinates(origin.x(), origin.y() - 1),
 				Coordinates(origin.x(), origin.y() + 1),
 				Coordinates(target.x(), target.y() - 1),
-				Coordinates(target.x(), target.y() + 1))){
+				Coordinates(target.x(), target.y() + 1))) {
 				return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + to_string(target) +
 					"] : alcune celle sono già occupate", false);
 			}
@@ -75,7 +75,7 @@ namespace battle_ships {
 
 				if (direction() && check_coordinates.y() == centre.y())
 					continue;
-				
+
 				if (!direction() && check_coordinates.x() == centre.x())
 					continue;
 
@@ -93,14 +93,14 @@ namespace battle_ships {
 				[current_coordinate](const std::unique_ptr<NavalUnit>& unit) {
 					int target_coordinate = unit->direction() ? current_coordinate.x() : current_coordinate.y();
 
-					Coordinates centre_coordinate = unit->centre_coordinates();
-					int coordinate = unit->direction() ? centre_coordinate.x() : centre_coordinate.y();
-					bool check = unit->direction() ? (current_coordinate.y() == centre_coordinate.y()) :
-													 (current_coordinate.x() == centre_coordinate.x());
+			Coordinates centre_coordinate = unit->centre_coordinates();
+			int coordinate = unit->direction() ? centre_coordinate.x() : centre_coordinate.y();
+			bool check = unit->direction() ? (current_coordinate.y() == centre_coordinate.y()) :
+				(current_coordinate.x() == centre_coordinate.x());
 
-					int range = unit->size() / 2;
-					return target_coordinate >= coordinate - range &&
-						target_coordinate <= coordinate + range && check;
+			int range = unit->size() / 2;
+			return target_coordinate >= coordinate - range &&
+				target_coordinate <= coordinate + range && check;
 				});
 
 			if (iter == naval_units.end()) {
@@ -123,9 +123,9 @@ namespace battle_ships {
 					if (defence_grid.AddRangeCells(new_value,
 						Coordinates(unit_centre.x() - range, unit_centre.y()),
 						Coordinates(unit_centre.x() + range, unit_centre.y())) == false)
-						    throw std::logic_error("SupportShip - Action: Errore nella gestione! - 2");
+						throw std::logic_error("SupportShip - Action: Errore nella gestione! - 2");
 				}
-				else {				
+				else {
 					defence_grid.RemoveRangeCells(Coordinates(unit_centre.x(), unit_centre.y() - range),
 						Coordinates(unit_centre.x(), unit_centre.y() + range));
 
@@ -135,7 +135,7 @@ namespace battle_ships {
 						throw std::logic_error("SupportShip - Action: Errore nella gestione! - 3");
 				}
 			}
-		}	
+		}
 		return GameResponse(true, "Nave di supporto spostata in cella [" + to_string(target) +
 			"] ed eseguita azione RIPARA", true, GameResponse::kMoveRepairAction);
 	}

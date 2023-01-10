@@ -2,10 +2,7 @@
 //// Style Guide: https://google.github.io/styleguide/cppguide.html
 //// Author: Marco Stefani
 //
-//#include <chrono>
-//#include <fstream>
 //#include <iostream>
-//#include <string>
 //#include <thread> 
 //
 //#include "game_manager.h"
@@ -70,6 +67,7 @@
 //			
 //			while (log_file.good()) {
 //				std::getline(log_file, log_line);
+//				if (log_line == "") continue;
 //
 //				// Formato: ADD-C|Player1:A1 B2 
 //				// 		    EXEC|Player1:A1 B2
@@ -96,6 +94,7 @@
 //						start_game = true;
 //					}
 //
+//					cout << endl << "****** Turno " << player << " ******" << endl;
 //					GameResponse response = game.ExecCommand(coordinates, player_number);
 //					response = game.ExecCommand("XX XX", player_number);
 //					cout << response.content() << endl;
@@ -129,9 +128,10 @@
 //{
 //	try {
 //		std::ifstream log_file(name_log_file);
-//		std::ofstream output_file(name_file_output);
 //
 //		if (log_file.is_open()) {
+//			std::ofstream output_file(name_file_output);
+//
 //			string log_line;
 //			GameManager game;
 //			bool start_game = false;
@@ -145,6 +145,7 @@
 //			while (log_file.good()) {
 //
 //				std::getline(log_file, log_line);
+//				if (log_line == "") continue;
 //
 //				int dash_index = log_line.find("|");
 //				int colon_index = log_line.find(":");
@@ -169,7 +170,7 @@
 //						start_game = true;
 //					}
 //
-//					output_file << endl << "****** Turno " << player << "******" << endl;
+//					output_file << endl << "****** Turno " << player << " ******" << endl;
 //					if (output_file.good()) {
 //						GameResponse response = game.ExecCommand(coordinates, player_number);
 //						output_file << response.content() << endl << endl;
@@ -185,18 +186,18 @@
 //						break;
 //					}
 //				}
-//
-//				if (!find_winner) {
-//					output_file << "La partita è stata terminata prima del termine oppure è nulla" << endl;
-//				}
-//				output_file << "------------FINE REPLAY-------------" << endl;
 //			}
+//			if (!find_winner) {
+//				output_file << "La partita è stata terminata prima del termine oppure è nulla" << endl;
+//			}
+//			output_file << "------------FINE REPLAY-------------" << endl;
+//			output_file.close();
+//
 //		}
 //		else {
 //			std::cerr << "Errore: Non e' stato possibile aprire il file sorgente" << name_log_file << std::endl;
 //		}
 //
-//		output_file.close();
 //		log_file.close();
 //	}
 //	catch (std::exception ex) {
@@ -213,4 +214,5 @@
 //	case NavalUnitType::SupportShip:
 //		return "NAVE DI SUPPORTO";
 //	}
+//	return "";
 //}

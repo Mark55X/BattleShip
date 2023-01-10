@@ -17,14 +17,19 @@ namespace battle_ships {
 	// Classe Coordinates
 	// Rappresenta le coordinate di una griglia
 	// Invarianti:
-	// 1. Una coordinata è formata da un carattere alfabetico e da un numero intero di massimo due cifre (0-99)
+	// 1. Una coordinata è formata da un carattere alfabetico e 
+	//	  da un numero intero di massimo due cifre (0-99)
 	class Coordinates {
 
 	public:
+		//Costruttore
+		// Parametri:
+		// x: ascissa (valore numerico)
+		// y: ordinata (carattere alfabetico)
 		Coordinates(int x, char y);
 
-		// Costruttore che accetta le coordinate nel formato "XN", con
-		// X carattere alfabetico
+		// Costruttore che accetta le coordinate nel formato "CN", con
+		// C carattere alfabetico
 		// N numero di una o due cifre (da 0 a 99)
 		Coordinates(const string& coordinates );
 
@@ -41,12 +46,15 @@ namespace battle_ships {
 		};
 
 	private:
-		int x_;
-		char y_;
-
+		int x_;  // ascissa
+		char y_; // ordinata
 	};
 
+	// Overloading operatore ==
 	bool operator==(Coordinates first_coordinates, Coordinates second_coordinates);
+	
+	// Funzione to_string
+	// Restituisce le coordinate in formato stringa
 	string to_string(Coordinates coordinates);
 
 } // namespace battle_ships

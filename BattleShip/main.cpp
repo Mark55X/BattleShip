@@ -16,18 +16,10 @@
 	game.AddNavalUnit("H11 H11", NavalUnitType::Submarine, PlayerNumber::PlayerOne);*/
 // ------------	
 
-#include "game_manager.h";
-
 #include <iostream>
-#include "grid.h"
-#include "enums.h"
 
-#include <chrono>
-#include <random>
+#include "game_manager.h"
 #include "computer_player.h"
-#include "game_response.h"
-#include "coordinates.h"
-#include <thread>       
 
 using std::cout;
 using std::endl;
@@ -270,7 +262,7 @@ void RunComputerVsComputerGame()
 
 	int max_shifts = game.kMaxShiftsCC;
 	int shifts = 0;
-	while ((!is_first_player_winner && !is_second_player_winner) || shifts >= max_shifts)
+	while ((!is_first_player_winner && !is_second_player_winner) && shifts < max_shifts)
 	{
 		ManageComputerShift(first_bot, game, firstPlayer);
 

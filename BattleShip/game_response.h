@@ -10,11 +10,11 @@
 namespace battle_ships {
 
 	// Classe GameResponse
-	// Descrive la risposta del gioco elabora dopo l'esecuzione di un comando
+	// Descrive la risposta che il gioco elabora dopo l'esecuzione di un comando
 	// Contiene:
 	// - status : Lo Stato d'esecuzione del comando
 	// - content: Il contenuto della risposta (quasi tutti i comandi hanno un particolare contenuto)
-	// - next_shift : Se, dopo l'esecuzione dle comando, è il turno del giocatore successivo
+	// - next_shift : Indica se, dopo l'esecuzione del comando, è il turno del giocatore successivo (true)
 	// - performed_action : Tipo di Azione svolta (FACOLTATIVA)
 	// - error_type : Tipo di errore (FACOLTATIVO)
 	class GameResponse {
@@ -31,7 +31,7 @@ namespace battle_ships {
 			performed_action_{ performed_action_ },
 			error_type_{ error_type }{}
 		
-		// Costruttore di spostamento
+		// Costruttore e assegnamento di spostamento
 		GameResponse(GameResponse&& response) = default;
 		GameResponse& operator=(GameResponse&& response) = default;
 
@@ -45,7 +45,7 @@ namespace battle_ships {
 		// Error Type
 		static constexpr const char* kIncorrectOrigin = "IncorrectOrigin";
 
-		// Action Permormed
+		// Action Performed
 		static constexpr const char* kFireAction = "FireAction";
 		static constexpr const char* kMoveExploreAction = "MoveExploreAction";
 		static constexpr const char* kMoveRepairAction = "MoveRepairAction";

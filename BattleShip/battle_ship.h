@@ -16,17 +16,27 @@ namespace battle_ships {
 	class BattleShip : public NavalUnit {
 
 	public:
+		// Costruttore
+		// Parametri:
+		// - centre_coordinates : coordinate centrali
+		// - direction : direzione della nave
 		BattleShip(Coordinates centre_coordinates, bool direction);
 
+		// Overriding Action. 
+		// Vedi naval_unit.h per informazioni su parametri
+		// Azione: FUOCO
+		// La corazzata spara un colpo nelle coordinate ricevute
+		// Nella griglia di attacco viene riportata una X se l'esito è "colpito",
+		// una O se l'esito è "acqua"
 		GameResponse Action(const Command& command,
 					Player& current_player,
 					Player& enemy_player)  override;
 
+		// Costanti pubbliche
+		// Indicano rispettivamente la grandezza della corazzata
+		// e il suo scudo iniziale
 		static constexpr int kSize = 5;
-		static constexpr int kShield = 5;
-
-	private:
-		
+		static constexpr int kShield = 5;		
 
 	};
 
