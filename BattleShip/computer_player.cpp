@@ -21,8 +21,13 @@ namespace battle_ships
 
 		std::uniform_int_distribution<> dist(0, n - 1);
 		//unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-		std::default_random_engine gen(time(0) * rand());
-		int random = dist(gen);
+		
+		//std::default_random_engine gen(time(0) * rand());
+
+		std::random_device random_device;
+		std::mt19937 random_engine(random_device());
+
+		int random = dist(random_engine);
 
 		return random;
 	}
@@ -129,12 +134,21 @@ namespace battle_ships
 		Coordinates finish(couple_coordinates.substr(whitespace_index + 1, couple_coordinates.length() - 1));
 		
 		int x_centre = (start.x() + finish.x())/2;
-		char y_centre = (start.y() + finish.y()) / 2;;
+		char y_centre = (start.y() + finish.y()) / 2;
 
-		if (y_centre == 'J')
-			y_centre -= 1;
-		else if(y_centre == 'K')
-			y_centre += 1;	
+		if ((start.y() < 'J' && finish.y() > 'K') || (finish.y() < 'J' && start.y() > 'K')) {
+			if (y_centre <= 'J') {
+				y_centre -= 1;
+			}
+			else {
+				y_centre += 1;
+			}			
+		}
+
+		//if (y_centre == 'J')
+		//	y_centre -= 1;
+		//else if(y_centre == 'K')
+		//	y_centre += 1;	
 
 		Coordinates centre(x_centre, y_centre);
 

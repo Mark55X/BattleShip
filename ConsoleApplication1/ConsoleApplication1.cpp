@@ -8,7 +8,7 @@
 int main()
 {
 	try {
-		throw std::invalid_argument("Test errorrrre!!");
+		std::cout << static_cast<char>(('F'+'L')/2);
 	}
 	catch (const std::exception& ex) {
 		std::cout << ex.what();

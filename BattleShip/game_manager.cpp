@@ -123,6 +123,10 @@ namespace battle_ships {
 	}
 
 	void GameManager::ParseCoordinate(Coordinates& coordinates) {
+		if (coordinates.y() == 'J' || coordinates.y() == 'K') {
+			throw std::invalid_argument("Errore! L'ordinata J o K non sono valide");
+		}
+
 		if (coordinates.y() >= 'L')
 			coordinates.set_y(coordinates.y() - 2);
 	}
