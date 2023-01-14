@@ -39,7 +39,9 @@ namespace battle_ships {
 		static constexpr int kShield = 3;
 
 	private:
-		
+		// Funzione privata Move
+		// Sposta la nave di supporto
+		GameResponse Move(const Coordinates& origin, const Coordinates& target, Grid& defence_grid) ;
 	};
 
 

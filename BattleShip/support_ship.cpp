@@ -30,39 +30,17 @@ namespace battle_ships {
 		Grid& defence_grid = current_player.defence_grid();
 		auto& naval_units = current_player.naval_units();
 
+		string str_target = "";
+		str_target += static_cast<char>((target.y() >= 'J') ? (target.y() + 2) : target.y());
+		str_target += std::to_string(target.x());
+
 		//Move
-		Coordinates centre = centre_coordinates();
-		string str_target = std::to_string(target.x()) + "" +
-			std::to_string((target.y() >= 'J') ? (target.y() + 2) : target.y());
-		if (direction()) {
-
-			if (!defence_grid.MoveRangeCells(Coordinates(origin.x() - 1, origin.y()),
-				Coordinates(origin.x() + 1, origin.y()),
-				Coordinates(target.x() - 1, target.y()),
-				Coordinates(target.x() + 1, target.y()))) {
-
-
-				return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + str_target +
-					"] : alcune celle sono già occupate", false);
-
-			}
-		}
-		else {
-			if (!defence_grid.MoveRangeCells(Coordinates(origin.x(), origin.y() - 1),
-				Coordinates(origin.x(), origin.y() + 1),
-				Coordinates(target.x(), target.y() - 1),
-				Coordinates(target.x(), target.y() + 1))) {
-				return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + str_target +
-					"] : alcune celle sono già occupate", false);
-			}
-
-			//defence_grid.RemoveRangeCells(Coordinates(centre.x() ,target.y() - 1),
-			//	Coordinates(centre.x(), target.y() + 1));
-		}
-		set_centre_coordinates(target);
+		GameResponse response= Move(origin, target, defence_grid);
+		if (response.status() == false)
+			return response;
 
 		// Action
-		centre = centre_coordinates();
+		Coordinates centre = centre_coordinates();
 
 		int start_x = (centre.x() - 1 < 1) ? 1 : centre.x() - 1;
 		int start_y = (centre.y() - 1 < 'A') ? 'A' : centre.y() - 1;
@@ -141,6 +119,70 @@ namespace battle_ships {
 		}
 		return GameResponse(true, "Nave di supporto spostata in cella [" + str_target +
 			"] ed eseguita azione RIPARA", true, GameResponse::kMoveRepairAction);
+	}
+
+	GameResponse SupportShip::Move(const Coordinates& origin, const Coordinates& target, Grid& defence_grid)
+	{
+
+		Coordinates centre = centre_coordinates();
+
+		string str_target = "";
+		str_target += static_cast<char>((target.y() >= 'J') ? (target.y() + 2) : target.y());
+		str_target += std::to_string(target.x());
+
+		defence_grid.GetCellValue(target); // Lancia eccezione se target non è valida
+		if (direction()) {
+
+			if (target.x() > centre.x()) {
+
+				if (!defence_grid.MoveRangeCells(Coordinates(origin.x() + 1, origin.y()),
+					Coordinates(origin.x() - 1, origin.y()),
+					Coordinates(target.x() + 1, target.y()),
+					Coordinates(target.x() - 1, target.y()))) {
+
+					return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + str_target +
+						"] : alcune celle sono gia' occupate", false);
+				}
+			}
+			else {
+				if (!defence_grid.MoveRangeCells(Coordinates(origin.x() - 1, origin.y()),
+					Coordinates(origin.x() + 1, origin.y()),
+					Coordinates(target.x() - 1, target.y()),
+					Coordinates(target.x() + 1, target.y()))) {
+
+
+					return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + str_target +
+						"] : alcune celle sono gia' occupate", false);
+				}
+			}
+		}
+		else {
+			if (target.y() > centre.y()) {
+				if (!defence_grid.MoveRangeCells(Coordinates(origin.x(), origin.y() + 1),
+					Coordinates(origin.x(), origin.y() - 1),
+					Coordinates(target.x(), target.y() + 1),
+					Coordinates(target.x(), target.y() - 1))) {
+					return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + str_target +
+						"] : alcune celle sono gia' occupate", false);
+				}
+			}
+			else {
+
+				if (!defence_grid.MoveRangeCells(Coordinates(origin.x(), origin.y() - 1),
+					Coordinates(origin.x(), origin.y() + 1),
+					Coordinates(target.x(), target.y() - 1),
+					Coordinates(target.x(), target.y() + 1))) {
+					return GameResponse(false, "Impossibile muovere la nave di supporto nella cella [" + str_target +
+						"] : alcune celle sono gia' occupate", false);
+				}
+			}
+
+			//defence_grid.RemoveRangeCells(Coordinates(centre.x() ,target.y() - 1),
+			//	Coordinates(centre.x(), target.y() + 1));
+		}
+		set_centre_coordinates(target);
+
+		return GameResponse(true);
 	}
 }
 

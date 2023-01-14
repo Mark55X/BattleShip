@@ -27,7 +27,7 @@ namespace battle_ships {
         }
 
         if (!CheckCellLength(unit_type, cell_length))
-            return GameResponse(false, "Errore! Il numero di celle per la nave inserita è sbagliato. Ritenta" , false);
+            return GameResponse(false, "Errore! Il numero di celle per la nave inserita e' sbagliato. Ritenta" , false);
             
         if (!defence_grid_.AddRangeCells(static_cast<char>(unit_type), start, finish))
             return GameResponse(false, "Errore! Tra poppa e prua sono presenti altre navi. Ritenta", false);
@@ -120,7 +120,7 @@ namespace battle_ships {
         return false;
     }
 
-    GameResponse ExecCommand(const Command& command, Player& current_player, Player& enemy_player)
+    GameResponse ExecActionCommand(const Command& command, Player& current_player, Player& enemy_player)
     {
         Coordinates origin = command.origin();
 
@@ -134,13 +134,15 @@ namespace battle_ships {
            return (*iter)->Action(command, current_player, enemy_player);
         }
 
-        string str_origin = std::to_string(origin.x()) + "" +
-            std::to_string((origin.y() >= 'J') ? (origin.y() + 2) : origin.y());
+        string str_origin = "";
+        str_origin += static_cast<char>((origin.y() >= 'J') ? (origin.y() + 2) : origin.y());
+        str_origin += std::to_string(origin.x());
+
         return GameResponse(false, "Coordinata origin [" + str_origin + "] non "
             "corrisponde ad una cella centrale di una nave", false, "", GameResponse::kIncorrectOrigin);
     }
 
-    GameResponse Player::EraseChar(char character)
+    GameResponse Player::EraseSymbol(char character)
     {
         for (int i = 0; i < Grid::kGridSize; i++)
         {

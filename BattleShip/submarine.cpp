@@ -24,11 +24,12 @@ namespace battle_ships {
 		Grid& defence_grid = current_player.defence_grid();
 		Grid& attack_grid = current_player.attack_grid();
 
-		string str_target = std::to_string(target.x()) + "" +
-			std::to_string((target.y() >= 'J') ? (target.y() + 2) : target.y());
-
+		string str_target = "";
+		str_target += static_cast<char>((target.y() >= 'J') ? (target.y() + 2) : target.y());
+		str_target += std::to_string(target.x());
+					
 		//Move
-		if (defence_grid.GetCellValue(target) != ' ') {
+		if (target != origin && defence_grid.GetCellValue(target) != ' ') {
 			return GameResponse(false, "Impossibile muovere il sottomarino nella cella [" + str_target +
 				"] : e' gia' occupata", false);
 		}

@@ -54,9 +54,10 @@ namespace battle_ships {
 		char y_; // ordinata
 	};
 
-	// Overloading operatore ==
+	// Overloading operatore == e !=
 	bool operator==(Coordinates first_coordinates, Coordinates second_coordinates);
-	
+	bool operator!=(Coordinates first_coordinates, Coordinates second_coordinates);
+
 	// Funzione to_string
 	// Restituisce le coordinate in formato stringa
 	string to_string(Coordinates coordinates);

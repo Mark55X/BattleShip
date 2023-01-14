@@ -18,7 +18,7 @@ namespace battle_ships {
 							Player& current_player, 
 							Player& enemy_player) 
 	{	
-		Coordinates origin = command.target();
+		Coordinates origin = command.origin();
 		Coordinates target = command.target();
 		
 		Grid& enemy_defence_grid = enemy_player.defence_grid();
@@ -26,11 +26,13 @@ namespace battle_ships {
 
 		char value = enemy_defence_grid.GetCellValue(target);
 
-		string str_origin = std::to_string(origin.x()) + "" + 
-							std::to_string((origin.y() >= 'J') ? (origin.y() + 2) : origin.y());
+		string str_origin = "";
+		str_origin += static_cast<char>((origin.y() >= 'J') ? (origin.y() + 2) : origin.y());
+		str_origin += std::to_string(origin.x());
 
-		string str_target = std::to_string(target.x()) + "" +
-							std::to_string((target.y() >= 'J') ? (target.y() + 2) : target.y());
+		string str_target = "";
+		str_target += static_cast<char>((target.y() >= 'J') ? (target.y() + 2) : target.y());
+		str_target += std::to_string(target.x());						
 
 		string game_response_content = "Eseguita azione FUOCO da [" + str_origin +
 										"] a [" + str_target + "] con esito: ";
@@ -41,7 +43,7 @@ namespace battle_ships {
 			return GameResponse(true, game_response_content, true, GameResponse::kFireAction);
 		}
 		else if (islower(value)) {
-			game_response_content += "già colpito!";
+			game_response_content += "gia' colpito!";
 			return GameResponse(true, game_response_content, true, GameResponse::kFireAction);
 		}
 		else if (isupper(value)) {

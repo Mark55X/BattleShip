@@ -28,6 +28,11 @@ namespace battle_ships {
 			   first_coordinates.y() == second_coordinates.y();
 	}
 
+	bool operator!=(Coordinates first_coordinates, Coordinates second_coordinates)
+	{
+		return !(first_coordinates == second_coordinates);
+	}
+
 	string to_string(Coordinates coordinates)
 	{
 		string str_coordinates = "";

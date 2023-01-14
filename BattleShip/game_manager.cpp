@@ -47,7 +47,7 @@ namespace battle_ships {
 
 			return response;
 		}
-		catch (std::exception ex) {
+		catch (const std::exception& ex) {
 			return GameResponse(false, ex.what(), false);
 		}
 	}
@@ -62,13 +62,13 @@ namespace battle_ships {
 			 return GameResponse(true, conf, false);
 		}
 		else if (cmd_str == kCommandEraseSonar) {
-			return (player == PlayerOne) ? first_player_.EraseChar(kSonarCharacter) : second_player_.EraseChar(kSonarCharacter);
+			return (player == PlayerOne) ? first_player_.EraseSymbol(kSonarCharacter) : second_player_.EraseSymbol(kSonarCharacter);
 		}
 		else if (cmd_str == kCommandEraseHit) {
-			return (player == PlayerOne) ? first_player_.EraseChar(kHitCharacter) : second_player_.EraseChar(kHitCharacter);
+			return (player == PlayerOne) ? first_player_.EraseSymbol(kHitCharacter) : second_player_.EraseSymbol(kHitCharacter);
 		}
 		else if (cmd_str == kCommandEraseMiss) {
-			return (player == PlayerOne) ? first_player_.EraseChar(kMissCharacter) : second_player_.EraseChar(kMissCharacter);
+			return (player == PlayerOne) ? first_player_.EraseSymbol(kMissCharacter) : second_player_.EraseSymbol(kMissCharacter);
 		}
 
 		if (!ValidateCommand(cmd_str)) {
@@ -84,9 +84,9 @@ namespace battle_ships {
 
 			GameResponse response(true);
 			switch (player) {
-			case PlayerOne: response = battle_ships::ExecCommand(Command(origin, target), first_player_, second_player_);
+			case PlayerOne: response = battle_ships::ExecActionCommand(Command(origin, target), first_player_, second_player_);
 				break;
-			case PlayerTwo: response = battle_ships::ExecCommand(Command(origin, target), second_player_, first_player_);
+			case PlayerTwo: response = battle_ships::ExecActionCommand(Command(origin, target), second_player_, first_player_);
 				break;
 			}
 
@@ -97,8 +97,8 @@ namespace battle_ships {
 
 			return response;
 		}
-		catch (std::exception exception) {
-			return GameResponse(false, exception.what(), false);
+		catch (const std::exception& ex) {
+			return GameResponse(false, ex.what(), false);
 		}
 		
 	}

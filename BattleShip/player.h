@@ -41,9 +41,9 @@ namespace battle_ships {
 								  const Coordinates& finish,
 								  const NavalUnitType unit_type);
 
-		// Funzione EraseChar
+		// Funzione EraseSymbol
 		// - character : carattere da eliminare nella griglia di attacco
-		GameResponse EraseChar(char character);
+		GameResponse EraseSymbol(char character);
 
 		// Funzione IsLoser
 		// Restituisce true se non ha più navi disponibili
@@ -79,7 +79,7 @@ namespace battle_ships {
 	// - command : comando da eseguire
 	// - current_player : giocatore per cui si esegue il comando
 	// - enemy_player : giocatore avversario
-	GameResponse ExecCommand(const Command& command, Player& current_player, Player& enemy_player);
+	GameResponse ExecActionCommand(const Command& command, Player& current_player, Player& enemy_player);
 
 } // namespace battle_ships
 

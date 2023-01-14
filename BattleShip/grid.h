@@ -88,8 +88,10 @@ namespace battle_ships {
 
 		// Funzione CheckRangeCoordinates
 		// Restituisce true solo se tutte le celle che stanno nel range [start,finish]
-		// sono celle vuote
-		bool CheckRangeCoordinates(const Coordinates& start, const Coordinates& finish) const;
+		// sono celle vuote. Nel suo controllo ignora le coordinate che stanno
+		// tra ignore_start e ignore_finish
+		bool CheckRangeCoordinates(const Coordinates& start, const Coordinates& finish, 
+								    int ignore_start = -1,  int ignore_finish = -1, int fixed_coordinate = -1) const;
 
 		// Funzione GetCellCoordinateX
 		// Data una coordinata, ritorna l'indice x per accedere alla matrice

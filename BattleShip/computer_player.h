@@ -28,7 +28,7 @@ namespace battle_ships {
 		// Funzione InsertCoordinatesGenerator
 		// Genera casualmente una coppia di coordinate per l'inserimento della nave
 		// Parametri:
-		//  - unit_type : il tipo di unità navale
+		//  - unit_type : il tipo di unita navale
 		string InsertCoordinatesGenerator(const NavalUnitType unit_type);
 
 		// Funzione MemorizeCentreCoordinates

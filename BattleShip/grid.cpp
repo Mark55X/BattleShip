@@ -107,15 +107,15 @@ namespace battle_ships {
 		ValidateCoordinates(origin_start);
 		ValidateCoordinates(origin_finish);
 		
-		if (origin_start.x() != origin_finish.x() && origin_start.y() != origin_finish.y())
+		if (origin_start.x() != origin_finish.x() && origin_start.y() != origin_finish.y()) // non esiste move in obliquo
 			return false;
-
-		if (!CheckRangeCoordinates(target_start, target_finish)) {
-			return false;
-		}
-		
+	
 		if (origin_start.y() == origin_finish.y()) // orizzontale
 		{
+			if (!CheckRangeCoordinates(target_start, target_finish, origin_start.x(), origin_finish.x(), origin_start.y())) {
+				return false;
+			}
+
 			if (target_start.y() != target_finish.y())
 				return false;
 			int length = abs(origin_start.x() - origin_finish.x()) + 1;
@@ -123,14 +123,35 @@ namespace battle_ships {
 				return false;
 
 			char value = ' ';
-			for (int i = 0; i < length; i++)
-			{
-				value = GetCellValue(Coordinates(origin_start.x() + i, origin_start.y()));
-				EditCell(value, Coordinates(target_start.x() + i, target_start.y()));
+			if (origin_start.x() > origin_finish.x()) {
+
+				for (int i = 0; i < length; i++)
+				{
+					value = GetCellValue(Coordinates(origin_start.x() - i, origin_start.y()));
+					EditCell(value, Coordinates(target_start.x() - i, target_start.y()));
+					if (origin_start != target_start) {
+						EditCell(' ', Coordinates(origin_start.x() - i, origin_start.y()));
+					}
+				}
+
 			}
+			else {
+				for (int i = 0; i < length; i++)
+				{
+					value = GetCellValue(Coordinates(origin_start.x() + i, origin_start.y()));
+					EditCell(value, Coordinates(target_start.x() + i, target_start.y()));
+					if (origin_start != target_start) {
+						EditCell(' ', Coordinates(origin_start.x() + i, origin_start.y()));
+					}
+				}
+			}		
 		}
 		else // verticale
 		{
+			if (!CheckRangeCoordinates(target_start, target_finish, origin_start.y(), origin_finish.y(), origin_start.x())) {
+				return false;
+			}
+
 			if (target_start.x() != target_finish.x())
 				return false;
 			int length = abs(origin_start.y() - origin_finish.y()) + 1;
@@ -138,14 +159,34 @@ namespace battle_ships {
 				return false;
 
 			char value = ' ';
-			for (int i = 0; i < length; i++)
-			{
-				value = GetCellValue(Coordinates(origin_start.x(), origin_start.y() + i));
-				EditCell(value, Coordinates(target_start.x(), target_start.y() + i));
+			if (origin_start.y() > origin_finish.y()) {
+
+				for (int i = 0; i < length; i++)
+				{
+					value = GetCellValue(Coordinates(origin_start.x(), origin_start.y() - i));
+					EditCell(value, Coordinates(target_start.x(), target_start.y() - i));				
+					if (origin_start != target_start) {
+						EditCell(' ', Coordinates(origin_start.x(), origin_start.y() - i));
+					}
+				}
+
 			}
+			else {
+
+				for (int i = 0; i < length; i++)
+				{
+					value = GetCellValue(Coordinates(origin_start.x(), origin_start.y() + i));
+					EditCell(value, Coordinates(target_start.x(), target_start.y() + i));
+					if (origin_start != target_start) {
+						EditCell(' ', Coordinates(origin_start.x(), origin_start.y() + i));
+					}
+				}
+
+			}
+
+			
 		}
 
-		RemoveRangeCells(origin_start, origin_finish);
 		return true;
 	}
 
@@ -230,11 +271,17 @@ namespace battle_ships {
 			x <= kGridSize &&
 			y >= 'A' &&
 			y < 'A' + kGridSize )) {
-			throw InvalidCellGridException("Coordinata [" + to_string(coordinates) + "] non valida per la griglia [X: 1-12, Y: A-N]");
+			
+			string str_coordinates = "";
+			str_coordinates += static_cast<char>((coordinates.y() >= 'J') ? (coordinates.y() + 2) : coordinates.y());
+			str_coordinates += std::to_string(coordinates.x());
+
+			throw InvalidCellGridException("Coordinata [" + str_coordinates + "] non valida per la griglia [X: 1-12, Y: A-N]");
 		}	
 	}
 
-	bool Grid::CheckRangeCoordinates(const Coordinates& start, const Coordinates& finish) const
+	bool Grid::CheckRangeCoordinates(const Coordinates& start, const Coordinates& finish, 
+									  int ignore_start,  int ignore_finish, int fixed_coordinate) const
 	{
 
 		ValidateCoordinates(start);
@@ -255,12 +302,21 @@ namespace battle_ships {
 				int temp = grid_finish_y;
 				grid_finish_y = grid_start_y;
 				grid_start_y = temp;
+
+				temp = ignore_start;
+				ignore_start = ignore_finish;
+				ignore_finish = temp;
 			}
 
 			for (int i = grid_start_y; i <= grid_finish_y; i++)
 			{
-				if (grid_[i][grid_start_x] != ' ')
-					return false;
+				if (grid_[i][grid_start_x] != ' ') {
+					if (fixed_coordinate == -1)
+						return false;
+
+					if(!(grid_start_x == (fixed_coordinate - 1) && i >= (ignore_start - 'A') && i <= (ignore_finish - 'A')))
+						return false;
+				}
 			}
 		}
 		else {
@@ -269,11 +325,21 @@ namespace battle_ships {
 				int temp = grid_finish_x;
 				grid_finish_x = grid_start_x;
 				grid_start_x = temp;
+
+				temp = ignore_start;
+				ignore_start = ignore_finish;
+				ignore_finish = temp;
 			}
 			for (int i = grid_start_x; i <= grid_finish_x; i++)
 			{
-				if (grid_[grid_start_y][i] != ' ')
-					return false;
+				if (grid_[grid_start_y][i] != ' ') {
+					if (fixed_coordinate == -1)
+						return false;
+
+					if (!(grid_start_y == (fixed_coordinate - 'A') && i >= (ignore_start - 1) && i <= (ignore_finish - 1)))
+						return false;
+				}
+
 			}
 		}
 
