@@ -1,6 +1,6 @@
 // Coordinates
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Giulia Selvestrel
+// Author: Anna Albertin
 
 #include "coordinates.h"
 #include <regex>
@@ -37,7 +37,6 @@ namespace battle_ships {
 	{
 		string str_coordinates = "";
 		str_coordinates += coordinates.y();
-		//str_coordinates += (coordinates.y() >= 'J') ? (coordinates.y() + 2) : coordinates.y();
 		str_coordinates += std::to_string(coordinates.x());
 		return str_coordinates;
 	}

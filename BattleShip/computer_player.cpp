@@ -34,10 +34,18 @@ namespace battle_ships
 
 	Coordinates ComputerPlayer::CoordinatesGenerator(const int grid_size)
 	{
-		int x = NumberGenerator(grid_size) + 1;
+		/*int x = NumberGenerator(grid_size) + 1;
 		char y = static_cast<char>(NumberGenerator(grid_size)) + 'A';
 		if (y >= 9)
 			y += 2;
+		return Coordinates(x, y);*/
+
+		int x = NumberGenerator(grid_size) + 1;
+		int y_num = NumberGenerator(grid_size);
+		if (y_num >= 9)
+			y_num += 2;
+		char y = static_cast<char>(y_num) + 'A';
+
 		return Coordinates(x, y);
 	}
 

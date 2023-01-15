@@ -1,6 +1,6 @@
 // SupportShip
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Giulia Selvestrel
+// Author: Marco Stefani
 
 #include "support_ship.h"
 #include "player.h"
@@ -12,14 +12,6 @@ namespace battle_ships {
 		NavalUnit(kSize, kShield, centre_coordinates, direction)
 	{}
 
-
-	// METODO ADOTTATO (Da poter migliorare)
-	// 1 Controllo se si può spostare
-	// 2 Se si può, allora verifico le celle attorno
-	// 3 Per ogni cella attorno, controllo se appartiene ad una nave
-	// 4. La trovo, metto SHIELD al Massimo
-	// 5. Modifico nella griglia di difesa i caratteri (DELETE ALL, ADD RANGE)
-	// 6. Fine
 	GameResponse SupportShip::Action(const Command& command,
 		Player& current_player,
 		Player& enemy_player)
@@ -74,14 +66,14 @@ namespace battle_ships {
 				[current_coordinate](const std::unique_ptr<NavalUnit>& unit) {
 					int target_coordinate = unit->direction() ? current_coordinate.x() : current_coordinate.y();
 
-			Coordinates centre_coordinate = unit->centre_coordinates();
-			int coordinate = unit->direction() ? centre_coordinate.x() : centre_coordinate.y();
-			bool check = unit->direction() ? (current_coordinate.y() == centre_coordinate.y()) :
-				(current_coordinate.x() == centre_coordinate.x());
+					Coordinates centre_coordinate = unit->centre_coordinates();
+					int coordinate = unit->direction() ? centre_coordinate.x() : centre_coordinate.y();
+					bool check = unit->direction() ? (current_coordinate.y() == centre_coordinate.y()) :
+						(current_coordinate.x() == centre_coordinate.x());
 
-			int range = unit->size() / 2;
-			return target_coordinate >= coordinate - range &&
-				target_coordinate <= coordinate + range && check;
+					int range = unit->size() / 2;
+					return target_coordinate >= coordinate - range &&
+						target_coordinate <= coordinate + range && check;
 				});
 
 			if (iter == naval_units.end()) {
@@ -177,8 +169,6 @@ namespace battle_ships {
 				}
 			}
 
-			//defence_grid.RemoveRangeCells(Coordinates(centre.x() ,target.y() - 1),
-			//	Coordinates(centre.x(), target.y() + 1));
 		}
 		set_centre_coordinates(target);
 

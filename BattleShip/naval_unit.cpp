@@ -1,3 +1,6 @@
+// NavalUnit
+// Style Guide: https://google.github.io/styleguide/cppguide.html
+// Author: Giulia Selvestrel
 
 #include "naval_unit.h"
 

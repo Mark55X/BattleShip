@@ -1,6 +1,6 @@
 // NavalUnit Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Anna Albertin
+// Author: Giulia Selvestrel
 
 #ifndef naval_unit_h
 #define naval_unit_h

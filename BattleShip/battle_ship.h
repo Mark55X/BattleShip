@@ -1,6 +1,6 @@
 // BattleShip Header
 // Style Guide: https://google.github.io/styleguide/cppguide.html
-// Author: Anna Albertin
+// Author: Giulia Selvestrel
 
 #ifndef battle_ship_h
 #define battle_ship_h
