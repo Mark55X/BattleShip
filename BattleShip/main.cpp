@@ -230,7 +230,6 @@ void RunComputerVsComputerGame()
 	InsertComputerNavalUnit(game, bot_player_two, NavalUnitType::Submarine, PlayerNumber::PlayerTwo);
 
 	cout << endl << "*** Chi inizia la partita? Lancio della moneta..." << endl;
-	cout << bot_player_one.GetCoordinatesNumber() << bot_player_two.GetCoordinatesNumber();
 
 	bool first_player_one = GetStartPlayer();
 	PlayerNumber firstPlayer = first_player_one ? PlayerNumber::PlayerOne : PlayerNumber::PlayerTwo;
