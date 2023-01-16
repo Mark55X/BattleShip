@@ -75,7 +75,7 @@ namespace battle_ships {
 		// turni fino a che una partita non diventi pari
 		// (si basano sulle stime di numerose partite)
 		static constexpr int kMaxShiftsCC = 3500; // computer vs computer
-		static constexpr int kMaxShiftPC = 400;   // player (reale) vs computer
+		static constexpr int kMaxShiftPC = 300;   // player (reale) vs computer
 
 
 	private:
@@ -98,7 +98,7 @@ namespace battle_ships {
 		// correttamente dalla logica di gioco
 		void ParseCoordinate(Coordinates& coordinates);
 
-		// Costanti private riguradante i comandi speciali
+		// Costanti private riguardante i comandi speciali
 		static constexpr const char* kCommandDisplay = "XX XX";
 		static constexpr const char* kCommandEraseSonar = "AA AA";
 		static constexpr const char* kCommandEraseHit = "BB BB";

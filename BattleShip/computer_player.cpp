@@ -18,28 +18,17 @@ namespace battle_ships
 
 	int ComputerPlayer::NumberGenerator(const int n)
 	{
-
 		std::uniform_int_distribution<> dist(0, n - 1);
-		//unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-		
-		//std::default_random_engine gen(time(0) * rand());
-
-		std::random_device random_device;
-		std::mt19937 random_engine(random_device());
-
+		//unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();	
+		//std::default_random_engine gen(time(0) * rand())
+		std::random_device device;
+		std::mt19937 random_engine(device());
 		int random = dist(random_engine);
-
 		return random;
 	}
 
 	Coordinates ComputerPlayer::CoordinatesGenerator(const int grid_size)
 	{
-		/*int x = NumberGenerator(grid_size) + 1;
-		char y = static_cast<char>(NumberGenerator(grid_size)) + 'A';
-		if (y >= 9)
-			y += 2;
-		return Coordinates(x, y);*/
-
 		int x = NumberGenerator(grid_size) + 1;
 		int y_num = NumberGenerator(grid_size);
 		if (y_num >= 9)
@@ -152,11 +141,6 @@ namespace battle_ships
 				y_centre += 1;
 			}			
 		}
-
-		//if (y_centre == 'J')
-		//	y_centre -= 1;
-		//else if(y_centre == 'K')
-		//	y_centre += 1;	
 
 		Coordinates centre(x_centre, y_centre);
 

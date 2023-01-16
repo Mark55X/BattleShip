@@ -33,8 +33,10 @@ namespace battle_ships {
 			return GameResponse(false, "Impossibile muovere il sottomarino nella cella [" + str_target +
 				"] : e' gia' occupata", false);
 		}
-		defence_grid.EditCell(static_cast<char>(NavalUnitType::Submarine), target);
+
 		defence_grid.EditCell(' ', centre_coordinates());
+		defence_grid.EditCell(static_cast<char>(NavalUnitType::Submarine), target);
+
 		set_centre_coordinates(target);
 
 		//Action

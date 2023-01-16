@@ -133,6 +133,7 @@ void ManagePlayerShift(GameManager& game)
 	string command = "";
 	cout << "E' il tuo turno!" << endl;
 	while (!next_shift) {
+		cout << "Player >> ";
 		std::getline(std::cin, command);
 		GameResponse response = game.ExecCommand(command, PlayerNumber::PlayerOne);
 		cout << response.content() << endl;
