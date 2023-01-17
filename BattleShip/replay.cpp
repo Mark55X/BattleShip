@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 	if (argc <= 1) {
 		std::cerr << "Necessario un parametro: \n -v [nome_file_log] per stampare a video il replay \n"
 			" -f[nome_file_log][nome_file_output_replay] per scrivere su file il replay del file di log indicato";
-		exit(1);
+		exit(-1);
 	}
 
 	string param = argv[1];
