@@ -30,29 +30,33 @@ string GetNavalUnitTypeDescription(NavalUnitType type);
 // Replay
 // Gestisce il replay di una partita di Battaglia Navale
 // Per l'esecuzione del programma sono necessari i seguenti parametri:
-// -v nome-file-log.txt							Per stampare a video il replay
-// -f nome-file-log.txt  nome-file-output.txt   Per stampare su nome-file-output.txt il replay
+// v nome-file-log.txt							Per stampare a video il replay
+// f nome-file-log.txt  nome-file-output.txt   Per stampare su nome-file-output.txt il replay
 int main(int argc, char** argv)
 {
 	if (argc <= 1) {
-		std::cerr << "Necessario un parametro: \n -v [nome_file_log] per stampare a video il replay \n"
-			" -f[nome_file_log][nome_file_output_replay] per scrivere su file il replay del file di log indicato";
+
+		std::cerr << "Parametri non corretti. Il replay si esegue con i seguenti comandi:"<< endl;
+		std::cerr << "replay v [nome_file_log]	                      : Replay a video" << endl;
+		std::cerr << "replay f [nome_file_log] [nome_file_output_replay]   : Replay su file" << endl << endl;
+
 		exit(-1);
 	}
 
 	string param = argv[1];
-	if (param == "-v" && argc == 3) {
+	if (param == "v" && argc == 3) {
 		ManageVideoReplay(argv[2]);
 	}
-	else if (param == "-f" && argc == 4) {
+	else if (param == "f" && argc == 4) {
 		cout << "Esecuzione del replay su file (Sorgente: "<< argv[2] << " Destinazione: "<< argv[3] << "  )" << endl;
 		cout << "Attendere..." << endl;
 		ManageFileReplay(argv[2], argv[3]);
 		cout << "Replay correttamente salvato su file " << argv[3] << endl;
 	}
 	else {
-		std::cerr << "Necessario un parametro: \n -v [nome_file_log] per stampare a video il replay \n"
-					" -f[nome_file_log][nome_file_output_replay] per scrivere su file il replay del file di log indicato";
+		std::cerr << "Parametri non corretti. Il replay si esegue con i seguenti comandi:" << endl;
+		std::cerr << "replay v [nome_file_log]	                      : Replay a video" << endl;
+		std::cerr << "replay f [nome_file_log] [nome_file_output_replay]   : Replay su file" << endl << endl;
 		exit(-1);
 	}
 }

@@ -61,19 +61,23 @@ int main(int argc, char** argv)
 	// -cc per partita COMPUTER vs COMPUTER	
 	if (argc != 2)
 	{
-		std::cerr << "Necessario un parametro: \n -pc per Partita PLAYER vs COMPUTER \n -cc per partita COMPUTER vs COMPUTER";
+		std::cerr << "Parametri non corretti. Il gioco si esegue con i seguenti comandi:"<< endl;
+		std::cerr << "battaglia_navale pc  : Partita PLAYER vs COMPUTER" << endl;
+		std::cerr << "battaglia_navale cc  : Partita COMPUTER vs COMPUTER" << endl << endl;
 		exit(-1);
 	}
 
 	string param = argv[1];
-	if (param != "-pc" &&
-		param != "-cc")
+	if (param != "pc" &&
+		param != "cc")
 	{
-		std::cerr << "Necessario un parametro: \n -pc per Partita PLAYER vs COMPUTER \n -cc per partita COMPUTER vs COMPUTER";
+		std::cerr << "Parametro inserito non corretto. Il gioco si esegue con i seguenti comandi:" << endl;
+		std::cerr << "battaglia_navale pc  : Partita PLAYER vs COMPUTER" << endl;
+		std::cerr << "battaglia_navale cc  : Partita COMPUTER vs COMPUTER" << endl << endl;
 		exit(-1);
 	}
 	
-	bool is_pc_game = (param == "-pc");
+	bool is_pc_game = (param == "pc");
 	string target_title = is_pc_game == true ? "Player" : "Computer";
 	cout << "-------------------------------" << endl;
 	cout << "        BATTAGLIA NAVALE       " << endl;
